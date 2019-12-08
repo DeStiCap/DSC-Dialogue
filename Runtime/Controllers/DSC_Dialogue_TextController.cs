@@ -25,9 +25,14 @@ namespace DSC.DialogueSystem
 
         #region Events
 
-        public void SetDialogueText(string sText)
+        public void SetTalkerText(Dialogue hDialogue)
         {
-            m_hText.SetText(sText);
+            m_hText.SetText(hDialogue.m_sTalker);
+        }
+
+        public void SetDialogueText(Dialogue hDialogue)
+        {
+            m_hText.SetText(hDialogue.m_sDialogue);
         }
 
         #endregion

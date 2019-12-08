@@ -17,6 +17,12 @@ namespace DSC.DialogueSystem
 
         }
 
+        [System.Serializable]
+        class EventDialogueData : UnityEvent<Dialogue>
+        {
+
+        }
+
         #endregion
 
         #region Variable
@@ -31,8 +37,8 @@ namespace DSC.DialogueSystem
         [SerializeField] int m_nCurrentDialogueIndex;
 
         [Header("Events")]
-        [SerializeField] EventString m_OnDialogueStart;
-        [SerializeField] EventString m_OnDialogueChange;
+        [SerializeField] EventDialogueData m_OnDialogueStart;
+        [SerializeField] EventDialogueData m_OnDialogueChange;
         [SerializeField] UnityEvent m_OnDialogueEnd;
 
 #pragma warning restore 0649
@@ -48,7 +54,7 @@ namespace DSC.DialogueSystem
                 return;
 
             m_nCurrentDialogueIndex = 0;
-            m_OnDialogueStart.Invoke(arrDialogue[m_nCurrentDialogueIndex].m_sDialogue);
+            m_OnDialogueStart.Invoke(arrDialogue[m_nCurrentDialogueIndex]);
         }
 
         public void NextDialogue()
@@ -64,7 +70,7 @@ namespace DSC.DialogueSystem
 
             m_nCurrentDialogueIndex++;
 
-            m_OnDialogueChange.Invoke(arrDialogue[m_nCurrentDialogueIndex].m_sDialogue);
+            m_OnDialogueChange.Invoke(arrDialogue[m_nCurrentDialogueIndex]);
         }
 
         #endregion

@@ -10,6 +10,7 @@ namespace DSC.DialogueSystem
     public struct Dialogue
     {
         public string m_sDialogue;
+        public string m_sTalker;
     }
 
     #endregion
