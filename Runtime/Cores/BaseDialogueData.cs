@@ -11,6 +11,7 @@ namespace DSC.DialogueSystem
     {
         public string m_sDialogue;
         public string m_sTalker;
+        public BaseDialogueEvent[] m_arrEvent;
     }
 
     #endregion

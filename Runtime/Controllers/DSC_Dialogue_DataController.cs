@@ -18,7 +18,7 @@ namespace DSC.DialogueSystem
         }
 
         [System.Serializable]
-        class EventDialogueData : UnityEvent<Dialogue>
+        protected class EventDialogueData : UnityEvent<Dialogue>
         {
 
         }
@@ -31,18 +31,26 @@ namespace DSC.DialogueSystem
 #pragma warning disable 0649
 
         [Header("Data")]
-        [SerializeField] DialogueData m_DialogueData;
+        [SerializeField] protected DialogueData m_DialogueData;
 
         [Header("Current")]
-        [SerializeField] int m_nCurrentDialogueIndex;
+        [SerializeField] protected int m_nCurrentDialogueIndex;
 
         [Header("Events")]
-        [SerializeField] EventDialogueData m_OnDialogueStart;
-        [SerializeField] EventDialogueData m_OnDialogueChange;
-        [SerializeField] UnityEvent m_OnDialogueEnd;
+        [SerializeField] protected EventDialogueData m_OnDialogueStart;
+        [SerializeField] protected EventDialogueData m_OnDialogueChange;
+        [SerializeField] protected UnityEvent m_OnDialogueEnd;
 
 #pragma warning restore 0649
         #endregion
+
+        #region Variable - Property
+
+        public List<IDialogueEventData> DialogueEventDataList { get { return m_lstDialogueEventData; } }
+
+        #endregion
+
+        protected List<IDialogueEventData> m_lstDialogueEventData = new List<IDialogueEventData>();
 
         #endregion
 
@@ -54,7 +62,9 @@ namespace DSC.DialogueSystem
                 return;
 
             m_nCurrentDialogueIndex = 0;
-            m_OnDialogueStart.Invoke(arrDialogue[m_nCurrentDialogueIndex]);
+            var hDialogue = arrDialogue[m_nCurrentDialogueIndex];
+            StartAllEventInDialogue(hDialogue);
+            m_OnDialogueStart.Invoke(hDialogue);
         }
 
         public void NextDialogue()
@@ -70,7 +80,9 @@ namespace DSC.DialogueSystem
 
             m_nCurrentDialogueIndex++;
 
-            m_OnDialogueChange.Invoke(arrDialogue[m_nCurrentDialogueIndex]);
+            var hDialogue = arrDialogue[m_nCurrentDialogueIndex];
+            StartAllEventInDialogue(hDialogue);
+            m_OnDialogueChange.Invoke(hDialogue);
         }
 
         #endregion
@@ -94,12 +106,28 @@ namespace DSC.DialogueSystem
             return sResult;
         }
 
+        protected void StartAllEventInDialogue(Dialogue hDialogue)
+        {
+            var arrEvent = hDialogue.m_arrEvent;
+            if (arrEvent == null || arrEvent.Length <= 0)
+                return;
+
+            for(int i = 0; i < arrEvent.Length; i++)
+            {
+                var hEvent = arrEvent[i];
+                if (hEvent == null)
+                    continue;
+
+                hEvent.OnStart(m_lstDialogueEventData);
+            }
+        }
+
         #endregion
 
 
         #region Helper
 
-        Dialogue[] GetAllDialogueInData()
+        protected Dialogue[] GetAllDialogueInData()
         {
             Dialogue[] hResult = null;
             if (m_DialogueData == null)
@@ -110,7 +138,7 @@ namespace DSC.DialogueSystem
             return hResult;
         }
 
-        bool TryGetAllDialogueInData(out Dialogue[] arrOutDialogue)
+        protected bool TryGetAllDialogueInData(out Dialogue[] arrOutDialogue)
         {
             arrOutDialogue = GetAllDialogueInData();
 
