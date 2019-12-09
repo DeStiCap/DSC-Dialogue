@@ -1,6 +1,9 @@
 # Changelog
 All this project change will be documented in this file.
 
+## [0.0.5] - 2019-12-09
+- Remove image controller index and use image group array index instead.
+
 ## [0.0.4] - 2019-12-09
 - Add dialogue event system.
 - Add event sprite set image and position system.

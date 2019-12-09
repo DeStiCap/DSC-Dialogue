@@ -39,7 +39,7 @@ namespace DSC.DialogueSystem
         #region Variable - Inspector
 #pragma warning disable 0649
 
-        [SerializeField] DialogueEvent_ImageData[] m_EventDataArray;
+        [SerializeField] protected DialogueEvent_ImageData[] m_arrEventData;
 
 #pragma warning restore 0649
         #endregion
@@ -58,16 +58,7 @@ namespace DSC.DialogueSystem
         {
             base.OnStart(lstData);
 
-            ImageEventStart(lstData);
-        }
-
-        #endregion
-
-        #region Main
-
-        protected virtual void ImageEventStart(List<IDialogueEventData> lstData)
-        {
-            if (m_EventDataArray.Length <= 0)
+            if (m_arrEventData == null || m_arrEventData.Length <= 0)
                 return;
 
             if (!lstData.TryGetData(out DialogueEventData_Image hOutData))
@@ -77,9 +68,9 @@ namespace DSC.DialogueSystem
             if (hImageGroupController == null)
                 return;
 
-            for (int i = 0; i < m_EventDataArray.Length; i++)
+            for (int i = 0; i < m_arrEventData.Length; i++)
             {
-                var hEventData = m_EventDataArray[i];
+                var hEventData = m_arrEventData[i];
 
                 switch (hEventData.m_eType)
                 {
@@ -109,6 +100,10 @@ namespace DSC.DialogueSystem
                 }
             }
         }
+
+        #endregion
+
+        #region Main
 
         protected virtual void SetImage(DSC_Dialogue_ImageGroupController hImageGroupController, DialogueEvent_ImageData hEventData)
         {

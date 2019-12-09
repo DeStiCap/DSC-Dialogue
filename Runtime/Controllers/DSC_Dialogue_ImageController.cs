@@ -13,16 +13,9 @@ namespace DSC.DialogueSystem
         #region Variable - Inspector
 #pragma warning disable 0649
 
-        [SerializeField] int m_nIndex;
-
 #pragma warning restore 0649
         #endregion
 
-        #region Variable - Property
-
-        public int Index { get { return m_nIndex; } }
-
-        #endregion
 
         RectTransform m_hRectTransform;
         Image m_hImage;

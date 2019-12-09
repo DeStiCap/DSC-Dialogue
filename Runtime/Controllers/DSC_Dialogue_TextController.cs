@@ -11,6 +11,7 @@ namespace DSC.DialogueSystem
         #region Variable
 
         TextMeshProUGUI m_hText;
+        Color m_hDefaultTextColor;
 
         #endregion
 
@@ -19,11 +20,17 @@ namespace DSC.DialogueSystem
         private void Awake()
         {
             m_hText = GetComponent<TextMeshProUGUI>();
+            m_hDefaultTextColor = m_hText.color;
         }
 
         #endregion
 
         #region Events
+
+        public void SetText(string sText)
+        {
+            m_hText.SetText(sText);
+        }
 
         public void SetTalkerText(Dialogue hDialogue)
         {
@@ -33,6 +40,16 @@ namespace DSC.DialogueSystem
         public void SetDialogueText(Dialogue hDialogue)
         {
             m_hText.SetText(hDialogue.m_sDialogue);
+        }
+
+        public void SetTextColor(Color hColor)
+        {
+            m_hText.color = hColor;
+        }
+
+        public void ResetTextColorToDefault()
+        {
+            m_hText.color = m_hDefaultTextColor;
         }
 
         #endregion

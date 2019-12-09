@@ -23,7 +23,7 @@ namespace DSC.DialogueSystem
 
         private void Awake()
         {
-            if (m_hDataController != null && m_hDataController.DialogueEventDataList != null)
+            if (m_hDataController && m_hDataController.DialogueEventDataList != null)
             {
                 m_hDataController.DialogueEventDataList.Add(new DialogueEventData_Image
                 {
@@ -46,34 +46,26 @@ namespace DSC.DialogueSystem
 
         public void SetImage(int nIndex, Sprite hSprite)
         {
-            if(TryGetImageController(nIndex,out var hOutController))
-            {
-                hOutController.SetImage(hSprite);
-            }
+            var hController = GetImageController(nIndex);
+            hController?.SetImage(hSprite);
         }
 
         public void SetPosition(int nIndex, Vector2 vPosition)
         {
-            if(TryGetImageController(nIndex,out var hOutController))
-            {
-                hOutController.SetPosition(vPosition);
-            }
+            var hController = GetImageController(nIndex);
+            hController?.SetPosition(vPosition);
         }
 
         public void ShowImage(int nIndex)
         {
-            if(TryGetImageController(nIndex,out var hOutController))
-            {
-                hOutController.ShowImage();
-            }
+            var hController = GetImageController(nIndex);
+            hController?.ShowImage();
         }
 
         public void HideImage(int nIndex)
         {
-            if(TryGetImageController(nIndex,out var hOutController))
-            {
-                hOutController.HideImage();
-            }
+            var hController = GetImageController(nIndex);
+            hController?.HideImage();
         }
 
         #endregion
@@ -84,16 +76,11 @@ namespace DSC.DialogueSystem
         {
             DSC_Dialogue_ImageController hResult = null;
 
-            for (int i = 0; i < m_arrImageController.Length; i++)
-            {
-                var hController = m_arrImageController[i];
-                if (hController.Index == nIndex)
-                {
-                    hResult = hController;
-                    break;
-                }
-            }
+            if (nIndex < 0 ||  m_arrImageController.Length <= nIndex)
+                return hResult;
 
+            hResult = m_arrImageController[nIndex];
+            
             return hResult;
         }
 

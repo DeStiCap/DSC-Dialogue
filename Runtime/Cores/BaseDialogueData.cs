@@ -11,6 +11,8 @@ namespace DSC.DialogueSystem
     {
         public string m_sDialogue;
         public string m_sTalker;
+
+        [Header("Event")]
         public BaseDialogueEvent[] m_arrEvent;
     }
 
