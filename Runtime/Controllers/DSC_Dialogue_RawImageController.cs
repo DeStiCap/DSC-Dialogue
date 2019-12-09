@@ -5,20 +5,13 @@ using UnityEngine.UI;
 
 namespace DSC.DialogueSystem
 {
-    [RequireComponent(typeof(Image))]
-    public class DSC_Dialogue_ImageController : MonoBehaviour
+    [RequireComponent(typeof(RawImage))]
+    public class DSC_Dialogue_RawImageController : MonoBehaviour
     {
         #region Variable
 
-        #region Variable - Inspector
-#pragma warning disable 0649
-
-#pragma warning restore 0649
-        #endregion
-
-
         RectTransform m_hRectTransform;
-        Image m_hImage;
+        RawImage m_hRawImage;
 
         #endregion
 
@@ -27,21 +20,21 @@ namespace DSC.DialogueSystem
         private void Awake()
         {
             m_hRectTransform = GetComponent<RectTransform>();
-            m_hImage = GetComponent<Image>();
+            m_hRawImage = GetComponent<RawImage>();
         }
 
         #endregion
 
         #region Main
 
-        public void SetImage(Sprite hSprite)
+        public void SetImage(Texture hTexture)
         {
-            m_hImage.sprite = hSprite;
+            m_hRawImage.texture = hTexture;
         }
 
         public void SetPosition(Vector2 vPosition)
         {
-            m_hRectTransform.anchoredPosition = vPosition;   
+            m_hRectTransform.anchoredPosition = vPosition;
         }
 
         public void SetSize(Vector2 vSize)
@@ -51,17 +44,17 @@ namespace DSC.DialogueSystem
 
         public void SetSizeToNative()
         {
-            m_hImage.SetNativeSize();
+            m_hRawImage.SetNativeSize();
         }
 
         public void ShowImage()
         {
-            m_hImage.enabled = true;
+            m_hRawImage.enabled = true;
         }
 
         public void HideImage()
         {
-            m_hImage.enabled = false;
+            m_hRawImage.enabled = false;
         }
 
         #endregion

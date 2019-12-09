@@ -1,8 +1,13 @@
 # Changelog
 All this project change will be documented in this file.
 
+## [0.0.6] - 2019-12-09
+- Add raw image controller.
+- Now can set image size.
+
 ## [0.0.5] - 2019-12-09
 - Remove image controller index and use image group array index instead.
+- Add event text color.
 
 ## [0.0.4] - 2019-12-09
 - Add dialogue event system.

@@ -13,6 +13,7 @@ namespace DSC.DialogueSystem
 
         [SerializeField] DSC_Dialogue_DataController m_hDataController;
         [SerializeField] DSC_Dialogue_ImageController[] m_arrImageController;
+        [SerializeField] DSC_Dialogue_RawImageController[] m_arrRawImageController;
 
 #pragma warning restore 0649
         #endregion
@@ -44,16 +45,28 @@ namespace DSC.DialogueSystem
 
         #region Main
 
-        public void SetImage(int nIndex, Sprite hSprite)
+        public void SetImageSprite(int nIndex, Sprite hSprite)
         {
             var hController = GetImageController(nIndex);
             hController?.SetImage(hSprite);
         }
 
-        public void SetPosition(int nIndex, Vector2 vPosition)
+        public void SetImagePosition(int nIndex, Vector2 vPosition)
         {
             var hController = GetImageController(nIndex);
             hController?.SetPosition(vPosition);
+        }
+
+        public void SetImageSize(int nIndex, Vector2 vSize)
+        {
+            var hController = GetImageController(nIndex);
+            hController?.SetSize(vSize);
+        }
+
+        public void SetImageSizeToNative(int nIndex)
+        {
+            var hController = GetImageController(nIndex);
+            hController?.SetSizeToNative();
         }
 
         public void ShowImage(int nIndex)
@@ -65,6 +78,42 @@ namespace DSC.DialogueSystem
         public void HideImage(int nIndex)
         {
             var hController = GetImageController(nIndex);
+            hController?.HideImage();
+        }
+
+        public void SetRawImageTexture(int nIndex, Texture hTexture)
+        {
+            var hController = GetRawImageController(nIndex);
+            hController?.SetImage(hTexture);
+        }
+
+        public void SetRawImagePosition(int nIndex, Vector2 vPosition)
+        {
+            var hController = GetRawImageController(nIndex);
+            hController?.SetPosition(vPosition);
+        }
+
+        public void SetRawImageSize(int nIndex, Vector2 vSize)
+        {
+            var hController = GetRawImageController(nIndex);
+            hController?.SetSize(vSize);
+        }
+
+        public void SetRawImageSizeToNative(int nIndex)
+        {
+            var hController = GetRawImageController(nIndex);
+            hController?.SetSizeToNative();
+        }
+
+        public void ShowRawImage(int nIndex)
+        {
+            var hController = GetRawImageController(nIndex);
+            hController?.ShowImage();
+        }
+
+        public void HideRawImage(int nIndex)
+        {
+            var hController = GetRawImageController(nIndex);
             hController?.HideImage();
         }
 
@@ -87,6 +136,25 @@ namespace DSC.DialogueSystem
         bool TryGetImageController(int nIndex,out DSC_Dialogue_ImageController hOutController)
         {
             hOutController = GetImageController(nIndex);
+
+            return hOutController != null;
+        }
+
+        DSC_Dialogue_RawImageController GetRawImageController(int nIndex)
+        {
+            DSC_Dialogue_RawImageController hResult = null;
+
+            if (nIndex < 0 || m_arrRawImageController.Length <= nIndex)
+                return hResult;
+
+            hResult = m_arrRawImageController[nIndex];
+
+            return hResult;
+        }
+
+        bool TryGetRawImageController(int nIndex,out DSC_Dialogue_RawImageController hOutController)
+        {
+            hOutController = GetRawImageController(nIndex);
 
             return hOutController != null;
         }

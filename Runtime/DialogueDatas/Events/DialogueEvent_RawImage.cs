@@ -4,25 +4,25 @@ using UnityEngine;
 
 namespace DSC.DialogueSystem
 {
-    [CreateAssetMenu(fileName = "DialogueEvent_Image", menuName = "DSC/Dialogue/Events/Image")]
-    public class DialogueEvent_Image : DialogueEvent
+    [CreateAssetMenu(fileName = "DialogueEvent_RawImage", menuName = "DSC/Dialogue/Events/Raw Image")]
+    public class DialogueEvent_RawImage : DialogueEvent
     {
         #region Enum
 
-        protected enum ImageEventType
+        protected enum RawImageEventType
         {
             None,
-            SetSprite,
+            SetTexture,
             SetPosition,
             SetSize,
             SetSizeNative,
-            SetSpritePosition,
-            SetSpriteSize,
-            SetSpriteSizeNative,
+            SetTexturePosition,
+            SetTextureSize,
+            SetTextureSizeNative,
             SetPositionSize,
             SetPositionSizeNative,
-            SetSpritePositionSize,
-            SetSpritePositionSizeNative,
+            SetTexturePositionSize,
+            SetTexturePositionSizeNative,
             Show,
             Hide,
         }
@@ -32,11 +32,11 @@ namespace DSC.DialogueSystem
         #region Data
 
         [System.Serializable]
-        protected struct DialogueEvent_ImageData
+        protected struct DialogueEvent_RawImageData
         {
-            public ImageEventType m_eType;
+            public RawImageEventType m_eType;
             public int m_nIndex;
-            public Sprite m_hSprite;
+            public Texture m_hTexture;
             public Vector2 m_vPosition;
             public Vector2 m_vSize;
         }
@@ -48,7 +48,7 @@ namespace DSC.DialogueSystem
         #region Variable - Inspector
 #pragma warning disable 0649
 
-        [SerializeField] protected DialogueEvent_ImageData[] m_arrEventData;
+        [SerializeField] protected DialogueEvent_RawImageData[] m_arrEventData;
 
 #pragma warning restore 0649
         #endregion
@@ -83,67 +83,67 @@ namespace DSC.DialogueSystem
 
                 switch (hEventData.m_eType)
                 {
-                    case ImageEventType.None:
+                    case RawImageEventType.None:
                         continue;
 
-                    case ImageEventType.SetSprite:
-                        SetSprite(hImageGroupController, hEventData);
+                    case RawImageEventType.SetTexture:
+                        SetTexture(hImageGroupController, hEventData);
                         break;
 
-                    case ImageEventType.SetPosition:
+                    case RawImageEventType.SetPosition:
                         SetPosition(hImageGroupController, hEventData);
                         break;
 
-                    case ImageEventType.SetSize:
+                    case RawImageEventType.SetSize:
                         SetSize(hImageGroupController, hEventData);
                         break;
 
-                    case ImageEventType.SetSizeNative:
+                    case RawImageEventType.SetSizeNative:
                         SetSizeToNative(hImageGroupController, hEventData);
                         break;
 
-                    case ImageEventType.SetSpritePosition:
-                        SetSprite(hImageGroupController, hEventData);
+                    case RawImageEventType.SetTexturePosition:
+                        SetTexture(hImageGroupController, hEventData);
                         SetPosition(hImageGroupController, hEventData);
                         break;
 
-                    case ImageEventType.SetSpriteSize:
-                        SetSprite(hImageGroupController, hEventData);
+                    case RawImageEventType.SetTextureSize:
+                        SetTexture(hImageGroupController, hEventData);
                         SetSize(hImageGroupController, hEventData);
                         break;
 
-                    case ImageEventType.SetSpriteSizeNative:
-                        SetSprite(hImageGroupController, hEventData);
+                    case RawImageEventType.SetTextureSizeNative:
+                        SetTexture(hImageGroupController, hEventData);
                         SetSizeToNative(hImageGroupController, hEventData);
                         break;
 
-                    case ImageEventType.SetPositionSize:
-                        SetPosition(hImageGroupController, hEventData);
-                        SetSize(hImageGroupController, hEventData);
-                        break;
-
-                    case ImageEventType.SetPositionSizeNative:
-                        SetPosition(hImageGroupController, hEventData);
-                        SetSizeToNative(hImageGroupController, hEventData);
-                        break;
-
-                    case ImageEventType.SetSpritePositionSize:
-                        SetSprite(hImageGroupController, hEventData);
+                    case RawImageEventType.SetPositionSize:
                         SetPosition(hImageGroupController, hEventData);
                         SetSize(hImageGroupController, hEventData);
                         break;
 
-                    case ImageEventType.SetSpritePositionSizeNative:
-                        SetSprite(hImageGroupController, hEventData);
+                    case RawImageEventType.SetPositionSizeNative:
                         SetPosition(hImageGroupController, hEventData);
                         SetSizeToNative(hImageGroupController, hEventData);
                         break;
 
-                    case ImageEventType.Show:
+                    case RawImageEventType.SetTexturePositionSize:
+                        SetTexture(hImageGroupController, hEventData);
+                        SetPosition(hImageGroupController, hEventData);
+                        SetSize(hImageGroupController, hEventData);
+                        break;
+
+                    case RawImageEventType.SetTexturePositionSizeNative:
+                        SetTexture(hImageGroupController, hEventData);
+                        SetPosition(hImageGroupController, hEventData);
+                        SetSizeToNative(hImageGroupController, hEventData);
+                        break;
+
+                    case RawImageEventType.Show:
                         ShowImage(hImageGroupController, hEventData);
                         break;
 
-                    case ImageEventType.Hide:
+                    case RawImageEventType.Hide:
                         HideImage(hImageGroupController, hEventData);
                         break;
                 }
@@ -154,34 +154,34 @@ namespace DSC.DialogueSystem
 
         #region Main
 
-        protected virtual void SetSprite(DSC_Dialogue_ImageGroupController hImageGroupController, DialogueEvent_ImageData hEventData)
+        protected virtual void SetTexture(DSC_Dialogue_ImageGroupController hImageGroupController, DialogueEvent_RawImageData hEventData)
         {
-            hImageGroupController.SetImageSprite(hEventData.m_nIndex, hEventData.m_hSprite);
+            hImageGroupController.SetRawImageTexture(hEventData.m_nIndex, hEventData.m_hTexture);
         }
 
-        protected virtual void SetPosition(DSC_Dialogue_ImageGroupController hImageGroupController, DialogueEvent_ImageData hEventData)
+        protected virtual void SetPosition(DSC_Dialogue_ImageGroupController hImageGroupController, DialogueEvent_RawImageData hEventData)
         {
-            hImageGroupController.SetImagePosition(hEventData.m_nIndex, hEventData.m_vPosition);
+            hImageGroupController.SetRawImagePosition(hEventData.m_nIndex, hEventData.m_vPosition);
         }
 
-        protected virtual void SetSize(DSC_Dialogue_ImageGroupController hImageGroupController, DialogueEvent_ImageData hEventData)
+        protected virtual void SetSize(DSC_Dialogue_ImageGroupController hImageGroupController, DialogueEvent_RawImageData hEventData)
         {
-            hImageGroupController.SetImageSize(hEventData.m_nIndex, hEventData.m_vSize);
+            hImageGroupController.SetRawImageSize(hEventData.m_nIndex, hEventData.m_vSize);
         }
 
-        protected virtual void SetSizeToNative(DSC_Dialogue_ImageGroupController hImageGroupController, DialogueEvent_ImageData hEventData)
+        protected virtual void SetSizeToNative(DSC_Dialogue_ImageGroupController hImageGroupController, DialogueEvent_RawImageData hEventData)
         {
-            hImageGroupController.SetImageSizeToNative(hEventData.m_nIndex);
+            hImageGroupController.SetRawImageSizeToNative(hEventData.m_nIndex);
         }
 
-        protected virtual void ShowImage(DSC_Dialogue_ImageGroupController hImageGroupController, DialogueEvent_ImageData hEventData)
+        protected virtual void ShowImage(DSC_Dialogue_ImageGroupController hImageGroupController, DialogueEvent_RawImageData hEventData)
         {
-            hImageGroupController.ShowImage(hEventData.m_nIndex);
+            hImageGroupController.ShowRawImage(hEventData.m_nIndex);
         }
 
-        protected virtual void HideImage(DSC_Dialogue_ImageGroupController hImageGroupController, DialogueEvent_ImageData hEventData)
+        protected virtual void HideImage(DSC_Dialogue_ImageGroupController hImageGroupController, DialogueEvent_RawImageData hEventData)
         {
-            hImageGroupController.HideImage(hEventData.m_nIndex);
+            hImageGroupController.HideRawImage(hEventData.m_nIndex);
         }
 
         #endregion
@@ -201,6 +201,5 @@ namespace DSC.DialogueSystem
         }
 
         #endregion
-
     }
 }
