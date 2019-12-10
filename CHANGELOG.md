@@ -1,6 +1,9 @@
 # Changelog
 All this project change will be documented in this file.
 
+## [0.0.9] - 2019-12-10
+- Change attribute folder name to custom attribute.
+
 ## [0.0.8] - 2019-12-10
 - Fix error attribute folder meta file.
 
