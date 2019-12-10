@@ -1,6 +1,11 @@
 # Changelog
 All this project change will be documented in this file.
 
+## [0.0.7] - 2019-12-10
+- Add replace specific word system.
+- Can change color specific word.
+- Add attribute color html.
+
 ## [0.0.6] - 2019-12-09
 - Add raw image controller.
 - Now can set image size.

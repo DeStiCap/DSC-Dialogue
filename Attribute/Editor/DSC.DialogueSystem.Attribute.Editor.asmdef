@@ -1,10 +1,11 @@
 {
-    "name": "DSC.DialogueSystem",
+    "name": "DSC.DialogueSystem.Attribute.Editor",
     "references": [
-        "GUID:b994dbe53cc06444f87bb033030c40fc",
-        "GUID:6055be8ebefd69e48b49212b09b47b2f"
+        "GUID:b994dbe53cc06444f87bb033030c40fc"
     ],
-    "includePlatforms": [],
+    "includePlatforms": [
+        "Editor"
+    ],
     "excludePlatforms": [],
     "allowUnsafeCode": false,
     "overrideReferences": false,

@@ -52,6 +52,8 @@ namespace DSC.DialogueSystem
 
         protected List<IDialogueEventData> m_lstDialogueEventData = new List<IDialogueEventData>();
 
+        protected DSC_Dialogue_ReplaceController m_hReplaceController;
+
         #endregion
 
         #region Events
@@ -63,8 +65,7 @@ namespace DSC.DialogueSystem
 
             m_nCurrentDialogueIndex = 0;
             var hDialogue = arrDialogue[m_nCurrentDialogueIndex];
-            StartAllEventInDialogue(hDialogue);
-            m_OnDialogueStart.Invoke(hDialogue);
+            RunDialogue(hDialogue);
         }
 
         public void NextDialogue()
@@ -79,15 +80,18 @@ namespace DSC.DialogueSystem
             }
 
             m_nCurrentDialogueIndex++;
-
             var hDialogue = arrDialogue[m_nCurrentDialogueIndex];
-            StartAllEventInDialogue(hDialogue);
-            m_OnDialogueChange.Invoke(hDialogue);
+            RunDialogue(hDialogue);
         }
 
         #endregion
 
         #region Main
+
+        public void SetReplaceController(DSC_Dialogue_ReplaceController hReplaceController)
+        {
+            m_hReplaceController = hReplaceController;
+        }
 
         public string GetCurrentDialogue()
         {
@@ -104,6 +108,14 @@ namespace DSC.DialogueSystem
             sResult = arrDialogue[m_nCurrentDialogueIndex].m_sDialogue;
 
             return sResult;
+        }
+
+        protected void RunDialogue(Dialogue hDialogue)
+        {
+            m_hReplaceController?.CheckReplaceWord(ref hDialogue);
+
+            StartAllEventInDialogue(hDialogue);
+            m_OnDialogueStart.Invoke(hDialogue);
         }
 
         protected void StartAllEventInDialogue(Dialogue hDialogue)
