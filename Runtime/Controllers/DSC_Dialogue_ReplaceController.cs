@@ -49,7 +49,7 @@ namespace DSC.DialogueSystem
 
         #region Main
 
-        public void CheckReplaceWord(ref Dialogue hDialogue)
+        public virtual void CheckReplaceWord(ref Dialogue hDialogue)
         {
             if (m_arrReplace == null || m_arrReplace.Length <= 0)
                 return;
@@ -62,44 +62,83 @@ namespace DSC.DialogueSystem
 
                 var hData = hReplace.ReplaceData;
 
-                if (hDialogue.m_sDialogue.Contains(hData.m_sReplaceID))
+                bool bCheckDialogue = true;
+                bool bCheckTalker = true;
+                switch (hData.m_eIgnoreType)
+                {
+                    case IgnoreReplaceType.Dialogue:
+                        bCheckDialogue = false;
+                        break;
+
+                    case IgnoreReplaceType.Talker:
+                        bCheckTalker = false;
+                        break;
+
+                    case IgnoreReplaceType.DialogueAndTalker:
+                        bCheckDialogue = false;
+                        bCheckTalker = false;
+                        break;
+                }
+
+                if (bCheckDialogue && hDialogue.m_sDialogue.Contains(hData.m_sReplaceID))
                 {
                     switch (hData.m_eEventType)
                     {
                         case ReplaceEventType.Replace:
-                            ReplaceWord(ref hDialogue, hData);
+                            ReplaceWord(ref hDialogue.m_sDialogue, hData);
                             break;
 
                         case ReplaceEventType.Color:
-                            ReplaceColor(ref hDialogue, hData);
+                            ReplaceColor(ref hDialogue.m_sDialogue, hData);
                             break;
 
                         case ReplaceEventType.ReplaceColor:
-                            ReplaceColor(ref hDialogue, hData);
-                            ReplaceWord(ref hDialogue, hData);                            
+                            ReplaceColor(ref hDialogue.m_sDialogue, hData);
+                            ReplaceWord(ref hDialogue.m_sDialogue, hData);
+                            break;
+                    }
+                }
+
+                if (bCheckTalker && hDialogue.m_sTalker.Contains(hData.m_sReplaceID))
+                {
+                    switch (hData.m_eEventType)
+                    {
+                        case ReplaceEventType.Replace:
+                            ReplaceWord(ref hDialogue.m_sTalker, hData);
+                            break;
+
+                        case ReplaceEventType.Color:
+                            ReplaceColor(ref hDialogue.m_sTalker, hData);
+                            break;
+
+                        case ReplaceEventType.ReplaceColor:
+                            ReplaceColor(ref hDialogue.m_sTalker, hData);
+                            ReplaceWord(ref hDialogue.m_sTalker, hData);
                             break;
                     }
                 }
             }
         }
 
-        protected void ReplaceWord(ref Dialogue hDialogue,DialogueReplaceData hData)
+        protected void ReplaceWord(ref string sOriginal, DialogueReplaceData hData)
         {
-            if(TryGetReplaceWord(hData.m_sReplaceID,out string sReplaceWord))
+            var sReplaceID = hData.m_sReplaceID;
+
+            if (TryGetReplaceWord(sReplaceID, out string sReplaceWord))
             {
-                hDialogue.m_sDialogue = hDialogue.m_sDialogue.Replace(hData.m_sReplaceID, sReplaceWord);
+                sOriginal = sOriginal.Replace(sReplaceID, sReplaceWord);
             }
             else
             {
-                Debug.LogWarning("Don't have replace word '" + hData.m_sReplaceID + "' in data.",gameObject);
+                Debug.LogWarning("Don't have replace word '" + sReplaceID + "' in data.", gameObject);
             }
         }
 
-        protected void ReplaceColor(ref Dialogue hDialogue, DialogueReplaceData hData)
+        protected void ReplaceColor(ref string sOriginal, DialogueReplaceData hData)
         {
-            int nWordIndex = hDialogue.m_sDialogue.IndexOf(hData.m_sReplaceID);
-            hDialogue.m_sDialogue = hDialogue.m_sDialogue.Insert(nWordIndex + hData.m_sReplaceID.Length, "</color>");
-            hDialogue.m_sDialogue = hDialogue.m_sDialogue.Insert(nWordIndex, "<color=#" + hData.m_sColor + ">");
+            int nWordIndex = sOriginal.IndexOf(hData.m_sReplaceID);
+            sOriginal = sOriginal.Insert(nWordIndex + hData.m_sReplaceID.Length, "</color>");
+            sOriginal = sOriginal.Insert(nWordIndex, "<color=#" + hData.m_sColor + ">");
         }
         
         #endregion

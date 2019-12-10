@@ -13,6 +13,14 @@ namespace DSC.DialogueSystem
         ReplaceColor,
     }
 
+    public enum IgnoreReplaceType
+    {
+        None,
+        Dialogue,
+        Talker,
+        DialogueAndTalker,
+    }
+
     #endregion
 
     #region Data
@@ -25,6 +33,9 @@ namespace DSC.DialogueSystem
 
         [ColorHtmlProperty]
         public string m_sColor;
+
+        [Header("Option")]
+        public IgnoreReplaceType m_eIgnoreType;
     }
 
     #endregion

@@ -1,6 +1,10 @@
 # Changelog
 All this project change will be documented in this file.
 
+## [0.0.10] - 2019-12-10
+- Support replace talker dialogue.
+- Replace now can choose ignore type.
+
 ## [0.0.9] - 2019-12-10
 - Change attribute folder name to custom attribute.
 
