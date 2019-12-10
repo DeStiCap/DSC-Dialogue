@@ -1,6 +1,9 @@
 # Changelog
 All this project change will be documented in this file.
 
+## [0.0.12] - 2019-12-10
+- Fix bug not invoke dialogue change event.
+
 ## [0.0.11] - 2019-12-10
 - Now can ignore change color in specific type.
 
