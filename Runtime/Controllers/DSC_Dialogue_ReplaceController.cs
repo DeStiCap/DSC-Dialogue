@@ -60,69 +60,79 @@ namespace DSC.DialogueSystem
                 if (hReplace == null)
                     continue;
 
-                var hData = hReplace.ReplaceData;
-
-                bool bCheckDialogue = true;
-                bool bCheckTalker = true;
-                switch (hData.m_eIgnoreType)
+                bool bReplaceDialogue = true;
+                bool bReplace = true;
+                switch (hReplace.IgnoreType)
                 {
                     case IgnoreReplaceType.Dialogue:
-                        bCheckDialogue = false;
+                        bReplaceDialogue = false;
                         break;
 
                     case IgnoreReplaceType.Talker:
-                        bCheckTalker = false;
-                        break;
-
-                    case IgnoreReplaceType.DialogueAndTalker:
-                        bCheckDialogue = false;
-                        bCheckTalker = false;
+                        bReplace = false;
                         break;
                 }
 
-                if (bCheckDialogue && hDialogue.m_sDialogue.Contains(hData.m_sReplaceID))
+                bool bColorDialogue = true;
+                bool bColorTalker = true;
+                switch (hReplace.IgnoreColor)
                 {
-                    switch (hData.m_eEventType)
+                    case IgnoreColorType.Dialogue:
+                        bColorDialogue = false;
+                        break;
+
+                    case IgnoreColorType.Talker:
+                        bColorTalker = false;
+                        break;
+                }
+
+                if (bReplaceDialogue && hDialogue.m_sDialogue.Contains(hReplace.ID))
+                {
+                    switch (hReplace.ReplaceType)
                     {
                         case ReplaceEventType.Replace:
-                            ReplaceWord(ref hDialogue.m_sDialogue, hData);
+                            ReplaceWord(ref hDialogue.m_sDialogue, hReplace);
                             break;
 
                         case ReplaceEventType.Color:
-                            ReplaceColor(ref hDialogue.m_sDialogue, hData);
+                            if(bColorDialogue)
+                                ReplaceColor(ref hDialogue.m_sDialogue, hReplace);
                             break;
 
                         case ReplaceEventType.ReplaceColor:
-                            ReplaceColor(ref hDialogue.m_sDialogue, hData);
-                            ReplaceWord(ref hDialogue.m_sDialogue, hData);
+                            if(bColorDialogue)
+                                ReplaceColor(ref hDialogue.m_sDialogue, hReplace);
+                            ReplaceWord(ref hDialogue.m_sDialogue, hReplace);
                             break;
                     }
                 }
 
-                if (bCheckTalker && hDialogue.m_sTalker.Contains(hData.m_sReplaceID))
+                if (bReplace && hDialogue.m_sTalker.Contains(hReplace.ID))
                 {
-                    switch (hData.m_eEventType)
+                    switch (hReplace.ReplaceType)
                     {
                         case ReplaceEventType.Replace:
-                            ReplaceWord(ref hDialogue.m_sTalker, hData);
+                            ReplaceWord(ref hDialogue.m_sTalker, hReplace);
                             break;
 
                         case ReplaceEventType.Color:
-                            ReplaceColor(ref hDialogue.m_sTalker, hData);
+                            if(bColorTalker)
+                                ReplaceColor(ref hDialogue.m_sTalker, hReplace);
                             break;
 
                         case ReplaceEventType.ReplaceColor:
-                            ReplaceColor(ref hDialogue.m_sTalker, hData);
-                            ReplaceWord(ref hDialogue.m_sTalker, hData);
+                            if(bColorTalker)
+                                ReplaceColor(ref hDialogue.m_sTalker, hReplace);
+                            ReplaceWord(ref hDialogue.m_sTalker, hReplace);
                             break;
                     }
                 }
             }
         }
 
-        protected void ReplaceWord(ref string sOriginal, DialogueReplaceData hData)
+        protected void ReplaceWord(ref string sOriginal, BaseDialogueReplace hReplace)
         {
-            var sReplaceID = hData.m_sReplaceID;
+            var sReplaceID = hReplace.ID;
 
             if (TryGetReplaceWord(sReplaceID, out string sReplaceWord))
             {
@@ -134,11 +144,11 @@ namespace DSC.DialogueSystem
             }
         }
 
-        protected void ReplaceColor(ref string sOriginal, DialogueReplaceData hData)
+        protected void ReplaceColor(ref string sOriginal, BaseDialogueReplace hReplace)
         {
-            int nWordIndex = sOriginal.IndexOf(hData.m_sReplaceID);
-            sOriginal = sOriginal.Insert(nWordIndex + hData.m_sReplaceID.Length, "</color>");
-            sOriginal = sOriginal.Insert(nWordIndex, "<color=#" + hData.m_sColor + ">");
+            int nWordIndex = sOriginal.IndexOf(hReplace.ID);
+            sOriginal = sOriginal.Insert(nWordIndex + hReplace.ID.Length, "</color>");
+            sOriginal = sOriginal.Insert(nWordIndex, "<color=#" + hReplace.ReplaceColor + ">");
         }
         
         #endregion
