@@ -11,7 +11,6 @@ namespace DSC.DialogueSystem
 
         protected enum TextEventType
         {
-            None,
             SetDialogueColor,
             ResetDialogueColor,
             SetTalkerColor,
@@ -22,24 +21,14 @@ namespace DSC.DialogueSystem
 
         #endregion
 
-        #region Data
-
-        [System.Serializable]
-        protected struct DialogueEvent_TextData
-        {
-            public TextEventType m_eType;
-            public int m_nIndex;
-            public Color m_hColor;
-        }
-
-        #endregion
-
         #region Variable
 
         #region Variable - Inspector
 #pragma warning disable 0649
 
-        [SerializeField] protected DialogueEvent_TextData[] m_arrEventData;
+        [SerializeField] protected TextEventType m_eType;
+        [SerializeField] protected int m_nIndex;
+        [SerializeField] protected Color m_hColor;
 
 #pragma warning restore 0649
         #endregion
@@ -52,9 +41,6 @@ namespace DSC.DialogueSystem
         {
             base.OnStart(lstData);
 
-            if (m_arrEventData == null || m_arrEventData.Length <= 0)
-                return;
-
             if (!lstData.TryGetData(out DialogueEventData_Text hOutData))
                 return;
 
@@ -62,39 +48,32 @@ namespace DSC.DialogueSystem
             if (hTextGroupController == null)
                 return;
 
-            for(int i = 0; i < m_arrEventData.Length; i++)
+            switch (m_eType)
             {
-                var hEventData = m_arrEventData[i];
+                case TextEventType.SetDialogueColor:
+                    SetDialogueColor(hTextGroupController);
+                    break;
 
-                switch (hEventData.m_eType)
-                {
-                    case TextEventType.None:
-                        continue;
+                case TextEventType.ResetDialogueColor:
+                    ResetDialogueColor(hTextGroupController);
+                    break;
 
-                    case TextEventType.SetDialogueColor:
-                        SetDialogueColor(hTextGroupController, hEventData);
-                        break;
+                case TextEventType.SetTalkerColor:
+                    SetTalkerColor(hTextGroupController);
+                    break;
 
-                    case TextEventType.ResetDialogueColor:
-                        ResetDialogueColor(hTextGroupController);
-                        break;
+                case TextEventType.ResetTalkerColor:
+                    ResetTalkerColor(hTextGroupController);
+                    break;
 
-                    case TextEventType.SetTalkerColor:
-                        SetTalkerColor(hTextGroupController, hEventData);
-                        break;
+                case TextEventType.SetTextColor:
+                    SetTextColor(hTextGroupController);
+                    break;
 
-                    case TextEventType.ResetTalkerColor:
-                        ResetTalkerColor(hTextGroupController);
-                        break;
-
-                    case TextEventType.SetTextColor:
-                        SetTextColor(hTextGroupController, hEventData);
-                        break;
-
-                    case TextEventType.ResetTextColor:;
-                        ResetTextColor(hTextGroupController, hEventData);
-                        break;
-                }
+                case TextEventType.ResetTextColor:
+                    ;
+                    ResetTextColor(hTextGroupController);
+                    break;
             }
         }
 
@@ -102,9 +81,9 @@ namespace DSC.DialogueSystem
 
         #region Main
 
-        protected void SetDialogueColor(DSC_Dialogue_TextGroupController hTextGroupController,DialogueEvent_TextData hEventData)
+        protected void SetDialogueColor(DSC_Dialogue_TextGroupController hTextGroupController)
         {
-            hTextGroupController.SetDialogueTextColor(hEventData.m_hColor);
+            hTextGroupController.SetDialogueTextColor(m_hColor);
         }
 
         protected void ResetDialogueColor(DSC_Dialogue_TextGroupController hTextGroupController)
@@ -112,9 +91,9 @@ namespace DSC.DialogueSystem
             hTextGroupController.ResetDialogueTextColorToDefault();
         }
 
-        protected void SetTalkerColor(DSC_Dialogue_TextGroupController hTextGroupController, DialogueEvent_TextData hEventData)
+        protected void SetTalkerColor(DSC_Dialogue_TextGroupController hTextGroupController)
         {
-            hTextGroupController.SetTalkerTextColor(hEventData.m_hColor);
+            hTextGroupController.SetTalkerTextColor(m_hColor);
         }
 
         protected void ResetTalkerColor(DSC_Dialogue_TextGroupController hTextGroupController)
@@ -122,14 +101,14 @@ namespace DSC.DialogueSystem
             hTextGroupController.ResetTalkerTextColorToDefault();
         }
 
-        protected void SetTextColor(DSC_Dialogue_TextGroupController hTextGroupController, DialogueEvent_TextData hEventData)
+        protected void SetTextColor(DSC_Dialogue_TextGroupController hTextGroupController)
         {
-            hTextGroupController.SetTextColor(hEventData.m_nIndex,hEventData.m_hColor);
+            hTextGroupController.SetTextColor(m_nIndex, m_hColor);
         }
 
-        protected void ResetTextColor(DSC_Dialogue_TextGroupController hTextGroupController, DialogueEvent_TextData hEventData)
+        protected void ResetTextColor(DSC_Dialogue_TextGroupController hTextGroupController)
         {
-            hTextGroupController.ResetTextColorToDefault(hEventData.m_nIndex);
+            hTextGroupController.ResetTextColorToDefault(m_nIndex);
         }
 
         #endregion

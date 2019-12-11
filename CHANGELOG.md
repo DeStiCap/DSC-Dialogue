@@ -1,6 +1,10 @@
 # Changelog
 All this project change will be documented in this file.
 
+## [0.0.14] - 2019-12-11
+- Remove event image, raw image, text color array.
+- Change event image and raw image to image set and raw image set.
+
 ## [0.0.13] - 2019-12-11
 - Add event set text align.
 - Add event set image/raw image color.

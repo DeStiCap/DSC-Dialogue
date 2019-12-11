@@ -6,8 +6,6 @@ namespace DSC.DialogueSystem
 {
     public class DialogueEvent : BaseDialogueEvent
     {
-        public override DialogueEventType EventType { get { return DialogueEventType.None; } }
-
         public override void OnStart(List<IDialogueEventData> lstData)
         {
 

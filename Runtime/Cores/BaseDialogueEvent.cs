@@ -17,8 +17,6 @@ namespace DSC.DialogueSystem
 
     public abstract class BaseDialogueEvent : ScriptableObject
     {
-        public abstract DialogueEventType EventType { get; }
-
         public abstract void OnStart(List<IDialogueEventData> lstData);
         public abstract void OnExecute(List<IDialogueEventData> lstData);
         public abstract void OnEnd(List<IDialogueEventData> lstData);
