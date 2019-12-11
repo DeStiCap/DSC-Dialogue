@@ -1,6 +1,10 @@
 # Changelog
 All this project change will be documented in this file.
 
+## [0.0.13] - 2019-12-11
+- Add event set text align.
+- Add event set image/raw image color.
+
 ## [0.0.12] - 2019-12-10
 - Fix bug not invoke dialogue change event.
 

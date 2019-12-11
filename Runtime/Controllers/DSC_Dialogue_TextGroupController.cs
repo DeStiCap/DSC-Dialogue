@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 namespace DSC.DialogueSystem
 {
@@ -60,6 +61,19 @@ namespace DSC.DialogueSystem
             m_hDialogueText?.ResetTextColorToDefault();
         }
 
+        public TextAlignmentOptions GetDialogueTextAlign()
+        {
+            if (m_hDialogueText == null)
+                return TextAlignmentOptions.Center;
+
+            return m_hDialogueText.GetTextAlign();
+        }
+
+        public void SetDialogueTextAlign(TextAlignmentOptions eAlign)
+        {
+            m_hDialogueText?.SetTextAlign(eAlign);
+        }
+
         public void SetTalkerTextColor(Color hColor)
         {
             m_hTalkerText?.SetTextColor(hColor);
@@ -68,6 +82,19 @@ namespace DSC.DialogueSystem
         public void ResetTalkerTextColorToDefault()
         {
             m_hTalkerText?.ResetTextColorToDefault();
+        }
+
+        public TextAlignmentOptions GetTalkerTextAlign()
+        {
+            if (m_hTalkerText == null)
+                return TextAlignmentOptions.Center;
+
+            return m_hTalkerText.GetTextAlign();
+        }
+
+        public void SetTalkerTextAlign(TextAlignmentOptions eAlign)
+        {
+            m_hTalkerText?.SetTextAlign(eAlign);
         }
 
         public void SetText(int nIndex, string sText)
@@ -86,6 +113,21 @@ namespace DSC.DialogueSystem
         {
             var hController = GetTextController(nIndex);
             hController?.ResetTextColorToDefault();
+        }
+
+        public TextAlignmentOptions GetTextAlign(int nIndex)
+        {
+            var hController = GetTextController(nIndex);
+            if (hController == null)
+                return TextAlignmentOptions.Center;
+
+            return hController.GetTextAlign();
+        }
+
+        public void SetTextAlign(int nIndex,TextAlignmentOptions eAlign)
+        {
+            var hController = GetTextController(nIndex);
+            hController?.SetTextAlign(eAlign);
         }
 
         #endregion

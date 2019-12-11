@@ -47,6 +47,11 @@ namespace DSC.DialogueSystem
             m_hRawImage.SetNativeSize();
         }
 
+        public void SetColor(Color hColor)
+        {
+            m_hRawImage.color = hColor;
+        }
+
         public void ShowImage()
         {
             m_hRawImage.enabled = true;

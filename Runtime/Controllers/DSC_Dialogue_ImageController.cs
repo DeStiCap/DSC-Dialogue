@@ -54,6 +54,11 @@ namespace DSC.DialogueSystem
             m_hImage.SetNativeSize();
         }
 
+        public void SetColor(Color hColor)
+        {
+            m_hImage.color = hColor;
+        }
+
         public void ShowImage()
         {
             m_hImage.enabled = true;

@@ -69,6 +69,12 @@ namespace DSC.DialogueSystem
             hController?.SetSizeToNative();
         }
 
+        public void SetImageColor(int nIndex,Color hColor)
+        {
+            var hController = GetImageController(nIndex);
+            hController?.SetColor(hColor);
+        }
+
         public void ShowImage(int nIndex)
         {
             var hController = GetImageController(nIndex);
@@ -103,6 +109,12 @@ namespace DSC.DialogueSystem
         {
             var hController = GetRawImageController(nIndex);
             hController?.SetSizeToNative();
+        }
+
+        public void SetRawImageColor(int nIndex,Color hColor)
+        {
+            var hController = GetRawImageController(nIndex); ;
+            hController?.SetColor(hColor);
         }
 
         public void ShowRawImage(int nIndex)
