@@ -54,6 +54,11 @@ namespace DSC.DialogueSystem
             m_hImage.SetNativeSize();
         }
 
+        public void SetRotation(Vector3 vRotation)
+        {
+            m_hRectTransform.rotation = Quaternion.Euler(vRotation);
+        }
+
         public void SetColor(Color hColor)
         {
             m_hImage.color = hColor;

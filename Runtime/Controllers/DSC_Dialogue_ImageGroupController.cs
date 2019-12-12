@@ -69,6 +69,12 @@ namespace DSC.DialogueSystem
             hController?.SetSizeToNative();
         }
 
+        public void SetImageRotation(int nIndex,Vector3 vRotation)
+        {
+            var hController = GetImageController(nIndex);
+            hController?.SetRotation(vRotation);
+        }
+
         public void SetImageColor(int nIndex,Color hColor)
         {
             var hController = GetImageController(nIndex);
@@ -109,6 +115,12 @@ namespace DSC.DialogueSystem
         {
             var hController = GetRawImageController(nIndex);
             hController?.SetSizeToNative();
+        }
+
+        public void SetRawImageRotation(int nIndex,Vector3 vRotation)
+        {
+            var hController = GetRawImageController(nIndex);
+            hController?.SetRotation(vRotation);
         }
 
         public void SetRawImageColor(int nIndex,Color hColor)

@@ -15,6 +15,7 @@ namespace DSC.DialogueSystem
             SetSprite     =   1 << 0,
             SetPosition   =   1 << 1,
             SetSize       =   1 << 2,
+            SetRotation   =   1 << 3,
         }
 
         #endregion
@@ -31,6 +32,7 @@ namespace DSC.DialogueSystem
         [SerializeField] Vector2 m_vPosition;
         [SerializeField] Vector2 m_vSize;
         [SerializeField] bool m_bUseNativeSize;
+        [SerializeField] Vector3 m_vRotation;
 
 #pragma warning restore 0649
         #endregion
@@ -58,6 +60,9 @@ namespace DSC.DialogueSystem
 
             if (FlagUtility.HasFlagUnsafe(m_eType, ImageSetType.SetSize))
                 SetSize(hImageGroupController);
+
+            if (FlagUtility.HasFlagUnsafe(m_eType, ImageSetType.SetRotation))
+                SetRotation(hImageGroupController);
         }
 
         #endregion
@@ -80,6 +85,11 @@ namespace DSC.DialogueSystem
                 hImageGroupController.SetImageSize(m_nIndex, m_vSize);
             else
                 hImageGroupController.SetImageSizeToNative(m_nIndex);
+        }
+
+        protected virtual void SetRotation(DSC_Dialogue_ImageGroupController hImageGroupController)
+        {
+            hImageGroupController.SetImageRotation(m_nIndex, m_vRotation);
         }
 
         #endregion

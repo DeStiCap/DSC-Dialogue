@@ -1,6 +1,10 @@
 # Changelog
 All this project change will be documented in this file.
 
+## [0.0.16] - 2019-12-12
+- Add event rotate image/raw image.
+- Add event scene load.
+
 ## [0.0.15] - 2019-12-12
 - Move show/hide event in image/raw image to news script.
 - Add EnumMask attribute for see enum flag in inspector.
