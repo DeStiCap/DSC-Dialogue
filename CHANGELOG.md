@@ -1,6 +1,10 @@
 # Changelog
 All this project change will be documented in this file.
 
+## [0.0.17] - 2019-12-12
+- Add GameObject group controller.
+- Add function set new dialogue data.
+
 ## [0.0.16] - 2019-12-12
 - Add event rotate image/raw image.
 - Add event scene load.

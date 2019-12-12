@@ -66,7 +66,11 @@ namespace DSC.DialogueSystem
 
         protected virtual void SetGameObject(List<IDialogueEventData> lstData)
         {
-            //Need to add gameObject group controller first.
+            if (!TryGetGameObjectGroupController(lstData, out var hOutController))
+                return;
+
+            bool bActive = m_eSet == SetType.Enable;
+            hOutController.SetActiveGameObject(m_nIndex, bActive);
         }
 
         protected virtual void SetImage(List<IDialogueEventData> lstData)
@@ -119,6 +123,20 @@ namespace DSC.DialogueSystem
         {
             hOutController = GetImageGroupController(lstData);
 
+            return hOutController != null;
+        }
+
+        protected DSC_Dialogue_GameObjectGroupController GetGameObjectGroupController(List<IDialogueEventData> lstData)
+        {
+            if (!lstData.TryGetData(out DialogueEventData_GameObject hOutData))
+                return null;
+
+            return hOutData.m_hGroupController;
+        }
+
+        protected bool TryGetGameObjectGroupController(List<IDialogueEventData> lstData,out DSC_Dialogue_GameObjectGroupController hOutController)
+        {
+            hOutController = GetGameObjectGroupController(lstData);
             return hOutController != null;
         }
 

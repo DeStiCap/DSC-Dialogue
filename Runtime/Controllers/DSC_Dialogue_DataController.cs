@@ -31,7 +31,7 @@ namespace DSC.DialogueSystem
 #pragma warning disable 0649
 
         [Header("Data")]
-        [SerializeField] protected DialogueData m_DialogueData;
+        [SerializeField] protected DialogueData m_hDialogueData;
 
         [Header("Current")]
         [SerializeField] protected int m_nCurrentDialogueIndex;
@@ -57,6 +57,17 @@ namespace DSC.DialogueSystem
         #endregion
 
         #region Events
+
+        public void SetNewDialogueData(DialogueData hData)
+        {
+            m_hDialogueData = hData;
+        }
+
+        public void SetAndStartNewDialogueData(DialogueData hData)
+        {
+            SetNewDialogueData(hData);
+            StartDialogue();
+        }
 
         public void StartDialogue()
         {
@@ -99,11 +110,11 @@ namespace DSC.DialogueSystem
         {
             string sResult = null;
 
-            if (m_DialogueData == null)
+            if (m_hDialogueData == null)
                 return sResult;
 
 
-            var arrDialogue = m_DialogueData.AllDialogue;
+            var arrDialogue = m_hDialogueData.AllDialogue;
             if (arrDialogue == null || arrDialogue.Length <= 0 || arrDialogue.Length <= m_nCurrentDialogueIndex)
                 return sResult;
 
@@ -143,10 +154,10 @@ namespace DSC.DialogueSystem
         protected Dialogue[] GetAllDialogueInData()
         {
             Dialogue[] hResult = null;
-            if (m_DialogueData == null)
+            if (m_hDialogueData == null)
                 return hResult;
 
-            hResult = m_DialogueData.AllDialogue;
+            hResult = m_hDialogueData.AllDialogue;
 
             return hResult;
         }
