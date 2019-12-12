@@ -21,8 +21,6 @@ namespace DSC.DialogueSystem
         {
             m_hText = GetComponent<TextMeshProUGUI>();
             m_hDefaultTextColor = m_hText.color;
-
-            Debug.Log(m_hText.alignment);
         }
 
         #endregion

@@ -9,21 +9,12 @@ namespace DSC.DialogueSystem
     {
         #region Enum
 
+        [System.Flags]
         protected enum RawImageSetType
         {
-            SetTexture,
-            SetPosition,
-            SetSize,
-            SetSizeNative,
-            SetTexturePosition,
-            SetTextureSize,
-            SetTextureSizeNative,
-            SetPositionSize,
-            SetPositionSizeNative,
-            SetTexturePositionSize,
-            SetTexturePositionSizeNative,
-            Show,
-            Hide,
+            SetTexture  =   1 << 0,
+            SetPosition =   1 << 1,
+            SetSize     =   1 << 2,
         }
 
         #endregion
@@ -33,11 +24,13 @@ namespace DSC.DialogueSystem
         #region Variable - Inspector
 #pragma warning disable 0649
 
+        [EnumMask]
         [SerializeField] protected RawImageSetType m_eType;
         [SerializeField] protected int m_nIndex;
         [SerializeField] Texture m_hTexture;
         [SerializeField] Vector2 m_vPosition;
         [SerializeField] Vector2 m_vSize;
+        [SerializeField] bool m_bUseNativeSize;
 
 #pragma warning restore 0649
         #endregion
@@ -57,69 +50,14 @@ namespace DSC.DialogueSystem
             if (hImageGroupController == null)
                 return;
 
-            switch (m_eType)
-            {
-                case RawImageSetType.SetTexture:
-                    SetTexture(hImageGroupController);
-                    break;
+            if (FlagUtility.HasFlagUnsafe(m_eType, RawImageSetType.SetTexture))
+                SetTexture(hImageGroupController);
 
-                case RawImageSetType.SetPosition:
-                    SetPosition(hImageGroupController);
-                    break;
+            if (FlagUtility.HasFlagUnsafe(m_eType, RawImageSetType.SetPosition))
+                SetPosition(hImageGroupController);
 
-                case RawImageSetType.SetSize:
-                    SetSize(hImageGroupController);
-                    break;
-
-                case RawImageSetType.SetSizeNative:
-                    SetSizeToNative(hImageGroupController);
-                    break;
-
-                case RawImageSetType.SetTexturePosition:
-                    SetTexture(hImageGroupController);
-                    SetPosition(hImageGroupController);
-                    break;
-
-                case RawImageSetType.SetTextureSize:
-                    SetTexture(hImageGroupController);
-                    SetSize(hImageGroupController);
-                    break;
-
-                case RawImageSetType.SetTextureSizeNative:
-                    SetTexture(hImageGroupController);
-                    SetSizeToNative(hImageGroupController);
-                    break;
-
-                case RawImageSetType.SetPositionSize:
-                    SetPosition(hImageGroupController);
-                    SetSize(hImageGroupController);
-                    break;
-
-                case RawImageSetType.SetPositionSizeNative:
-                    SetPosition(hImageGroupController);
-                    SetSizeToNative(hImageGroupController);
-                    break;
-
-                case RawImageSetType.SetTexturePositionSize:
-                    SetTexture(hImageGroupController);
-                    SetPosition(hImageGroupController);
-                    SetSize(hImageGroupController);
-                    break;
-
-                case RawImageSetType.SetTexturePositionSizeNative:
-                    SetTexture(hImageGroupController);
-                    SetPosition(hImageGroupController);
-                    SetSizeToNative(hImageGroupController);
-                    break;
-
-                case RawImageSetType.Show:
-                    ShowImage(hImageGroupController);
-                    break;
-
-                case RawImageSetType.Hide:
-                    HideImage(hImageGroupController);
-                    break;
-            }
+            if (FlagUtility.HasFlagUnsafe(m_eType, RawImageSetType.SetSize))
+                SetSize(hImageGroupController);
         }
 
         #endregion
@@ -138,22 +76,10 @@ namespace DSC.DialogueSystem
 
         protected virtual void SetSize(DSC_Dialogue_ImageGroupController hImageGroupController)
         {
-            hImageGroupController.SetRawImageSize(m_nIndex, m_vSize);
-        }
-
-        protected virtual void SetSizeToNative(DSC_Dialogue_ImageGroupController hImageGroupController)
-        {
-            hImageGroupController.SetRawImageSizeToNative(m_nIndex);
-        }
-
-        protected virtual void ShowImage(DSC_Dialogue_ImageGroupController hImageGroupController)
-        {
-            hImageGroupController.ShowRawImage(m_nIndex);
-        }
-
-        protected virtual void HideImage(DSC_Dialogue_ImageGroupController hImageGroupController)
-        {
-            hImageGroupController.HideRawImage(m_nIndex);
+            if (!m_bUseNativeSize)
+                hImageGroupController.SetRawImageSize(m_nIndex, m_vSize);
+            else
+                hImageGroupController.SetRawImageSizeToNative(m_nIndex);
         }
 
         #endregion

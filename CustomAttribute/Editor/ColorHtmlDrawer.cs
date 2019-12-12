@@ -3,8 +3,8 @@ using UnityEditor;
 
 namespace DSC.DialogueSystem
 {
-    [CustomPropertyDrawer(typeof(ColorHtmlPropertyAttribute))]
-    public class ColorHtmlPropertyDrawer : PropertyDrawer
+    [CustomPropertyDrawer(typeof(ColorHtmlAttribute))]
+    public class ColorHtmlDrawer : PropertyDrawer
     {
         public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
         {

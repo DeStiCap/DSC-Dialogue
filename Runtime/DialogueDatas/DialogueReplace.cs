@@ -40,7 +40,7 @@ namespace DSC.DialogueSystem
         [SerializeField] string m_sReplaceID;
         [SerializeField] ReplaceEventType m_eEventType;
 
-        [ColorHtmlProperty]
+        [ColorHtml]
         [SerializeField] string m_sColor;
 
         [Header("Option")]

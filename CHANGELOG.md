@@ -1,6 +1,12 @@
 # Changelog
 All this project change will be documented in this file.
 
+## [0.0.15] - 2019-12-12
+- Move show/hide event in image/raw image to news script.
+- Add EnumMask attribute for see enum flag in inspector.
+- Add utility for flag. Now can check flag by use this.
+- Change image/raw image set type to use flag instead.
+
 ## [0.0.14] - 2019-12-11
 - Remove event image, raw image, text color array.
 - Change event image and raw image to image set and raw image set.

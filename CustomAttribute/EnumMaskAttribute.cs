@@ -2,8 +2,8 @@
 
 namespace DSC.DialogueSystem
 {
-    public class ColorHtmlPropertyAttribute : PropertyAttribute
+    public class EnumMaskAttribute : PropertyAttribute
     {
-
+        
     }
 }
