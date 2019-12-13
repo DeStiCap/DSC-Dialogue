@@ -14,6 +14,7 @@ namespace DSC.DialogueSystem
             GameObject,
             Image,
             RawImage,
+            Canvas,
         }
 
         protected enum SetType
@@ -56,6 +57,10 @@ namespace DSC.DialogueSystem
 
                 case ObjectType.RawImage:
                     SetRawImage(lstData);
+                    break;
+
+                case ObjectType.Canvas:
+                    SetCanvas(lstData);
                     break;
             }
         }
@@ -107,6 +112,23 @@ namespace DSC.DialogueSystem
             }
         }
 
+        protected virtual void SetCanvas(List<IDialogueEventData> lstData)
+        {
+            if (!TryGetCanvasGroupController(lstData, out var hOutController))
+                return;
+
+            switch (m_eSet)
+            {
+                case SetType.Enable:
+                    hOutController.ShowCanvas(m_nIndex);
+                    break;
+
+                case SetType.Disable:
+                    hOutController.HideCanvas(m_nIndex);
+                    break;
+            }
+        }
+
         #endregion
 
         #region Helper
@@ -137,6 +159,20 @@ namespace DSC.DialogueSystem
         protected bool TryGetGameObjectGroupController(List<IDialogueEventData> lstData,out DSC_Dialogue_GameObjectGroupController hOutController)
         {
             hOutController = GetGameObjectGroupController(lstData);
+            return hOutController != null;
+        }
+
+        protected DSC_Dialogue_CanvasGroupController GetCanvasGroupController(List<IDialogueEventData> lstData)
+        {
+            if (!lstData.TryGetData(out DialogueEventData_Canvas hOutData))
+                return null;
+
+            return hOutData.m_hGroupController;
+        }
+
+        protected bool TryGetCanvasGroupController(List<IDialogueEventData> lstData, out DSC_Dialogue_CanvasGroupController hOutController)
+        {
+            hOutController = GetCanvasGroupController(lstData);
             return hOutController != null;
         }
 

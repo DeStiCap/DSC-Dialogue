@@ -1,6 +1,11 @@
 # Changelog
 All this project change will be documented in this file.
 
+## [0.0.18] - 2019-12-13
+- Add standalone controller for run dialogue event.
+- Add canvas controller.
+- Add canvas group controller.
+
 ## [0.0.17] - 2019-12-12
 - Add GameObject group controller.
 - Add function set new dialogue data.

@@ -1,0 +1,35 @@
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+namespace DSC.DialogueSystem
+{
+    public class DSC_Dialogue_EventController : MonoBehaviour
+    {
+        #region Variable
+
+        #region Variable - Inspector
+#pragma warning disable 0649
+
+        [SerializeField] DSC_Dialogue_DataController m_hDataController;
+
+#pragma warning restore 0649
+        #endregion
+
+        #endregion
+
+        #region Event
+
+        public virtual void StartDialogueEvent(BaseDialogueEvent hEvent)
+        {
+            if (hEvent == null)
+                return;
+
+            var lstData = m_hDataController?.DialogueEventDataList;
+
+            hEvent.OnStart(lstData);
+        }
+
+        #endregion
+    }
+}
