@@ -146,9 +146,8 @@ namespace DSC.DialogueSystem
 
         protected void ReplaceColor(ref string sOriginal, BaseDialogueReplace hReplace)
         {
-            int nWordIndex = sOriginal.IndexOf(hReplace.ID);
-            sOriginal = sOriginal.Insert(nWordIndex + hReplace.ID.Length, "</color>");
-            sOriginal = sOriginal.Insert(nWordIndex, "<color=#" + hReplace.ReplaceColor + ">");
+            string sColorWord = "<color=#" + hReplace.ReplaceColor + ">" + hReplace.ID + "</color>";
+            sOriginal = sOriginal.Replace(hReplace.ID, sColorWord);
         }
         
         #endregion

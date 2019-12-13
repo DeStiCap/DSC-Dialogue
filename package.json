@@ -2,10 +2,15 @@
     "name": "com.dsc.dialogue-system",
     "author": "Supawich Dechpuwarat",
     "displayName": "DSC Dialogue System",
-    "version": "0.0.18",
+    "version": "0.0.19-preview.1",
     "unity": "2019.3",
     "keywords": [
         "Dialogue"
     ],
-    "description": "Helper plugin for Dialogue System."
+    "description": "Helper plugin for Dialogue System.",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/DeStiCap/DSC-DialogueSystem.git",
+		"revision": "6764f47c1eff039c274b08869213a734e2e58eea"
+	}
 }

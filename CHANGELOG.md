@@ -1,6 +1,10 @@
 # Changelog
 All this project change will be documented in this file.
 
+## [0.0.19-preview.1] - 2019-12-13
+- Fix replace color word only change color only one word in sentense that has more replace than one.
+- Add repository to package json.
+
 ## [0.0.18] - 2019-12-13
 - Add standalone controller for run dialogue event.
 - Add canvas controller.
