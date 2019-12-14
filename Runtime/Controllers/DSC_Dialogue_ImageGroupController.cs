@@ -149,7 +149,7 @@ namespace DSC.DialogueSystem
         {
             DSC_Dialogue_ImageController hResult = null;
 
-            if (nIndex < 0 ||  m_arrImageController.Length <= nIndex)
+            if (nIndex < 0 || m_arrImageController == null ||  m_arrImageController.Length <= nIndex)
                 return hResult;
 
             hResult = m_arrImageController[nIndex];
@@ -168,7 +168,7 @@ namespace DSC.DialogueSystem
         {
             DSC_Dialogue_RawImageController hResult = null;
 
-            if (nIndex < 0 || m_arrRawImageController.Length <= nIndex)
+            if (nIndex < 0 || m_arrRawImageController == null || m_arrRawImageController.Length <= nIndex)
                 return hResult;
 
             hResult = m_arrRawImageController[nIndex];

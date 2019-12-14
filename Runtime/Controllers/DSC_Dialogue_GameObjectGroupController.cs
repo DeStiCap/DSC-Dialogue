@@ -56,7 +56,7 @@ namespace DSC.DialogueSystem
 
         protected GameObject GetGameObject(int nIndex)
         {
-            if (nIndex < 0 || m_arrGameObject == null || m_arrGameObject.Length <= 0)
+            if (nIndex < 0 || m_arrGameObject == null || m_arrGameObject.Length <= nIndex)
                 return null;
 
             return m_arrGameObject[nIndex];

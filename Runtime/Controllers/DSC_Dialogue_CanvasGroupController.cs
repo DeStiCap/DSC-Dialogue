@@ -56,13 +56,19 @@ namespace DSC.DialogueSystem
             hController?.HideCanvas();
         }
 
+        public void SetEnable(int nIndex,UIType eGroupType, bool bEnable)
+        {
+            var hController = GetCanvasController(nIndex);
+            hController?.SetEnable(eGroupType, bEnable);
+        }
+
         #endregion
 
         #region Helper
 
         protected DSC_Dialogue_CanvasController GetCanvasController(int nIndex)
         {
-            if (nIndex < 0 || m_arrCanvasController == null || m_arrCanvasController.Length <= 0)
+            if (nIndex < 0 || m_arrCanvasController == null || m_arrCanvasController.Length <= nIndex)
                 return null;
 
             return m_arrCanvasController[nIndex];

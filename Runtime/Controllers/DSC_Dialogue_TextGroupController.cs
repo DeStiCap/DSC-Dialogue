@@ -138,7 +138,7 @@ namespace DSC.DialogueSystem
         {
             DSC_Dialogue_TextController hResult = null;
 
-            if (nIndex < 0 || m_arrTextController.Length <= nIndex)
+            if (nIndex < 0 || m_arrTextController == null || m_arrTextController.Length <= nIndex)
                 return hResult;
 
             hResult = m_arrTextController[nIndex];

@@ -1,6 +1,9 @@
 # Changelog
 All this project change will be documented in this file.
 
+## [0.0.20-preview.2] - 2019-12-14
+- Add canvas group feature to enable/disable button.
+
 ## [0.0.20-preview.1] - 2019-12-14
 - Add group event for group many event to one event for run.
 
