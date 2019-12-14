@@ -1,6 +1,9 @@
 # Changelog
 All this project change will be documented in this file.
 
+## [0.0.20-preview.1] - 2019-12-14
+- Add group event for group many event to one event for run.
+
 ## [0.0.19-preview.1] - 2019-12-13
 - Fix replace color word only change color only one word in sentense that has more replace than one.
 - Add repository to package json.
