@@ -1,6 +1,11 @@
 # Changelog
 All this project change will be documented in this file.
 
+## [0.0.20-preview.3] - 2019-12-14
+- Change image group to derived from UI group.
+- Change canvas group to derived from UI group.
+- Add raw image group. (Move out from inside image group.)
+
 ## [0.0.20-preview.2] - 2019-12-14
 - Add canvas group feature to enable/disable button.
 

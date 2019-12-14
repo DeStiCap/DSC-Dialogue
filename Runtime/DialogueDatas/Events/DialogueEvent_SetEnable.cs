@@ -86,28 +86,28 @@ namespace DSC.DialogueSystem
             switch (m_eSet)
             {
                 case SetType.Enable:
-                    hOutController.ShowImage(m_nIndex);
+                    hOutController.SetEnable(m_nIndex, true);
                     break;
 
                 case SetType.Disable:
-                    hOutController.HideImage(m_nIndex);
+                    hOutController.SetEnable(m_nIndex, false);
                     break;
             }
         }
 
         protected virtual void SetRawImage(List<IDialogueEventData> lstData)
         {
-            if (!TryGetImageGroupController(lstData, out var hOutController))
+            if (!TryGetRawImageGroupController(lstData, out var hOutController))
                 return;
 
             switch (m_eSet)
             {
                 case SetType.Enable:
-                    hOutController.ShowRawImage(m_nIndex);
+                    hOutController.SetEnable(m_nIndex,true);
                     break;
 
                 case SetType.Disable:
-                    hOutController.HideRawImage(m_nIndex);
+                    hOutController.SetEnable(m_nIndex, false);
                     break;
             }
         }
@@ -120,11 +120,11 @@ namespace DSC.DialogueSystem
             switch (m_eSet)
             {
                 case SetType.Enable:
-                    hOutController.ShowCanvas(m_nIndex);
+                    hOutController.SetEnable(m_nIndex, true);
                     break;
 
                 case SetType.Disable:
-                    hOutController.HideCanvas(m_nIndex);
+                    hOutController.SetEnable(m_nIndex, false);
                     break;
             }
         }
@@ -144,6 +144,21 @@ namespace DSC.DialogueSystem
         protected bool TryGetImageGroupController(List<IDialogueEventData> lstData,out DSC_Dialogue_ImageGroupController hOutController)
         {
             hOutController = GetImageGroupController(lstData);
+
+            return hOutController != null;
+        }
+
+        protected DSC_Dialogue_RawImageGroupController GetRawImageGroupController(List<IDialogueEventData> lstData)
+        {
+            if (!lstData.TryGetData(out DialogueEventData_RawImage hOutData))
+                return null;
+
+            return hOutData.m_hGroupController;
+        }
+
+        protected bool TryGetRawImageGroupController(List<IDialogueEventData> lstData, out DSC_Dialogue_RawImageGroupController hOutController)
+        {
+            hOutController = GetRawImageGroupController(lstData);
 
             return hOutController != null;
         }

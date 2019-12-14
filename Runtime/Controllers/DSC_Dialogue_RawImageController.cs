@@ -6,7 +6,7 @@ using UnityEngine.UI;
 namespace DSC.DialogueSystem
 {
     [RequireComponent(typeof(RawImage))]
-    public class DSC_Dialogue_RawImageController : MonoBehaviour
+    public class DSC_Dialogue_RawImageController : BaseDialogueUI
     {
         #region Variable
 
@@ -21,6 +21,15 @@ namespace DSC.DialogueSystem
         {
             m_hRectTransform = GetComponent<RectTransform>();
             m_hRawImage = GetComponent<RawImage>();
+        }
+
+        #endregion
+
+        #region Base - Override
+
+        public override void SetEnable(bool bEnable)
+        {
+            m_hRawImage.enabled = bEnable;
         }
 
         #endregion
@@ -55,16 +64,6 @@ namespace DSC.DialogueSystem
         public void SetColor(Color hColor)
         {
             m_hRawImage.color = hColor;
-        }
-
-        public void ShowImage()
-        {
-            m_hRawImage.enabled = true;
-        }
-
-        public void HideImage()
-        {
-            m_hRawImage.enabled = false;
         }
 
         #endregion

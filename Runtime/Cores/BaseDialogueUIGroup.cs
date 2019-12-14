@@ -9,6 +9,10 @@ namespace DSC.DialogueSystem
     public enum UIType
     {
         None,
+        Canvas,
+        Text,
+        Image,
+        RawImage,
         Button,
     }
 

@@ -6,7 +6,7 @@ using UnityEngine.UI;
 namespace DSC.DialogueSystem
 {
     [RequireComponent(typeof(Image))]
-    public class DSC_Dialogue_ImageController : MonoBehaviour
+    public class DSC_Dialogue_ImageController : BaseDialogueUI
     {
         #region Variable
 
@@ -72,6 +72,11 @@ namespace DSC.DialogueSystem
         public void HideImage()
         {
             m_hImage.enabled = false;
+        }
+
+        public override void SetEnable(bool bEnable)
+        {
+            m_hImage.enabled = bEnable;
         }
 
         #endregion

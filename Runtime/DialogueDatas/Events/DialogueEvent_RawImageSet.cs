@@ -45,51 +45,51 @@ namespace DSC.DialogueSystem
         {
             base.OnStart(lstData);
 
-            if (!lstData.TryGetData(out DialogueEventData_Image hOutData))
+            if (!lstData.TryGetData(out DialogueEventData_RawImage hOutData))
                 return;
 
-            var hImageGroupController = hOutData.m_hGroupController;
-            if (hImageGroupController == null)
+            var hGroupController = hOutData.m_hGroupController;
+            if (hGroupController == null)
                 return;
 
             if (FlagUtility.HasFlagUnsafe(m_eType, RawImageSetType.SetTexture))
-                SetTexture(hImageGroupController);
+                SetTexture(hGroupController);
 
             if (FlagUtility.HasFlagUnsafe(m_eType, RawImageSetType.SetPosition))
-                SetPosition(hImageGroupController);
+                SetPosition(hGroupController);
 
             if (FlagUtility.HasFlagUnsafe(m_eType, RawImageSetType.SetSize))
-                SetSize(hImageGroupController);
+                SetSize(hGroupController);
 
             if (FlagUtility.HasFlagUnsafe(m_eType, RawImageSetType.SetRotation))
-                SetRotation(hImageGroupController);
+                SetRotation(hGroupController);
         }
 
         #endregion
 
         #region Main
 
-        protected virtual void SetTexture(DSC_Dialogue_ImageGroupController hImageGroupController)
+        protected virtual void SetTexture(DSC_Dialogue_RawImageGroupController hGroupController)
         {
-            hImageGroupController.SetRawImageTexture(m_nIndex, m_hTexture);
+            hGroupController.SetTexture(m_nIndex, m_hTexture);
         }
 
-        protected virtual void SetPosition(DSC_Dialogue_ImageGroupController hImageGroupController)
+        protected virtual void SetPosition(DSC_Dialogue_RawImageGroupController hGroupController)
         {
-            hImageGroupController.SetRawImagePosition(m_nIndex, m_vPosition);
+            hGroupController.SetPosition(m_nIndex, m_vPosition);
         }
 
-        protected virtual void SetSize(DSC_Dialogue_ImageGroupController hImageGroupController)
+        protected virtual void SetSize(DSC_Dialogue_RawImageGroupController hGroupController)
         {
             if (!m_bUseNativeSize)
-                hImageGroupController.SetRawImageSize(m_nIndex, m_vSize);
+                hGroupController.SetSize(m_nIndex, m_vSize);
             else
-                hImageGroupController.SetRawImageSizeToNative(m_nIndex);
+                hGroupController.SetSizeToNative(m_nIndex);
         }
 
-        protected virtual void SetRotation(DSC_Dialogue_ImageGroupController hImageGroupController)
+        protected virtual void SetRotation(DSC_Dialogue_RawImageGroupController hGroupController)
         {
-            hImageGroupController.SetRawImageRotation(m_nIndex, m_vRotation);
+            hGroupController.SetRotation(m_nIndex, m_vRotation);
         }
 
         #endregion

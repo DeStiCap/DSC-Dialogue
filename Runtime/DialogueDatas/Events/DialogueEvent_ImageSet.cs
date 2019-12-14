@@ -71,25 +71,25 @@ namespace DSC.DialogueSystem
 
         protected virtual void SetSprite(DSC_Dialogue_ImageGroupController hImageGroupController)
         {
-            hImageGroupController.SetImageSprite(m_nIndex, m_hSprite);
+            hImageGroupController.SetSprite(m_nIndex, m_hSprite);
         }
 
         protected virtual void SetPosition(DSC_Dialogue_ImageGroupController hImageGroupController)
         {
-            hImageGroupController.SetImagePosition(m_nIndex, m_vPosition);
+            hImageGroupController.SetPosition(m_nIndex, m_vPosition);
         }
 
         protected virtual void SetSize(DSC_Dialogue_ImageGroupController hImageGroupController)
         {
             if (!m_bUseNativeSize)
-                hImageGroupController.SetImageSize(m_nIndex, m_vSize);
+                hImageGroupController.SetSize(m_nIndex, m_vSize);
             else
-                hImageGroupController.SetImageSizeToNative(m_nIndex);
+                hImageGroupController.SetSizeToNative(m_nIndex);
         }
 
         protected virtual void SetRotation(DSC_Dialogue_ImageGroupController hImageGroupController)
         {
-            hImageGroupController.SetImageRotation(m_nIndex, m_vRotation);
+            hImageGroupController.SetRotation(m_nIndex, m_vRotation);
         }
 
         #endregion

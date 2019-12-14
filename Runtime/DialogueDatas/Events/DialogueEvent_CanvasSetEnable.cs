@@ -9,11 +9,6 @@ namespace DSC.DialogueSystem
     {
         #region Enum
 
-        protected enum GroupType
-        {
-            Button,
-        }
-
         protected enum SetType
         {
             Enable,

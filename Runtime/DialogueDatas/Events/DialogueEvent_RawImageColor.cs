@@ -26,14 +26,14 @@ namespace DSC.DialogueSystem
         {
             base.OnStart(lstData);
 
-            if (!lstData.TryGetData(out DialogueEventData_Image hOutData))
+            if (!lstData.TryGetData(out DialogueEventData_RawImage hOutData))
                 return;
 
-            var hImageGroupController = hOutData.m_hGroupController;
-            if (hImageGroupController == null)
+            var hGroupController = hOutData.m_hGroupController;
+            if (hGroupController == null)
                 return;
 
-            hImageGroupController.SetRawImageColor(m_nIndex, m_hColor);
+            hGroupController.SetColor(m_nIndex, m_hColor);
         }
 
         #endregion

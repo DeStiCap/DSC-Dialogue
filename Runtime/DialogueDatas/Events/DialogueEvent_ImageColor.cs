@@ -33,7 +33,7 @@ namespace DSC.DialogueSystem
             if (hImageGroupController == null)
                 return;
 
-            hImageGroupController.SetImageColor(m_nIndex, m_hColor);
+            hImageGroupController.SetColor(m_nIndex, m_hColor);
         }
 
         #endregion

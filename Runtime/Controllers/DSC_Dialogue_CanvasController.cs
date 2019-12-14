@@ -5,7 +5,7 @@ using UnityEngine;
 namespace DSC.DialogueSystem
 {
     [RequireComponent(typeof(Canvas))]
-    public class DSC_Dialogue_CanvasController : MonoBehaviour
+    public class DSC_Dialogue_CanvasController : BaseDialogueUI
     {
         #region Variable
 
@@ -32,14 +32,9 @@ namespace DSC.DialogueSystem
 
         #region Main
 
-        public void ShowCanvas()
+        public override void SetEnable(bool bEnable)
         {
-            m_hCanvas.enabled = true;
-        }
-
-        public void HideCanvas()
-        {
-            m_hCanvas.enabled = false;
+            m_hCanvas.enabled = bEnable;
         }
 
         public void SetEnable(UIType eGroupType, bool bEnable)
