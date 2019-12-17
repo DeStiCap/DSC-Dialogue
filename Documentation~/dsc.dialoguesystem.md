@@ -1,3 +1,3 @@
-# Plugin Game Event System for Unity
+# Plugin Dialogue for Unity
 
 Test plugin.
