@@ -2,7 +2,7 @@
     "name": "com.dsc.dialogue-system",
     "author": "Supawich Dechpuwarat",
     "displayName": "DSC Dialogue System",
-    "version": "0.0.21-preview.2",
+    "version": "0.0.21-preview.3",
     "unity": "2019.3",
     "keywords": [
         "Dialogue"
@@ -14,7 +14,6 @@
 		"revision": "06505e6a5d9ccd254fb4f91af39fa73d2c2aa7f9"
 	},
 	"dependencies": {
-		"com.dsc.core": "https://github.com/DeStiCap/DSC-CoreSystem.git",
 		"com.unity.textmeshpro": "2.0.1"
   }
 }

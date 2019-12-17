@@ -1,7 +1,7 @@
 # Changelog
 All this project change will be documented in this file.
 
-## [0.0.21-preview.2] - 2019-12-17
+## [0.0.21-preview.3] - 2019-12-17
 - Remove custom attribute. Use Core package attribute instead.
 - Remove FlagUtility. Use Core package Utility instead.
 
