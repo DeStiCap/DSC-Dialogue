@@ -1,6 +1,10 @@
 # Changelog
 All this project change will be documented in this file.
 
+## [0.0.21-preview.1] - 2019-12-17
+- Remove custom attribute. Use Core package attribute instead.
+- Remove FlagUtility. Use Core package Utility instead.
+
 ## [0.0.20-preview.3] - 2019-12-14
 - Change image group to derived from UI group.
 - Change canvas group to derived from UI group.
