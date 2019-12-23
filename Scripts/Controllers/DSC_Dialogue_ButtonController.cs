@@ -2,11 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using DSC.UI;
 
 namespace DSC.DialogueSystem
 {
     [RequireComponent(typeof(Button))]
-    public class DSC_Dialogue_ButtonController : BaseDialogueUI
+    public class DSC_Dialogue_ButtonController : BaseUIController
     {
         #region Variable
 

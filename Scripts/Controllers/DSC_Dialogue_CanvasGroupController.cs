@@ -1,25 +1,27 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using DSC.UI;
 
 namespace DSC.DialogueSystem
 {
-    public class DSC_Dialogue_CanvasGroupController : BaseDialogueUIGroup
+    public class DSC_Dialogue_CanvasGroupController : UIGroupController<DSC_Dialogue_CanvasController>
     {
         #region Variable
 
         #region Variable - Inspector
 #pragma warning disable 0649
 
-        [SerializeField] DSC_Dialogue_DataController m_hDataController;
-        [SerializeField] DSC_Dialogue_CanvasController[] m_arrCanvasController;
+        [SerializeField] protected DSC_Dialogue_DataController m_hDataController;
+        [SerializeField] protected List<DSC_Dialogue_CanvasController> m_lstCanvasController;
 
 #pragma warning restore 0649
         #endregion
 
         #region Variable - Property
 
-        public override UIType GroupType { get { return UIType.Canvas; } }
+        public override UIType groupType { get { return UIType.Canvas; } }
+        protected override List<DSC_Dialogue_CanvasController> uiControllerList { get { return m_lstCanvasController; } }
 
         #endregion
 
@@ -27,7 +29,7 @@ namespace DSC.DialogueSystem
 
         #region Base - Mono
 
-        private void Awake()
+        protected virtual void Awake()
         {
             if (m_hDataController && m_hDataController.DialogueEventDataList != null)
             {
@@ -38,7 +40,7 @@ namespace DSC.DialogueSystem
             }
         }
 
-        private void OnDestroy()
+        protected virtual void OnDestroy()
         {
             if (m_hDataController != null && m_hDataController.DialogueEventDataList != null)
             {
@@ -48,30 +50,9 @@ namespace DSC.DialogueSystem
 
         #endregion
 
-        #region Base - Override
-
-        public override void SetEnable(int nIndex, bool bEnable)
-        {
-            var hController = GetCanvasController(nIndex);
-            hController?.SetEnable(bEnable);
-        }
-
-        public override void SetAllEnable(bool bEnable)
-        {
-            if (!HasCanvasInArray())
-                return;
-
-            for (int i = 0; i < m_arrCanvasController.Length; i++)
-            {
-                m_arrCanvasController[i]?.SetEnable(bEnable);
-            }
-        }
-
-        #endregion
-
         #region Main
 
-        public void SetEnable(int nIndex,UIType eGroupType, bool bEnable)
+        public virtual void SetEnable(int nIndex,UIType eGroupType, bool bEnable)
         {
             var hController = GetCanvasController(nIndex);
             hController?.SetEnable(eGroupType, bEnable);
@@ -81,17 +62,17 @@ namespace DSC.DialogueSystem
 
         #region Helper
 
-        protected bool HasCanvasInArray()
+        protected bool HasCanvasInList()
         {
-            return (m_arrCanvasController != null && m_arrCanvasController.Length > 0);
+            return (m_lstCanvasController != null && m_lstCanvasController.Count > 0);
         }
 
         protected DSC_Dialogue_CanvasController GetCanvasController(int nIndex)
         {
-            if (nIndex < 0 || m_arrCanvasController == null || m_arrCanvasController.Length <= nIndex)
+            if (nIndex < 0 || m_lstCanvasController == null || m_lstCanvasController.Count <= nIndex)
                 return null;
 
-            return m_arrCanvasController[nIndex];
+            return m_lstCanvasController[nIndex];
         }
 
         protected bool TryGetCanvasController(int nIndex,out DSC_Dialogue_CanvasController hOutController)

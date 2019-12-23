@@ -1,5 +1,6 @@
-# Changelog
-All this project change will be documented in this file.
+## [0.0.22-preview.1] - 2019-12-22
+- Remove Dialogue UI Controller. Use Base UI Controller from UI package instead.
+- Remove Dialogue UI Group Controller. Use UI Group Controller from UI package instead.
 
 ## [0.0.21-preview.5] - 2019-12-17
 - Remove custom attribute. Use Core package attribute instead.

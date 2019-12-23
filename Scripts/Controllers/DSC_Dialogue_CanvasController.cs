@@ -1,18 +1,19 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using DSC.UI;
 
 namespace DSC.DialogueSystem
 {
     [RequireComponent(typeof(Canvas))]
-    public class DSC_Dialogue_CanvasController : BaseDialogueUI
+    public class DSC_Dialogue_CanvasController : BaseUIController
     {
         #region Variable
 
         #region Variable - Inspector
 #pragma warning disable 0649
 
-        [SerializeField] BaseDialogueUIGroup[] m_arrGroup;
+        [SerializeField] protected List<BaseUIGroupController> m_lstGroup;
 
 #pragma warning restore 0649
         #endregion
@@ -37,7 +38,7 @@ namespace DSC.DialogueSystem
             m_hCanvas.enabled = bEnable;
         }
 
-        public void SetEnable(UIType eGroupType, bool bEnable)
+        public virtual void SetEnable(UIType eGroupType, bool bEnable)
         {
             if (!TryGetGroupController(eGroupType,out var hOutGroup))
                 return;
@@ -49,20 +50,20 @@ namespace DSC.DialogueSystem
 
         #region Helper
 
-        protected bool HasGroupInArray()
+        protected bool HasGroupInList()
         {
-            return (m_arrGroup != null && m_arrGroup.Length > 0);
+            return (m_lstGroup != null && m_lstGroup.Count > 0);
         }
 
-        protected BaseDialogueUIGroup GetGroupController(UIType eGroupType)
+        protected BaseUIGroupController GetGroupController(UIType eGroupType)
         {
-            if (!HasGroupInArray())
+            if (!HasGroupInList())
                 return null;
 
-            for (int i = 0; i < m_arrGroup.Length; i++)
+            for (int i = 0; i < m_lstGroup.Count; i++)
             {
-                var hGroup = m_arrGroup[i];
-                if (hGroup == null || hGroup.GroupType != eGroupType)
+                var hGroup = m_lstGroup[i];
+                if (hGroup == null || hGroup.groupType != eGroupType)
                     continue;
 
                 return hGroup;
@@ -71,7 +72,7 @@ namespace DSC.DialogueSystem
             return null;
         }
 
-        protected bool TryGetGroupController(UIType eGroupType,out BaseDialogueUIGroup hOutGroup)
+        protected bool TryGetGroupController(UIType eGroupType,out BaseUIGroupController hOutGroup)
         {
             hOutGroup = GetGroupController(eGroupType);
 

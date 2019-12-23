@@ -2,11 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using DSC.UI;
 
 namespace DSC.DialogueSystem
 {
     [RequireComponent(typeof(Image))]
-    public class DSC_Dialogue_ImageController : BaseDialogueUI
+    public class DSC_Dialogue_ImageController : BaseUIController
     {
         #region Variable
 
