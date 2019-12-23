@@ -1,28 +1,42 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using DSC.UI;
 
 namespace DSC.DialogueSystem
 {
-    public class DSC_Dialogue_ButtonGroupController : UIGroupController<DSC_Dialogue_ButtonController>
+    public class DSC_Dialogue_ButtonGroupController : DSC_UI_ButtonGroupController
     {
         #region Variable
 
         #region Variable - Inspector
 #pragma warning disable 0649
 
-        [SerializeField] protected List<DSC_Dialogue_ButtonController> m_lstButtonController;
+        [SerializeField] protected DSC_Dialogue_DataController m_hDataController;
 
 #pragma warning restore 0649
         #endregion
 
-        #region Variable - Property
-
-        public override UIType groupType { get { return UIType.Button; } }
-        protected override List<DSC_Dialogue_ButtonController> uiControllerList { get { return m_lstButtonController; } }
-
         #endregion
+
+        #region Base - Mono
+
+        protected virtual void Awake()
+        {
+            if (m_hDataController && m_hDataController.DialogueEventDataList != null)
+            {
+                m_hDataController.DialogueEventDataList.Add(new DialogueEventData_GroupController<DSC_Dialogue_ButtonGroupController>
+                {
+                    m_hGroupController = this,
+                });
+            }
+        }
+
+        protected virtual void OnDestroy()
+        {
+            if (m_hDataController && m_hDataController.DialogueEventDataList != null)
+            {
+                m_hDataController.DialogueEventDataList.Remove<DialogueEventData_GroupController<DSC_Dialogue_ButtonGroupController>>();
+            }
+        }
 
         #endregion
     }

@@ -41,7 +41,7 @@ namespace DSC.DialogueSystem
         {
             base.OnStart(lstData);
 
-            if (!lstData.TryGetData(out DialogueEventData_Text hOutData))
+            if (!lstData.TryGetData(out DialogueEventData_GroupController<DSC_Dialogue_TextGroupController> hOutData))
                 return;
 
             var hTextGroupController = hOutData.m_hGroupController;

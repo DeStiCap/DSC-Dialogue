@@ -59,7 +59,7 @@ namespace DSC.DialogueSystem
 
         protected DSC_Dialogue_CanvasGroupController GetCanvasGroupController(List<IDialogueEventData> lstData)
         {
-            if (!lstData.TryGetData(out DialogueEventData_Canvas hOutData))
+            if (!lstData.TryGetData(out DialogueEventData_GroupController<DSC_Dialogue_CanvasGroupController> hOutData))
                 return null;
 
             return hOutData.m_hGroupController;

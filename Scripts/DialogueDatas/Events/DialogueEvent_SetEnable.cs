@@ -75,7 +75,7 @@ namespace DSC.DialogueSystem
                 return;
 
             bool bActive = m_eSet == SetType.Enable;
-            hOutController.SetActiveGameObject(m_nIndex, bActive);
+            hOutController.SetEnable(m_nIndex, bActive);
         }
 
         protected virtual void SetImage(List<IDialogueEventData> lstData)
@@ -135,7 +135,7 @@ namespace DSC.DialogueSystem
 
         protected DSC_Dialogue_ImageGroupController GetImageGroupController(List<IDialogueEventData> lstData)
         {
-            if (!lstData.TryGetData(out DialogueEventData_Image hOutData))
+            if (!lstData.TryGetData(out DialogueEventData_GroupController<DSC_Dialogue_ImageGroupController> hOutData))
                 return null;
 
             return hOutData.m_hGroupController;            
@@ -150,7 +150,7 @@ namespace DSC.DialogueSystem
 
         protected DSC_Dialogue_RawImageGroupController GetRawImageGroupController(List<IDialogueEventData> lstData)
         {
-            if (!lstData.TryGetData(out DialogueEventData_RawImage hOutData))
+            if (!lstData.TryGetData(out DialogueEventData_GroupController<DSC_Dialogue_RawImageGroupController> hOutData))
                 return null;
 
             return hOutData.m_hGroupController;
@@ -165,7 +165,7 @@ namespace DSC.DialogueSystem
 
         protected DSC_Dialogue_GameObjectGroupController GetGameObjectGroupController(List<IDialogueEventData> lstData)
         {
-            if (!lstData.TryGetData(out DialogueEventData_GameObject hOutData))
+            if (!lstData.TryGetData(out DialogueEventData_GroupController<DSC_Dialogue_GameObjectGroupController> hOutData))
                 return null;
 
             return hOutData.m_hGroupController;
@@ -179,7 +179,7 @@ namespace DSC.DialogueSystem
 
         protected DSC_Dialogue_CanvasGroupController GetCanvasGroupController(List<IDialogueEventData> lstData)
         {
-            if (!lstData.TryGetData(out DialogueEventData_Canvas hOutData))
+            if (!lstData.TryGetData(out DialogueEventData_GroupController<DSC_Dialogue_CanvasGroupController> hOutData))
                 return null;
 
             return hOutData.m_hGroupController;

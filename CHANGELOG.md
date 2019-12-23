@@ -1,6 +1,8 @@
-## [0.0.22-preview.1] - 2019-12-22
+## [0.0.22-preview.2] - 2019-12-23
+- Change Event data group controller to use only one generic script. (Remove all non generic data group controller script.)
 - Remove Dialogue UI Controller. Use Base UI Controller from UI package instead.
 - Remove Dialogue UI Group Controller. Use UI Group Controller from UI package instead.
+- Remove Dialogue Button. Use DSC_UI_ButtonController from UI package instead.
 
 ## [0.0.21-preview.5] - 2019-12-17
 - Remove custom attribute. Use Core package attribute instead.
