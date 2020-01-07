@@ -9,6 +9,7 @@ namespace DSC.DialogueSystem
     [System.Serializable]
     public struct Dialogue
     {
+        [TextArea]
         public string m_sDialogue;
         public string m_sTalker;
 
