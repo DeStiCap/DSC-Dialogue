@@ -12,8 +12,9 @@ namespace DSC.DialogueSystem
         #region Variable - Inspector
 #pragma warning disable 0649
 
-        [SerializeField] int m_nIndex;
-        [SerializeField] Color m_hColor;
+        [SerializeField] protected int m_nGroupID;
+        [SerializeField] protected int m_nIndex;
+        [SerializeField] protected Color m_hColor;
 
 #pragma warning restore 0649
         #endregion
@@ -26,14 +27,21 @@ namespace DSC.DialogueSystem
         {
             base.OnStart(lstData);
 
-            if (!lstData.TryGetData(out DialogueEventData_GroupController<DSC_Dialogue_RawImageGroupController> hOutData))
+            if (!lstData.TryGetData(out DialogueEventData_GroupController<DSC_Dialogue_RawImageGroupController> hOutData) || hOutData.m_lstGroupController == null)
                 return;
 
-            var hGroupController = hOutData.m_hGroupController;
-            if (hGroupController == null)
-                return;
+            for(int i = 0; i < hOutData.m_lstGroupController.Count; i++)
+            {
+                var hGroupController = hOutData.m_lstGroupController[i];
+                if (hGroupController == null)
+                    continue;
 
-            hGroupController.SetColor(m_nIndex, m_hColor);
+                if(hGroupController.groupID == m_nGroupID)
+                {
+                    hGroupController.SetColor(m_nIndex, m_hColor);
+                    break;
+                }
+            }
         }
 
         #endregion

@@ -23,9 +23,10 @@ namespace DSC.DialogueSystem
         #region Variable - Inspector
 #pragma warning disable 0649
 
-        [SerializeField] int m_nIndex;
-        [SerializeField] UIType m_eGroupType;
-        [SerializeField] SetType m_eSetType;
+        [SerializeField] protected int m_nGroupID;
+        [SerializeField] protected int m_nIndex;
+        [SerializeField] protected UIType m_eGroupType;
+        [SerializeField] protected SetType m_eSetType;
 
 #pragma warning restore 0649
         #endregion
@@ -59,10 +60,20 @@ namespace DSC.DialogueSystem
 
         protected DSC_Dialogue_CanvasGroupController GetCanvasGroupController(List<IDialogueEventData> lstData)
         {
-            if (!lstData.TryGetData(out DialogueEventData_GroupController<DSC_Dialogue_CanvasGroupController> hOutData))
+            if (!lstData.TryGetData(out DialogueEventData_GroupController<DSC_Dialogue_CanvasGroupController> hOutData) || hOutData.m_lstGroupController == null)
                 return null;
 
-            return hOutData.m_hGroupController;
+            for(int i = 0; i < hOutData.m_lstGroupController.Count; i++)
+            {
+                var hGroupController = hOutData.m_lstGroupController[i];
+                if (hGroupController == null)
+                    continue;
+
+                if (hGroupController.groupID == m_nGroupID)
+                    return hGroupController;
+            }
+
+            return null;
         }
 
         protected bool TryGetCanvasGroupController(List<IDialogueEventData> lstData, out DSC_Dialogue_CanvasGroupController hOutController)

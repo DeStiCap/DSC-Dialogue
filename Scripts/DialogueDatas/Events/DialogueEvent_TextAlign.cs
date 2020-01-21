@@ -44,12 +44,13 @@ namespace DSC.DialogueSystem
 
         #region Variable - Inspector
 #pragma warning disable 0649
-
-        [SerializeField] TextType m_eTextType;
-        [SerializeField] AlignEventType m_eAlignType;
-        [SerializeField] AlignHorizontalType m_eHorizontal;
-        [SerializeField] AlignVerticalType m_eVertical;
-        [SerializeField] int m_nIndex;
+        
+        [SerializeField] protected TextType m_eTextType;
+        [SerializeField] protected AlignEventType m_eAlignType;
+        [SerializeField] protected AlignHorizontalType m_eHorizontal;
+        [SerializeField] protected AlignVerticalType m_eVertical;
+        [SerializeField] protected int m_nGroupID;
+        [SerializeField] protected int m_nIndex;
 
 #pragma warning restore 0649
         #endregion
@@ -62,10 +63,7 @@ namespace DSC.DialogueSystem
         {
             base.OnStart(lstData);
 
-            if (!lstData.TryGetData(out DialogueEventData_GroupController<DSC_Dialogue_TextGroupController> hOutData))
-                return;
-
-            var hTextGroupController = hOutData.m_hGroupController;
+            var hTextGroupController = GetTextGroupController(lstData);
             if (hTextGroupController == null)
                 return;
 
@@ -141,6 +139,21 @@ namespace DSC.DialogueSystem
         #endregion
 
         #region Helper
+
+        protected DSC_Dialogue_TextGroupController GetTextGroupController(List<IDialogueEventData> lstData)
+        {
+            if (!lstData.TryGetData(out DialogueEventData_GroupController<DSC_Dialogue_TextGroupController> hOutData) || hOutData.m_lstGroupController == null)
+                return null;
+
+            for(int i = 0; i < hOutData.m_lstGroupController.Count; i++)
+            {
+                var hGroupController = hOutData.m_lstGroupController[i];
+                if (hGroupController != null && hGroupController.groupID == m_nGroupID)
+                    return hGroupController;
+            }
+
+            return null;
+        }
 
         protected TextAlignmentOptions GetAlignType(AlignHorizontalType eHorizontal,AlignVerticalType eVertical)
         {

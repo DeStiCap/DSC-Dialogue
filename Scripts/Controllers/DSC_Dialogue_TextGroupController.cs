@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
 using TMPro;
 using DSC.UI;
 
@@ -28,10 +29,21 @@ namespace DSC.DialogueSystem
         {
             if (m_hDataController && m_hDataController.DialogueEventDataList != null)
             {
-                m_hDataController.DialogueEventDataList.Add(new DialogueEventData_GroupController<DSC_Dialogue_TextGroupController>
+                if (m_hDataController.DialogueEventDataList.TryGetData(out DialogueEventData_GroupController<DSC_Dialogue_TextGroupController> hOutData, out int nOutIndex))
                 {
-                    m_hGroupController = this,
-                });
+                    hOutData.m_lstGroupController.Add(this);
+                    m_hDataController.DialogueEventDataList[nOutIndex] = hOutData;
+                }
+                else
+                {
+                    List<DSC_Dialogue_TextGroupController> lstGroup = new List<DSC_Dialogue_TextGroupController>();
+                    lstGroup.Add(this);
+
+                    m_hDataController.DialogueEventDataList.Add(new DialogueEventData_GroupController<DSC_Dialogue_TextGroupController>
+                    {
+                        m_lstGroupController = lstGroup
+                    });
+                }
             }
         }
 
@@ -39,7 +51,15 @@ namespace DSC.DialogueSystem
         {
             if (m_hDataController && m_hDataController.DialogueEventDataList != null)
             {
-                m_hDataController.DialogueEventDataList.Remove<DialogueEventData_GroupController<DSC_Dialogue_TextGroupController>>();
+                if (m_hDataController.DialogueEventDataList.TryGetData(out DialogueEventData_GroupController<DSC_Dialogue_TextGroupController> hOutData, out int nOutIndex))
+                {
+                    hOutData.m_lstGroupController.Remove(this);
+
+                    if (hOutData.m_lstGroupController.Count > 0)
+                        m_hDataController.DialogueEventDataList[nOutIndex] = hOutData;
+                    else
+                        m_hDataController.DialogueEventDataList.RemoveAt(nOutIndex);
+                }
             }
         }
 

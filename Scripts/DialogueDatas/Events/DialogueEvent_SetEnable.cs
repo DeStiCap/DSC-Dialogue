@@ -30,9 +30,10 @@ namespace DSC.DialogueSystem
         #region Variable - Inspector
 #pragma warning disable 0649
 
-        [SerializeField] ObjectType m_eType;
-        [SerializeField] SetType m_eSet;
-        [SerializeField] int m_nIndex;
+        [SerializeField] protected ObjectType m_eType;
+        [SerializeField] protected SetType m_eSet;
+        [SerializeField] protected int m_nGroupID;
+        [SerializeField] protected int m_nIndex;
 
 #pragma warning restore 0649
         #endregion
@@ -135,10 +136,17 @@ namespace DSC.DialogueSystem
 
         protected DSC_Dialogue_ImageGroupController GetImageGroupController(List<IDialogueEventData> lstData)
         {
-            if (!lstData.TryGetData(out DialogueEventData_GroupController<DSC_Dialogue_ImageGroupController> hOutData))
+            if (!lstData.TryGetData(out DialogueEventData_GroupController<DSC_Dialogue_ImageGroupController> hOutData) || hOutData.m_lstGroupController == null)
                 return null;
 
-            return hOutData.m_hGroupController;            
+            for(int i = 0; i < hOutData.m_lstGroupController.Count; i++)
+            {
+                var hGroupController = hOutData.m_lstGroupController[i];
+                if (hGroupController != null && hGroupController.groupID == m_nGroupID)
+                    return hGroupController;
+            }
+
+            return null;
         }
 
         protected bool TryGetImageGroupController(List<IDialogueEventData> lstData,out DSC_Dialogue_ImageGroupController hOutController)
@@ -150,10 +158,17 @@ namespace DSC.DialogueSystem
 
         protected DSC_Dialogue_RawImageGroupController GetRawImageGroupController(List<IDialogueEventData> lstData)
         {
-            if (!lstData.TryGetData(out DialogueEventData_GroupController<DSC_Dialogue_RawImageGroupController> hOutData))
+            if (!lstData.TryGetData(out DialogueEventData_GroupController<DSC_Dialogue_RawImageGroupController> hOutData) || hOutData.m_lstGroupController == null)
                 return null;
 
-            return hOutData.m_hGroupController;
+            for(int i = 0; i < hOutData.m_lstGroupController.Count; i++)
+            {
+                var hGroupController = hOutData.m_lstGroupController[i];
+                if (hGroupController != null && hGroupController.groupID == m_nGroupID)
+                    return hGroupController;
+            }
+
+            return null;
         }
 
         protected bool TryGetRawImageGroupController(List<IDialogueEventData> lstData, out DSC_Dialogue_RawImageGroupController hOutController)
@@ -165,10 +180,17 @@ namespace DSC.DialogueSystem
 
         protected DSC_Dialogue_GameObjectGroupController GetGameObjectGroupController(List<IDialogueEventData> lstData)
         {
-            if (!lstData.TryGetData(out DialogueEventData_GroupController<DSC_Dialogue_GameObjectGroupController> hOutData))
+            if (!lstData.TryGetData(out DialogueEventData_GroupController<DSC_Dialogue_GameObjectGroupController> hOutData) || hOutData.m_lstGroupController == null)
                 return null;
 
-            return hOutData.m_hGroupController;
+            for(int i = 0; i < hOutData.m_lstGroupController.Count; i++)
+            {
+                var hGroupController = hOutData.m_lstGroupController[i];
+                if (hGroupController != null && hGroupController.groupID == m_nGroupID)
+                    return hGroupController;
+            }
+
+            return null;
         }
 
         protected bool TryGetGameObjectGroupController(List<IDialogueEventData> lstData,out DSC_Dialogue_GameObjectGroupController hOutController)
@@ -179,10 +201,17 @@ namespace DSC.DialogueSystem
 
         protected DSC_Dialogue_CanvasGroupController GetCanvasGroupController(List<IDialogueEventData> lstData)
         {
-            if (!lstData.TryGetData(out DialogueEventData_GroupController<DSC_Dialogue_CanvasGroupController> hOutData))
+            if (!lstData.TryGetData(out DialogueEventData_GroupController<DSC_Dialogue_CanvasGroupController> hOutData) || hOutData.m_lstGroupController == null)
                 return null;
 
-            return hOutData.m_hGroupController;
+            for(int i = 0; i < hOutData.m_lstGroupController.Count; i++)
+            {
+                var hGroupController = hOutData.m_lstGroupController[i];
+                if (hGroupController != null && hGroupController.groupID == m_nGroupID)
+                    return hGroupController;
+            }
+
+            return null;
         }
 
         protected bool TryGetCanvasGroupController(List<IDialogueEventData> lstData, out DSC_Dialogue_CanvasGroupController hOutController)

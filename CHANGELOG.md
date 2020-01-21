@@ -1,3 +1,6 @@
+## [0.1.0-preview.1] - 2019-01-21
+- Support UI group ID for all dialogue event.
+
 ## [0.0.23-preview.1] - 2019-01-07
 - Add text area attribute to struct dialogue.
 

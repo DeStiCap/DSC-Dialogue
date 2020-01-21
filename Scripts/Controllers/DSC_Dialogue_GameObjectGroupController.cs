@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
 using DSC.Core;
 
 namespace DSC.DialogueSystem
@@ -10,10 +11,17 @@ namespace DSC.DialogueSystem
         #region Variable - Inspector
 #pragma warning disable 0649
 
+        [SerializeField] protected int m_nGroupID;
         [SerializeField] protected DSC_Dialogue_DataController m_hDataController;
         [SerializeField] protected GameObject[] m_arrGameObject;
 
 #pragma warning restore 0649
+        #endregion
+
+        #region Variable - Property
+
+        public virtual int groupID { get { return m_nGroupID; } }
+
         #endregion
 
         #endregion
@@ -24,10 +32,21 @@ namespace DSC.DialogueSystem
         {
             if (m_hDataController && m_hDataController.DialogueEventDataList != null)
             {
-                m_hDataController.DialogueEventDataList.Add(new DialogueEventData_GroupController<DSC_Dialogue_GameObjectGroupController>
+                if (m_hDataController.DialogueEventDataList.TryGetData(out DialogueEventData_GroupController<DSC_Dialogue_GameObjectGroupController> hOutData, out int nOutIndex))
                 {
-                    m_hGroupController = this,
-                });
+                    hOutData.m_lstGroupController.Add(this);
+                    m_hDataController.DialogueEventDataList[nOutIndex] = hOutData;
+                }
+                else
+                {
+                    List<DSC_Dialogue_GameObjectGroupController> lstGroup = new List<DSC_Dialogue_GameObjectGroupController>();
+                    lstGroup.Add(this);
+
+                    m_hDataController.DialogueEventDataList.Add(new DialogueEventData_GroupController<DSC_Dialogue_GameObjectGroupController>
+                    {
+                        m_lstGroupController = lstGroup
+                    });
+                }
             }
         }
 
@@ -35,7 +54,15 @@ namespace DSC.DialogueSystem
         {
             if (m_hDataController != null && m_hDataController.DialogueEventDataList != null)
             {
-                m_hDataController.DialogueEventDataList.Remove<DialogueEventData_GroupController<DSC_Dialogue_GameObjectGroupController>>();
+                if (m_hDataController.DialogueEventDataList.TryGetData(out DialogueEventData_GroupController<DSC_Dialogue_GameObjectGroupController> hOutData, out int nOutIndex))
+                {
+                    hOutData.m_lstGroupController.Remove(this);
+
+                    if (hOutData.m_lstGroupController.Count > 0)
+                        m_hDataController.DialogueEventDataList[nOutIndex] = hOutData;
+                    else
+                        m_hDataController.DialogueEventDataList.RemoveAt(nOutIndex);
+                }
             }
         }
 

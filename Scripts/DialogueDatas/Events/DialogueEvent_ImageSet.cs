@@ -27,12 +27,13 @@ namespace DSC.DialogueSystem
 
         [EnumMask]
         [SerializeField] protected ImageSetType m_eType;
+        [SerializeField] protected int m_nGroupID;
         [SerializeField] protected int m_nIndex;
-        [SerializeField] Sprite m_hSprite;
-        [SerializeField] Vector2 m_vPosition;
-        [SerializeField] Vector2 m_vSize;
-        [SerializeField] bool m_bUseNativeSize;
-        [SerializeField] Vector3 m_vRotation;
+        [SerializeField] protected Sprite m_hSprite;
+        [SerializeField] protected Vector2 m_vPosition;
+        [SerializeField] protected Vector2 m_vSize;
+        [SerializeField] protected bool m_bUseNativeSize;
+        [SerializeField] protected Vector3 m_vRotation;
 
 #pragma warning restore 0649
         #endregion
@@ -45,24 +46,21 @@ namespace DSC.DialogueSystem
         {
             base.OnStart(lstData);
 
-            if (!lstData.TryGetData(out DialogueEventData_GroupController<DSC_Dialogue_ImageGroupController> hOutData))
-                return;
-
-            var hImageGroupController = hOutData.m_hGroupController;
-            if (hImageGroupController == null)
+            var hGroupController = GetImageGroupController(lstData);
+            if (hGroupController == null)
                 return;
 
             if (FlagUtility.HasFlagUnsafe(m_eType, ImageSetType.SetSprite))
-                SetSprite(hImageGroupController);
+                SetSprite(hGroupController);
 
             if (FlagUtility.HasFlagUnsafe(m_eType, ImageSetType.SetPosition))
-                SetPosition(hImageGroupController);
+                SetPosition(hGroupController);
 
             if (FlagUtility.HasFlagUnsafe(m_eType, ImageSetType.SetSize))
-                SetSize(hImageGroupController);
+                SetSize(hGroupController);
 
             if (FlagUtility.HasFlagUnsafe(m_eType, ImageSetType.SetRotation))
-                SetRotation(hImageGroupController);
+                SetRotation(hGroupController);
         }
 
         #endregion
@@ -98,14 +96,17 @@ namespace DSC.DialogueSystem
 
         protected DSC_Dialogue_ImageGroupController GetImageGroupController(List<IDialogueEventData> lstData)
         {
-            DSC_Dialogue_ImageGroupController hResult = null;
+            if (!lstData.TryGetData(out DialogueEventData_GroupController<DSC_Dialogue_ImageGroupController> hOutData) || hOutData.m_lstGroupController == null)
+                return null;
 
-            if (lstData.TryGetData(out DialogueEventData_GroupController<DSC_Dialogue_ImageGroupController> hOutData))
+            for(int i = 0; i < hOutData.m_lstGroupController.Count; i++)
             {
-                hResult = hOutData.m_hGroupController;
+                var hGroupController = hOutData.m_lstGroupController[i];
+                if (hGroupController != null && hGroupController.groupID == m_nGroupID)
+                    return hGroupController;
             }
 
-            return hResult;
+            return null;
         }
 
         #endregion

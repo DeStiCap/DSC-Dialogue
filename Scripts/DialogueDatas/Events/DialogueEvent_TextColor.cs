@@ -27,6 +27,7 @@ namespace DSC.DialogueSystem
 #pragma warning disable 0649
 
         [SerializeField] protected TextEventType m_eType;
+        [SerializeField] protected int m_nGroupID;
         [SerializeField] protected int m_nIndex;
         [SerializeField] protected Color m_hColor;
 
@@ -41,39 +42,43 @@ namespace DSC.DialogueSystem
         {
             base.OnStart(lstData);
 
-            if (!lstData.TryGetData(out DialogueEventData_GroupController<DSC_Dialogue_TextGroupController> hOutData))
+            if (!lstData.TryGetData(out DialogueEventData_GroupController<DSC_Dialogue_TextGroupController> hOutData) || hOutData.m_lstGroupController == null)
                 return;
 
-            var hTextGroupController = hOutData.m_hGroupController;
-            if (hTextGroupController == null)
-                return;
-
-            switch (m_eType)
+            for(int i = 0; i < hOutData.m_lstGroupController.Count; i++)
             {
-                case TextEventType.SetDialogueColor:
-                    SetDialogueColor(hTextGroupController);
-                    break;
+                var hGroupController = hOutData.m_lstGroupController[i];
+                if(hGroupController != null && hGroupController.groupID == m_nGroupID)
+                {
+                    switch (m_eType)
+                    {
+                        case TextEventType.SetDialogueColor:
+                            SetDialogueColor(hGroupController);
+                            break;
 
-                case TextEventType.ResetDialogueColor:
-                    ResetDialogueColor(hTextGroupController);
-                    break;
+                        case TextEventType.ResetDialogueColor:
+                            ResetDialogueColor(hGroupController);
+                            break;
 
-                case TextEventType.SetTalkerColor:
-                    SetTalkerColor(hTextGroupController);
-                    break;
+                        case TextEventType.SetTalkerColor:
+                            SetTalkerColor(hGroupController);
+                            break;
 
-                case TextEventType.ResetTalkerColor:
-                    ResetTalkerColor(hTextGroupController);
-                    break;
+                        case TextEventType.ResetTalkerColor:
+                            ResetTalkerColor(hGroupController);
+                            break;
 
-                case TextEventType.SetTextColor:
-                    SetTextColor(hTextGroupController);
-                    break;
+                        case TextEventType.SetTextColor:
+                            SetTextColor(hGroupController);
+                            break;
 
-                case TextEventType.ResetTextColor:
-                    ;
-                    ResetTextColor(hTextGroupController);
+                        case TextEventType.ResetTextColor:
+                            ResetTextColor(hGroupController);
+                            break;
+                    }
+
                     break;
+                }
             }
         }
 

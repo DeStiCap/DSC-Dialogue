@@ -27,12 +27,13 @@ namespace DSC.DialogueSystem
 
         [EnumMask]
         [SerializeField] protected RawImageSetType m_eType;
+        [SerializeField] protected int m_nGroupID;
         [SerializeField] protected int m_nIndex;
-        [SerializeField] Texture m_hTexture;
-        [SerializeField] Vector2 m_vPosition;
-        [SerializeField] Vector2 m_vSize;
-        [SerializeField] bool m_bUseNativeSize;
-        [SerializeField] Vector3 m_vRotation;
+        [SerializeField] protected Texture m_hTexture;
+        [SerializeField] protected Vector2 m_vPosition;
+        [SerializeField] protected Vector2 m_vSize;
+        [SerializeField] protected bool m_bUseNativeSize;
+        [SerializeField] protected Vector3 m_vRotation;
 
 #pragma warning restore 0649
         #endregion
@@ -45,10 +46,7 @@ namespace DSC.DialogueSystem
         {
             base.OnStart(lstData);
 
-            if (!lstData.TryGetData(out DialogueEventData_GroupController<DSC_Dialogue_RawImageGroupController> hOutData))
-                return;
-
-            var hGroupController = hOutData.m_hGroupController;
+            var hGroupController = GetRawImageGroupController(lstData);
             if (hGroupController == null)
                 return;
 
@@ -96,16 +94,19 @@ namespace DSC.DialogueSystem
 
         #region Helper
 
-        protected DSC_Dialogue_ImageGroupController GetImageGroupController(List<IDialogueEventData> lstData)
+        protected DSC_Dialogue_RawImageGroupController GetRawImageGroupController(List<IDialogueEventData> lstData)
         {
-            DSC_Dialogue_ImageGroupController hResult = null;
+            if (!lstData.TryGetData(out DialogueEventData_GroupController<DSC_Dialogue_RawImageGroupController> hOutData) || hOutData.m_lstGroupController == null)
+                return null;
 
-            if (lstData.TryGetData(out DialogueEventData_GroupController<DSC_Dialogue_ImageGroupController> hOutData))
+            for(int i = 0; i < hOutData.m_lstGroupController.Count; i++)
             {
-                hResult = hOutData.m_hGroupController;
+                var hGroupController = hOutData.m_lstGroupController[i];
+                if (hGroupController != null && hGroupController.groupID == m_nGroupID)
+                    return hGroupController;
             }
 
-            return hResult;
+            return null;
         }
 
         #endregion
