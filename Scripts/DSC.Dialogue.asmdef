@@ -1,5 +1,5 @@
 {
-    "name": "DSC.DialogueSystem",
+    "name": "DSC.Dialogue",
     "references": [
         "GUID:acff8e849db7dec488c770445e10185e",
         "GUID:1f90fffde87d62b4aa3bbe11a3b7fb7d",

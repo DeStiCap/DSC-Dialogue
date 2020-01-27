@@ -2,7 +2,7 @@
 using TMPro;
 using DSC.UI;
 
-namespace DSC.DialogueSystem
+namespace DSC.Dialogue
 {
     [RequireComponent(typeof(TextMeshProUGUI))]
     public class DSC_Dialogue_TextController : DSC_UI_TextController

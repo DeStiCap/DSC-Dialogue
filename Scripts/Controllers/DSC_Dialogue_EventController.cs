@@ -1,8 +1,6 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
-namespace DSC.DialogueSystem
+namespace DSC.Dialogue
 {
     public class DSC_Dialogue_EventController : MonoBehaviour
     {

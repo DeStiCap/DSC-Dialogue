@@ -3,7 +3,7 @@ using UnityEngine;
 using TMPro;
 using DSC.UI;
 
-namespace DSC.DialogueSystem
+namespace DSC.Dialogue
 {
     public class DSC_Dialogue_TextGroupController : DSC_UI_TextGroupController
     {

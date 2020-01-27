@@ -1,4 +1,5 @@
-## [0.1.1-preview.1] - 2019-01-27
+## [0.1.1-preview.2] - 2019-01-27
+- Change namespace from DialogueSystem to Dialogue.
 - Add Pre processing for Dialogue.
 - Replace controller now is derived from pre processing.
 - Add audio source group controller.

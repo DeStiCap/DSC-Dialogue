@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using DSC.Core;
 
-namespace DSC.DialogueSystem
+namespace DSC.Dialogue
 {
     public struct DialogueEventData_GroupController<GroupController> : IDialogueEventData where GroupController : BaseComponentGroupController
     {

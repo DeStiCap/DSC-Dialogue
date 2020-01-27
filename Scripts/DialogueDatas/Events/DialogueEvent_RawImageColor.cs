@@ -1,8 +1,7 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
-namespace DSC.DialogueSystem
+namespace DSC.Dialogue
 {
     [CreateAssetMenu(fileName = "DialogueEvent_RawImageColor", menuName = "DSC/Dialogue/Events/Raw Image Color")]
     public class DialogueEvent_RawImageColor : DialogueEvent

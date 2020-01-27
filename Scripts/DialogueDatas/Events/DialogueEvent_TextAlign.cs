@@ -1,9 +1,8 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
-namespace DSC.DialogueSystem
+namespace DSC.Dialogue
 {
     [CreateAssetMenu(fileName = "DialogueEvent_TextAlign", menuName = "DSC/Dialogue/Events/Text Align")]
     public class DialogueEvent_TextAlign : DialogueEvent

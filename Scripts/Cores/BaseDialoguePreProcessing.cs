@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace DSC.DialogueSystem
+namespace DSC.Dialogue
 {
     public abstract class BaseDialoguePreProcessing : MonoBehaviour
     {

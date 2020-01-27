@@ -2,7 +2,7 @@
 using UnityEngine;
 using DSC.Core;
 
-namespace DSC.DialogueSystem
+namespace DSC.Dialogue
 {
     public class DSC_Dialogue_GameObjectGroupController : BaseComponentGroupController
     {

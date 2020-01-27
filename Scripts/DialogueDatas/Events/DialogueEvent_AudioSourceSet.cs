@@ -1,9 +1,8 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 using DSC.Core;
 
-namespace DSC.DialogueSystem
+namespace DSC.Dialogue
 {
     [CreateAssetMenu(fileName = "DialogueEvent_AudioSourceSet", menuName = "DSC/Dialogue/Events/Audio Source Set")]
     public class DialogueEvent_AudioSourceSet : DialogueEvent

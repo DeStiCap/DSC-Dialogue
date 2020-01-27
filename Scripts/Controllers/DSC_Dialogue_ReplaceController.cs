@@ -1,8 +1,7 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
-namespace DSC.DialogueSystem
+namespace DSC.Dialogue
 {
     public class DSC_Dialogue_ReplaceController : BaseDialoguePreProcessing
     {

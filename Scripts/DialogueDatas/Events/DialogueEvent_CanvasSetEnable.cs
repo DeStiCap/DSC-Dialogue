@@ -1,9 +1,8 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 using DSC.UI;
 
-namespace DSC.DialogueSystem
+namespace DSC.Dialogue
 {
     [CreateAssetMenu(fileName = "DialogueEvent_CanvasSetEnable", menuName = "DSC/Dialogue/Events/Canvas Set Enable")]
     public class DialogueEvent_CanvasSetEnable : DialogueEvent

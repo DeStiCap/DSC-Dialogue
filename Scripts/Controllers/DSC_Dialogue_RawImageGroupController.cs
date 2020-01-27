@@ -2,7 +2,7 @@
 using UnityEngine;
 using DSC.UI;
 
-namespace DSC.DialogueSystem
+namespace DSC.Dialogue
 {
     public class DSC_Dialogue_RawImageGroupController : DSC_UI_RawImageGroupController
     {

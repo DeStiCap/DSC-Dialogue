@@ -2,7 +2,7 @@
 using UnityEngine;
 using DSC.Core;
 
-namespace DSC.DialogueSystem
+namespace DSC.Dialogue
 {
     [CreateAssetMenu(fileName = "DialogueEvent_RawImageSet", menuName = "DSC/Dialogue/Events/Raw Image Set")]
     public class DialogueEvent_RawImageSet : DialogueEvent

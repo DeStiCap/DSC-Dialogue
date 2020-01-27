@@ -1,4 +1,4 @@
-﻿namespace DSC.DialogueSystem
+﻿namespace DSC.Dialogue
 {
     /// <summary>
     /// Interface for data use in dialogue event.
