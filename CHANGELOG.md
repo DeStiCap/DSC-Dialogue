@@ -1,3 +1,9 @@
+## [0.1.1-preview.1] - 2019-01-27
+- Add Pre processing for Dialogue.
+- Replace controller now is derived from pre processing.
+- Add audio source group controller.
+- Add audio source set event.
+
 ## [0.1.0-preview.1] - 2019-01-21
 - Support UI group ID for all dialogue event.
 

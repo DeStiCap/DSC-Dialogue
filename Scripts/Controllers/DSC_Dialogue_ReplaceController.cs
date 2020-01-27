@@ -4,14 +4,13 @@ using UnityEngine;
 
 namespace DSC.DialogueSystem
 {
-    public class DSC_Dialogue_ReplaceController : MonoBehaviour
+    public class DSC_Dialogue_ReplaceController : BaseDialoguePreProcessing
     {
         #region Variable
 
         #region Variable - Inspector
 #pragma warning disable 0649
 
-        [SerializeField] protected DSC_Dialogue_DataController m_hDataController;
         [SerializeField] protected BaseDialogueReplace[] m_arrReplace;
 
 #pragma warning restore 0649
@@ -21,17 +20,12 @@ namespace DSC.DialogueSystem
 
         #endregion
 
-        #region Base - Mono
-
-        protected virtual void Awake()
-        {
-            if (m_hDataController)
-                m_hDataController.SetReplaceController(this);
-        }
-
-        #endregion
-
         #region Events
+
+        public override void PreProcessingDialogue(ref Dialogue hDialogue)
+        {
+            CheckReplaceWord(ref hDialogue);
+        }
 
         public void SetReplaceWord(string sReplaceID,string sReplaceWord)
         {
@@ -45,11 +39,13 @@ namespace DSC.DialogueSystem
             }
         }
 
+        
+
         #endregion
 
         #region Main
 
-        public virtual void CheckReplaceWord(ref Dialogue hDialogue)
+        protected virtual void CheckReplaceWord(ref Dialogue hDialogue)
         {
             if (m_arrReplace == null || m_arrReplace.Length <= 0)
                 return;

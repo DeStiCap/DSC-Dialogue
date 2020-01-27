@@ -33,13 +33,16 @@ namespace DSC.DialogueSystem
         [Header("Data")]
         [SerializeField] protected DialogueData m_hDialogueData;
 
-        [Header("Current")]
-        [SerializeField] protected int m_nCurrentDialogueIndex;
+        [Header("Processing")]
+        [SerializeField] protected BaseDialoguePreProcessing[] m_arrPreProcessing;
 
         [Header("Events")]
         [SerializeField] protected EventDialogueData m_OnDialogueStart;
         [SerializeField] protected EventDialogueData m_OnDialogueChange;
         [SerializeField] protected UnityEvent m_OnDialogueEnd;
+
+        [Header("Runtime Data")]
+        [SerializeField] protected int m_nCurrentDialogueIndex;
 
 #pragma warning restore 0649
         #endregion
@@ -51,8 +54,6 @@ namespace DSC.DialogueSystem
         #endregion
 
         protected List<IDialogueEventData> m_lstDialogueEventData = new List<IDialogueEventData>();
-
-        protected DSC_Dialogue_ReplaceController m_hReplaceController;
 
         #endregion
 
@@ -101,11 +102,6 @@ namespace DSC.DialogueSystem
 
         #region Main
 
-        public void SetReplaceController(DSC_Dialogue_ReplaceController hReplaceController)
-        {
-            m_hReplaceController = hReplaceController;
-        }
-
         public string GetCurrentDialogue()
         {
             string sResult = null;
@@ -125,7 +121,7 @@ namespace DSC.DialogueSystem
 
         protected void RunDialogue(ref Dialogue hDialogue)
         {
-            m_hReplaceController?.CheckReplaceWord(ref hDialogue);
+            RunPreProcessing(ref hDialogue);
 
             StartAllEventInDialogue(hDialogue);
         }
@@ -148,7 +144,6 @@ namespace DSC.DialogueSystem
 
         #endregion
 
-
         #region Helper
 
         protected Dialogue[] GetAllDialogueInData()
@@ -167,6 +162,19 @@ namespace DSC.DialogueSystem
             arrOutDialogue = GetAllDialogueInData();
 
             return arrOutDialogue != null;
+        }
+
+        protected void RunPreProcessing(ref Dialogue hDialogue)
+        {
+            if (m_arrPreProcessing == null || m_arrPreProcessing.Length <= 0)
+                return;
+
+            for(int i = 0; i < m_arrPreProcessing.Length; i++)
+            {
+                var hPreProcessing = m_arrPreProcessing[i];
+                if(hPreProcessing != null)
+                    hPreProcessing.PreProcessingDialogue(ref hDialogue);
+            }
         }
 
         #endregion

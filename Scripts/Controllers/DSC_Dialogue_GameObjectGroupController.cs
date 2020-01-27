@@ -73,14 +73,17 @@ namespace DSC.DialogueSystem
         public override void SetEnable(int nIndex, bool bEnable)
         {
             var hGameObject = GetGameObject(nIndex);
-            hGameObject?.SetActive(bEnable);
+            if(hGameObject)
+                hGameObject.SetActive(bEnable);
         }
 
         public override void SetAllEnable(bool bEnable)
         {
             for(int i = 0; i < m_arrGameObject.Length; i++)
             {
-                m_arrGameObject[i]?.SetActive(bEnable);
+                var hGO = m_arrGameObject[i];
+                if(hGO)
+                    hGO.SetActive(bEnable);
             }
         }
 

@@ -15,6 +15,7 @@ namespace DSC.DialogueSystem
             Image,
             RawImage,
             Canvas,
+            AudioSource,
         }
 
         protected enum SetType
@@ -62,6 +63,10 @@ namespace DSC.DialogueSystem
 
                 case ObjectType.Canvas:
                     SetCanvas(lstData);
+                    break;
+
+                case ObjectType.AudioSource:
+                    SetAudioSource(lstData);
                     break;
             }
         }
@@ -116,6 +121,23 @@ namespace DSC.DialogueSystem
         protected virtual void SetCanvas(List<IDialogueEventData> lstData)
         {
             if (!TryGetCanvasGroupController(lstData, out var hOutController))
+                return;
+
+            switch (m_eSet)
+            {
+                case SetType.Enable:
+                    hOutController.SetEnable(m_nIndex, true);
+                    break;
+
+                case SetType.Disable:
+                    hOutController.SetEnable(m_nIndex, false);
+                    break;
+            }
+        }
+
+        protected virtual void SetAudioSource(List<IDialogueEventData> lstData)
+        {
+            if (!TryGetAudioSourceGroupController(lstData, out var hOutController))
                 return;
 
             switch (m_eSet)
@@ -217,6 +239,27 @@ namespace DSC.DialogueSystem
         protected bool TryGetCanvasGroupController(List<IDialogueEventData> lstData, out DSC_Dialogue_CanvasGroupController hOutController)
         {
             hOutController = GetCanvasGroupController(lstData);
+            return hOutController != null;
+        }
+
+        protected DSC_Dialogue_AudioSourceGroupController GetAudioSourceGroupController(List<IDialogueEventData> lstData)
+        {
+            if (!lstData.TryGetData(out DialogueEventData_GroupController<DSC_Dialogue_AudioSourceGroupController> hOutGroup) || hOutGroup.m_lstGroupController == null)
+                return null;
+
+            for(int i = 0;i < hOutGroup.m_lstGroupController.Count; i++)
+            {
+                var hGroupController = hOutGroup.m_lstGroupController[i];
+                if(hGroupController != null && hGroupController.groupID == m_nGroupID)
+                    return hGroupController;
+            }
+            
+            return null;
+        }
+
+        protected bool TryGetAudioSourceGroupController(List<IDialogueEventData> lstData,out DSC_Dialogue_AudioSourceGroupController hOutController)
+        {
+            hOutController = GetAudioSourceGroupController(lstData);
             return hOutController != null;
         }
 
