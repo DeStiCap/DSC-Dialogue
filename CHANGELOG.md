@@ -1,4 +1,4 @@
-## [0.1.2-preview.4] - 2019-01-28
+## [0.1.2-preview.5] - 2019-01-28
 - Update support DSC UI to V0.0.2-preview.1
 - Remove canvas set event.
 - Add BaseReplaceData for use replace word instead old set manual data.

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using DSC.Dialogue;
 
-namespace Test
+namespace Template
 {
 	[CreateAssetMenu(fileName = "DialogueReplaceData_#SCRIPTNAME#", menuName = "DSC/Dialogue/Replace Data/#SCRIPTNAME#")]
     public class #SCRIPTNAME# : BaseDialogueReplaceData
