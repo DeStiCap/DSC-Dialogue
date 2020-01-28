@@ -1,3 +1,8 @@
+## [0.1.2-preview.1] - 2019-01-28
+- Update support DSC UI to V0.0.2-preview.1
+- Remove text controller.
+- Remove canvas set event.
+
 ## [0.1.1-preview.2] - 2019-01-27
 - Change namespace from DialogueSystem to Dialogue.
 - Add Pre processing for Dialogue.

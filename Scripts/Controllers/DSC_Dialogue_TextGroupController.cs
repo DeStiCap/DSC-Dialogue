@@ -15,11 +15,34 @@ namespace DSC.Dialogue
         [SerializeField] protected DSC_Dialogue_DataController m_hDataController;
 
         [Header("Main Dialogue")]
-        [SerializeField] protected DSC_Dialogue_TextController m_hDialogueText;
-        [SerializeField] protected DSC_Dialogue_TextController m_hTalkerText;
+        [SerializeField] protected TextMeshProUGUI m_hDialogueText;
+        [SerializeField] protected TextMeshProUGUI m_hTalkerText;
 
 #pragma warning restore 0649
         #endregion
+
+        #region Variable - Property
+
+        public TextMeshProUGUI dialogueText
+        {
+            get
+            {
+                return m_hDialogueText;
+            }
+        }
+
+        public TextMeshProUGUI talkerText
+        {
+            get
+            {
+                return m_hTalkerText;
+            }
+        }
+
+        #endregion
+
+        protected Color m_hDefaultDialogueTextColor;
+        protected Color m_hDefaultTalkerTextColor;
 
         #endregion
 
@@ -45,6 +68,9 @@ namespace DSC.Dialogue
                     });
                 }
             }
+
+            SetDialogueTextColorDefault();
+            SetTalkerTextColorDefault();
         }
 
         protected virtual void OnDestroy()
@@ -69,48 +95,96 @@ namespace DSC.Dialogue
 
         public virtual void SetDialogueTextColor(Color hColor)
         {
-            m_hDialogueText?.SetTextColor(hColor);
+            if (!HasDialogueText())
+                return;
+
+            m_hDialogueText.color = hColor;
         }
 
         public virtual void ResetDialogueTextColorToDefault()
         {
-            m_hDialogueText?.ResetTextColorToDefault();
+            if (!HasDialogueText())
+                return;
+
+            m_hDialogueText.color = m_hDefaultDialogueTextColor;
         }
 
         public virtual TextAlignmentOptions GetDialogueTextAlign()
         {
-            if (m_hDialogueText == null)
+            if (!HasDialogueText())
                 return TextAlignmentOptions.Center;
 
-            return m_hDialogueText.GetTextAlign();
+            return m_hDialogueText.alignment;
         }
 
         public virtual void SetDialogueTextAlign(TextAlignmentOptions eAlign)
         {
-            m_hDialogueText?.SetTextAlign(eAlign);
+            if (!HasDialogueText())
+                return;
+
+            m_hDialogueText.alignment = eAlign;
         }
 
         public virtual void SetTalkerTextColor(Color hColor)
         {
-            m_hTalkerText?.SetTextColor(hColor);
+            if (!HasTalkerText())
+                return;
+
+            m_hTalkerText.color = hColor;
         }
 
         public virtual void ResetTalkerTextColorToDefault()
         {
-            m_hTalkerText?.ResetTextColorToDefault();
+            if (!HasTalkerText())
+                return;
+
+            m_hTalkerText.color = m_hDefaultTalkerTextColor;
         }
 
         public virtual TextAlignmentOptions GetTalkerTextAlign()
         {
-            if (m_hTalkerText == null)
+            if (!HasTalkerText())
                 return TextAlignmentOptions.Center;
 
-            return m_hTalkerText.GetTextAlign();
+            return m_hTalkerText.alignment;
         }
 
         public virtual void SetTalkerTextAlign(TextAlignmentOptions eAlign)
         {
-            m_hTalkerText?.SetTextAlign(eAlign);
+            if (!HasTalkerText())
+                return;
+
+            m_hTalkerText.alignment = eAlign;
+        }
+
+        #endregion
+
+        #region Helper
+
+        protected bool HasDialogueText()
+        {
+            return m_hDialogueText != null;
+        }
+
+        protected bool HasTalkerText()
+        {
+            return m_hTalkerText != null;
+        }
+
+        protected void SetDialogueTextColorDefault()
+        {
+            if (!HasDialogueText())
+                return;
+
+            m_hDialogueText.color = m_hDialogueText.color;
+        }
+
+        protected void SetTalkerTextColorDefault()
+        {
+            if (!HasTalkerText())
+                return;
+
+            m_hTalkerText.color = m_hTalkerText.color;
         }
 
         #endregion
