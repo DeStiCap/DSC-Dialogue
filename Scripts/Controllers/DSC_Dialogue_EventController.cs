@@ -23,7 +23,7 @@ namespace DSC.Dialogue
             if (hEvent == null)
                 return;
 
-            var lstData = m_hDataController?.DialogueEventDataList;
+            var lstData = m_hDataController?.dialogueEventDataList;
 
             hEvent.OnStart(lstData);
         }

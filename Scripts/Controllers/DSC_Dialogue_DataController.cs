@@ -48,7 +48,7 @@ namespace DSC.Dialogue
 
         #region Variable - Property
 
-        public List<IDialogueEventData> DialogueEventDataList { get { return m_lstDialogueEventData; } }
+        public List<IDialogueEventData> dialogueEventDataList { get { return m_lstDialogueEventData; } }
 
         #endregion
 

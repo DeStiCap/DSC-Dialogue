@@ -1,6 +1,8 @@
-## [0.1.2-preview.2] - 2019-01-28
+## [0.1.2-preview.3] - 2019-01-28
 - Update support DSC UI to V0.0.2-preview.1
 - Remove canvas set event.
+- Add BaseReplaceData for use replace word instead old set manual data.
+- Add script template for BaseReplaceData.
 
 ## [0.1.1-preview.2] - 2019-01-27
 - Change namespace from DialogueSystem to Dialogue.

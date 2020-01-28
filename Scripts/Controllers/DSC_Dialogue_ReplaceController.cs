@@ -15,8 +15,6 @@ namespace DSC.Dialogue
 #pragma warning restore 0649
         #endregion
 
-        protected Dictionary<string, string> m_dicReplace = new Dictionary<string, string>();
-
         #endregion
 
         #region Events
@@ -25,20 +23,6 @@ namespace DSC.Dialogue
         {
             CheckReplaceWord(ref hDialogue);
         }
-
-        public void SetReplaceWord(string sReplaceID,string sReplaceWord)
-        {
-            if (m_dicReplace.ContainsKey(sReplaceID))
-            {
-                m_dicReplace[sReplaceID] = sReplaceWord;
-            }
-            else
-            {
-                m_dicReplace.Add(sReplaceID, sReplaceWord);
-            }
-        }
-
-        
 
         #endregion
 
@@ -57,7 +41,7 @@ namespace DSC.Dialogue
 
                 bool bReplaceDialogue = true;
                 bool bReplace = true;
-                switch (hReplace.IgnoreType)
+                switch (hReplace.ignoreType)
                 {
                     case IgnoreReplaceType.Dialogue:
                         bReplaceDialogue = false;
@@ -70,7 +54,7 @@ namespace DSC.Dialogue
 
                 bool bColorDialogue = true;
                 bool bColorTalker = true;
-                switch (hReplace.IgnoreColor)
+                switch (hReplace.ignoreColor)
                 {
                     case IgnoreColorType.Dialogue:
                         bColorDialogue = false;
@@ -81,9 +65,9 @@ namespace DSC.Dialogue
                         break;
                 }
 
-                if (bReplaceDialogue && hDialogue.m_sDialogue.Contains(hReplace.ID))
+                if (bReplaceDialogue && hDialogue.m_sDialogue.Contains(hReplace.id))
                 {
-                    switch (hReplace.ReplaceType)
+                    switch (hReplace.replaceType)
                     {
                         case ReplaceEventType.Replace:
                             ReplaceWord(ref hDialogue.m_sDialogue, hReplace);
@@ -102,9 +86,9 @@ namespace DSC.Dialogue
                     }
                 }
 
-                if (bReplace && hDialogue.m_sTalker.Contains(hReplace.ID))
+                if (bReplace && hDialogue.m_sTalker.Contains(hReplace.id))
                 {
-                    switch (hReplace.ReplaceType)
+                    switch (hReplace.replaceType)
                     {
                         case ReplaceEventType.Replace:
                             ReplaceWord(ref hDialogue.m_sTalker, hReplace);
@@ -127,47 +111,36 @@ namespace DSC.Dialogue
 
         protected void ReplaceWord(ref string sOriginal, BaseDialogueReplace hReplace)
         {
-            var sReplaceID = hReplace.ID;
+            var sReplaceID = hReplace.id;
 
-            if (TryGetReplaceWord(sReplaceID, out string sReplaceWord))
-            {
-                sOriginal = sOriginal.Replace(sReplaceID, sReplaceWord);
-            }
-            else
+            if (!TryGetReplaceData(hReplace, out var hData))
             {
                 Debug.LogWarning("Don't have replace word '" + sReplaceID + "' in data.", gameObject);
+                return;
             }
+          
+            sOriginal.Replace(sReplaceID, hData.replaceWord);
         }
 
         protected void ReplaceColor(ref string sOriginal, BaseDialogueReplace hReplace)
         {
-            string sColorWord = "<color=#" + hReplace.ReplaceColor + ">" + hReplace.ID + "</color>";
-            sOriginal = sOriginal.Replace(hReplace.ID, sColorWord);
+            string sColorWord = "<color=#" + hReplace.replaceColor + ">" + hReplace.id + "</color>";
+            sOriginal = sOriginal.Replace(hReplace.id, sColorWord);
         }
         
         #endregion
 
         #region Helper
 
-        protected string GetReplaceWord(string sReplaceID)
+        protected BaseDialogueReplaceData GetReplaceData(BaseDialogueReplace hReplace)
         {
-            string sResult = null;
-
-            if (m_dicReplace == null || m_dicReplace.Count <= 0)
-                return sResult;
-
-            if (m_dicReplace.ContainsKey(sReplaceID))
-            {
-                sResult = m_dicReplace[sReplaceID];
-            }
-
-            return sResult;
+            return hReplace.replaceData;
         }
 
-        protected bool TryGetReplaceWord(string sReplaceID,out string sReplaceWord)
+        protected bool TryGetReplaceData(BaseDialogueReplace hReplace,out BaseDialogueReplaceData hData)
         {
-            sReplaceWord = GetReplaceWord(sReplaceID);
-            return sReplaceWord != null;
+            hData = GetReplaceData(hReplace);
+            return hData != null;
         }
 
         #endregion
