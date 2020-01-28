@@ -5,6 +5,7 @@ using DSC.Dialogue;
 
 namespace Test
 {
+	[CreateAssetMenu(fileName = "DialogueReplaceData_#SCRIPTNAME#", menuName = "DSC/Dialogue/Replace Data/#SCRIPTNAME#")]
     public class #SCRIPTNAME# : BaseDialogueReplaceData
     {
         #region Variable - Property
