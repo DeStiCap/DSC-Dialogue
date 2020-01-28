@@ -119,7 +119,7 @@ namespace DSC.Dialogue
                 return;
             }
           
-            sOriginal.Replace(sReplaceID, hData.replaceWord);
+            sOriginal = sOriginal.Replace(sReplaceID, hData.replaceWord);
         }
 
         protected void ReplaceColor(ref string sOriginal, BaseDialogueReplace hReplace)
