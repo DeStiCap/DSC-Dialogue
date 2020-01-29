@@ -19,6 +19,6 @@ namespace DSC.Dialogue
 
     public abstract class BaseDialogueData : ScriptableObject
     {
-        public abstract Dialogue[] AllDialogue { get; }
+        public abstract Dialogue[] allDialogue { get; }
     }
 }

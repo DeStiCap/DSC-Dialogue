@@ -190,6 +190,13 @@ namespace DSC.Dialogue
                 return;
 
             var hDialogueText = dialogueText;
+
+            if (hDialogueText.text.Length <= m_nCurrentCharIndex)
+            {
+                EndTyping();
+                return;
+            }
+            
             m_nCurrentCharIndex++;
 
             m_fLastTypingTime = Time.time;
@@ -202,11 +209,6 @@ namespace DSC.Dialogue
             }
 
             RunDialogueEventOnExecute(m_hCurrentDialogue);
-
-            if (hDialogueText.text.Length <= m_nCurrentCharIndex)
-            {
-                EndTyping();
-            }
         }
 
         protected void EndTyping()

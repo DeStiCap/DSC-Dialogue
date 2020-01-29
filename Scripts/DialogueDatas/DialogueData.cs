@@ -17,7 +17,7 @@ namespace DSC.Dialogue
 
         #region Variable - Property
 
-        public override Dialogue[] AllDialogue { get { return m_arrDialogue; } }
+        public override Dialogue[] allDialogue { get { return m_arrDialogue; } }
 
         #endregion
 

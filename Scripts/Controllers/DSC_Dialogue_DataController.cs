@@ -127,7 +127,7 @@ namespace DSC.Dialogue
                 return sResult;
 
 
-            var arrDialogue = m_hDialogueData.AllDialogue;
+            var arrDialogue = m_hDialogueData.allDialogue;
             if (arrDialogue == null || arrDialogue.Length <= 0 || arrDialogue.Length <= m_nCurrentDialogueIndex)
                 return sResult;
 
@@ -169,7 +169,7 @@ namespace DSC.Dialogue
             if (m_hDialogueData == null)
                 return hResult;
 
-            hResult = m_hDialogueData.AllDialogue;
+            hResult = m_hDialogueData.allDialogue;
 
             return hResult;
         }

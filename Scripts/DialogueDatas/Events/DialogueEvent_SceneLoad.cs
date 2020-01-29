@@ -7,12 +7,24 @@ namespace DSC.Dialogue
     [CreateAssetMenu(fileName = "DialogueEvent_SceneLoad", menuName = "DSC/Dialogue/Events/Scene Load")]
     public class DialogueEvent_SceneLoad : DialogueEvent
     {
+        #region Enum
+
+        protected enum LoadBy
+        {
+            Index,
+            Name
+        }
+
+        #endregion
+
         #region Variable
 
         #region Variable - Inspector
 #pragma warning disable 0649
 
-        [SerializeField] int m_nSceneIndex;
+        [SerializeField] protected LoadBy m_eLoadBy;
+        [SerializeField] protected int m_nSceneIndex;
+        [SerializeField] protected string m_sSceneName;
 
 #pragma warning restore 0649
         #endregion
@@ -25,7 +37,17 @@ namespace DSC.Dialogue
         {
             base.OnStart(lstData);
 
-            SceneManager.LoadScene(m_nSceneIndex);
+            switch (m_eLoadBy)
+            {
+                case LoadBy.Index:
+                    SceneManager.LoadScene(m_nSceneIndex);
+                    break;
+
+                case LoadBy.Name:
+                    SceneManager.LoadScene(m_sSceneName);
+                    break;
+            }
+            
         }
 
         #endregion
