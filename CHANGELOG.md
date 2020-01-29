@@ -1,3 +1,6 @@
+## [0.1.4-preview.1] - 2019-01-30
+- Improve performance.
+
 ## [0.1.3-preview.9] - 2019-01-29
 - Add typing controller.
 - Add Set typing event.
