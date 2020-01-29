@@ -1,4 +1,4 @@
-## [0.1.3-preview.8] - 2019-01-29
+## [0.1.3-preview.9] - 2019-01-29
 - Add typing controller.
 - Add Set typing event.
 - Add event delay.

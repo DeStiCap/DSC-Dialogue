@@ -40,11 +40,11 @@ namespace DSC.Dialogue
             switch (m_eLoadBy)
             {
                 case LoadBy.Index:
-                    SceneManager.LoadScene(m_nSceneIndex);
+                    SceneManager.LoadSceneAsync(m_nSceneIndex);
                     break;
 
                 case LoadBy.Name:
-                    SceneManager.LoadScene(m_sSceneName);
+                    SceneManager.LoadSceneAsync(m_sSceneName);
                     break;
             }
             
