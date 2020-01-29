@@ -14,7 +14,7 @@ namespace DSC.Dialogue
 
         [Header("Dialogue Controller")]
         [SerializeField] protected DSC_Dialogue_DataController m_hDataController;
-        [SerializeField] protected TextMeshProUGUI m_hDialogueText;
+        [SerializeField] protected DSC_Dialogue_TextGroupController m_hDialogueTextGroup;
 
         [Header("Option")]
         [Min(0)]
@@ -68,14 +68,25 @@ namespace DSC.Dialogue
             }
         }
 
+        public DSC_Dialogue_TextGroupController dialogueTextGroup
+        {
+            get
+            {
+                if (m_hDialogueTextGroup == null)
+                    Debug.Log("Don't have dialogue text group set in dialogue typing controller.");
+
+                return m_hDialogueTextGroup;
+            }
+        }
+
         protected TextMeshProUGUI dialogueText
         {
             get
             {
-                if (m_hDialogueText == null)
-                    Debug.LogWarning("Don't have dialogue text set in dialogue typing.");
+                if (dialogueTextGroup == null)
+                    return null;
 
-                return m_hDialogueText;
+                return m_hDialogueTextGroup.dialogueText;
             }
         }
 
