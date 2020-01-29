@@ -133,7 +133,10 @@ namespace DSC.Dialogue
                 }
 
                 if (!lstWaitRun.Contains(hDelayEvent))
+                {
+                    hDelayEvent.m_hEvent.OnExecute(lstData);
                     continue;
+                }
 
                 if(Time.time >= hTimeData.m_fCurrentDialogueStartTime + hDelayEvent.m_fDelayTime)
                 {
@@ -187,6 +190,13 @@ namespace DSC.Dialogue
             }
 
         End:
+            for(int i = 0; i < m_arrDelayEvent.Length; i++)
+            {
+                var hEvent = m_arrDelayEvent[i];
+                if (hEvent.m_hEvent != null)
+                    hEvent.m_hEvent.OnEnd(lstData);
+            }
+
             ;
 
             base.OnEnd(lstData);
