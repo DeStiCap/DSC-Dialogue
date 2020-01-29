@@ -19,6 +19,8 @@ namespace DSC.Dialogue
         [Header("Option")]
         [Min(0)]
         [SerializeField] protected float m_fTypingDelayTime = 0.05f;
+        [Min(0)]
+        [SerializeField] protected float m_fEndEventDelayTime;
         [SerializeField] protected AudioClip m_hTypingSound;
 
 #pragma warning restore 0649
@@ -38,6 +40,21 @@ namespace DSC.Dialogue
                 m_fTypingDelayTime = value;
                 if (m_fTypingDelayTime < 0)
                     m_fTypingDelayTime = 0;
+            }
+        }
+
+        public float endEventDelayTime
+        {
+            get
+            {
+                return m_fEndEventDelayTime;
+            }
+
+            set
+            {
+                m_fEndEventDelayTime = value;
+                if (m_fEndEventDelayTime < 0)
+                    m_fEndEventDelayTime = 0;
             }
         }
 
@@ -112,6 +129,38 @@ namespace DSC.Dialogue
         #endregion
 
         #region Base - Mono
+
+        protected virtual void Awake()
+        {
+            if (dataController && m_hDataController.dialogueEventDataList != null)
+            {
+                if (m_hDataController.dialogueEventDataList.TryGetData(out DialogueEventData_MonoBehaviour<DSC_Dialogue_TypingController> hOutData, out int nOutIndex))
+                {
+                    hOutData.m_hMono = this;
+                    m_hDataController.dialogueEventDataList[nOutIndex] = hOutData;
+                }
+                else
+                {
+
+
+                    m_hDataController.dialogueEventDataList.Add(new DialogueEventData_MonoBehaviour<DSC_Dialogue_TypingController>
+                    {
+                        m_hMono = this
+                    });
+                }
+            }
+        }
+
+        protected virtual void OnDestroy()
+        {
+            if (m_hDataController != null && m_hDataController.dialogueEventDataList != null)
+            {
+                if (m_hDataController.dialogueEventDataList.TryGetData(out DialogueEventData_MonoBehaviour<DSC_Dialogue_TypingController> hOutData, out int nOutIndex))
+                {
+                    m_hDataController.dialogueEventDataList.RemoveAt(nOutIndex);
+                }
+            }
+        }
 
         protected virtual void Update()
         {
@@ -193,7 +242,8 @@ namespace DSC.Dialogue
 
             if (m_hCurrentDialogue.m_sDialogue.Length <= m_nCurrentCharIndex)
             {
-                EndTyping();
+                if(Time.time >= m_fLastTypingTime + m_fTypingDelayTime + m_fEndEventDelayTime)
+                    EndTyping();
                 return;
             }
             

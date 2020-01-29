@@ -13,6 +13,7 @@ namespace DSC.Dialogue
             GameObject,
             Image,
             RawImage,
+            Button,
             Canvas,
             AudioSource,
         }
@@ -58,6 +59,10 @@ namespace DSC.Dialogue
 
                 case ObjectType.RawImage:
                     SetRawImage(lstData);
+                    break;
+
+                case ObjectType.Button:
+                    SetButton(lstData);
                     break;
 
                 case ObjectType.Canvas:
@@ -109,6 +114,23 @@ namespace DSC.Dialogue
             {
                 case SetType.Enable:
                     hOutController.SetEnable(m_nIndex,true);
+                    break;
+
+                case SetType.Disable:
+                    hOutController.SetEnable(m_nIndex, false);
+                    break;
+            }
+        }
+
+        protected virtual void SetButton(List<IDialogueEventData> lstData)
+        {
+            if (!TryGetButtonGroupController(lstData, out var hOutController))
+                return;
+
+            switch (m_eSet)
+            {
+                case SetType.Enable:
+                    hOutController.SetEnable(m_nIndex, true);
                     break;
 
                 case SetType.Disable:
@@ -195,6 +217,28 @@ namespace DSC.Dialogue
         protected bool TryGetRawImageGroupController(List<IDialogueEventData> lstData, out DSC_Dialogue_RawImageGroupController hOutController)
         {
             hOutController = GetRawImageGroupController(lstData);
+
+            return hOutController != null;
+        }
+
+        protected DSC_Dialogue_ButtonGroupController GetButtonGroupController(List<IDialogueEventData> lstData)
+        {
+            if (!lstData.TryGetData(out DialogueEventData_GroupController<DSC_Dialogue_ButtonGroupController> hOutData) || hOutData.m_lstGroupController == null)
+                return null;
+
+            for (int i = 0; i < hOutData.m_lstGroupController.Count; i++)
+            {
+                var hGroupController = hOutData.m_lstGroupController[i];
+                if (hGroupController != null && hGroupController.groupID == m_nGroupID)
+                    return hGroupController;
+            }
+
+            return null;
+        }
+
+        protected bool TryGetButtonGroupController(List<IDialogueEventData> lstData, out DSC_Dialogue_ButtonGroupController hOutController)
+        {
+            hOutController = GetButtonGroupController(lstData);
 
             return hOutController != null;
         }
