@@ -221,7 +221,7 @@ namespace DSC.Dialogue
         protected void FinishTypingText()
         {
             var hDialogueText = dialogueText;
-            hDialogueText.maxVisibleCharacters = hDialogueText.text.Length;
+            hDialogueText.maxVisibleCharacters = m_hCurrentDialogue.m_sDialogue.Length;
         }
 
         #endregion
