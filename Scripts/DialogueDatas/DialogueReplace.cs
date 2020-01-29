@@ -28,7 +28,7 @@ namespace DSC.Dialogue
 
     #endregion
 
-    [CreateAssetMenu(fileName = "DialogueReplace", menuName = "DSC/Dialogue/Dialogue Replace")]
+    [CreateAssetMenu(fileName = "DialogueReplace", menuName = "DSC/Dialogue/Replace")]
     public class DialogueReplace : BaseDialogueReplace
     {
         #region Variable

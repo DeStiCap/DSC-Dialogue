@@ -56,6 +56,15 @@ namespace DSC.Dialogue
 
         #endregion
 
+        #region Base - Mono
+
+        protected virtual void Awake()
+        {
+            m_lstDialogueEventData.Add(new DialogueEventData_Time());
+        }
+
+        #endregion
+
         #region Events
 
         public void SetNewDialogueData(DialogueData hData)
@@ -74,6 +83,11 @@ namespace DSC.Dialogue
             if (!TryGetAllDialogueInData(out var arrDialogue))
                 return;
 
+            var hTimeData = GetTimeData();
+            hTimeData.m_fDialogueDataStartTime = Time.time;
+            hTimeData.m_fCurrentDialogueStartTime = Time.time;
+            SetTimeData(hTimeData);
+
             m_nCurrentDialogueIndex = 0;
             var hDialogue = arrDialogue[m_nCurrentDialogueIndex];
             RunDialogue(ref hDialogue);
@@ -90,6 +104,10 @@ namespace DSC.Dialogue
                 m_OnDialogueEnd.Invoke();
                 return;
             }
+
+            var hTimeData = GetTimeData();
+            hTimeData.m_fCurrentDialogueStartTime = Time.time;
+            SetTimeData(hTimeData);
 
             m_nCurrentDialogueIndex++;
             var hDialogue = arrDialogue[m_nCurrentDialogueIndex];
@@ -173,6 +191,24 @@ namespace DSC.Dialogue
                 var hPreProcessing = m_arrPreProcessing[i];
                 if(hPreProcessing != null)
                     hPreProcessing.PreProcessingDialogue(ref hDialogue);
+            }
+        }
+
+        protected DialogueEventData_Time GetTimeData()
+        {
+            m_lstDialogueEventData.TryGetData(out DialogueEventData_Time hTimeData);
+            return hTimeData;
+        }
+
+        protected void SetTimeData(DialogueEventData_Time hTimeData)
+        {
+            if (m_lstDialogueEventData.TryGetData<DialogueEventData_Time>(out int nOutIndex))
+            {
+                m_lstDialogueEventData[nOutIndex] = hTimeData;
+            }
+            else
+            {
+                m_lstDialogueEventData.Add(hTimeData);
             }
         }
 

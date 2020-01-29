@@ -111,6 +111,14 @@ namespace DSC.Dialogue
             hAudio.PlayDelayed(fDelay);
         }
 
+        public virtual void PlayOneShot(int nIndex,AudioClip hClip)
+        {
+            if (!TryGetAudioSource(nIndex, out var hAudio))
+                return;
+
+            hAudio.PlayOneShot(hClip);
+        }
+
         public virtual void Stop(int nIndex)
         {
             if (!TryGetAudioSource(nIndex, out var hAudio))

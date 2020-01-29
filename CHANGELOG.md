@@ -1,3 +1,7 @@
+## [0.1.3-preview.1] - 2019-01-29
+- Add typing controller.
+- Add event delay.
+
 ## [0.1.2-preview.6] - 2019-01-28
 - Update support DSC UI to V0.0.2-preview.1
 - Remove canvas set event.

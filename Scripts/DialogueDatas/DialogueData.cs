@@ -2,7 +2,7 @@
 
 namespace DSC.Dialogue
 {
-    [CreateAssetMenu(fileName = "DialogueData", menuName = "DSC/Dialogue/Dialogue Data")]
+    [CreateAssetMenu(fileName = "DialogueData", menuName = "DSC/Dialogue/Data")]
     public class DialogueData : BaseDialogueData
     {
         #region Variable

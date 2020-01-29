@@ -21,6 +21,7 @@ namespace DSC.Dialogue
         {
             Play,
             PlayDelay,
+            PlayOneShot,
             Stop
         }
 
@@ -78,6 +79,10 @@ namespace DSC.Dialogue
 
                 case AudioSourcePlayType.PlayDelay:
                     hGroupController.Play(m_nIndex, m_fPlayDelay);
+                    break;
+
+                case AudioSourcePlayType.PlayOneShot:
+                    hGroupController.PlayOneShot(m_nIndex, m_hClip);
                     break;
 
                 case AudioSourcePlayType.Stop:

@@ -34,6 +34,31 @@ namespace DSC.Dialogue
         /// </summary>
         /// <typeparam name="Data">Data type</typeparam>
         /// <param name="listData">List contain data.</param>
+        /// <param name="indexData">Get index data</param>
+        public static bool TryGetData<Data>(this List<IDialogueEventData> listData, out int indexData) where Data : struct, IDialogueEventData
+        {
+            indexData = -1;
+
+            if (listData != null && listData.Count > 0)
+            {
+                for (int i = 0; i < listData.Count; i++)
+                {
+                    if (listData[i] is Data)
+                    {
+                        indexData = i;
+                        return true;
+                    }
+                }
+            }
+
+            return false;
+        }
+
+        /// <summary>
+        /// Try get dialogue data from list.
+        /// </summary>
+        /// <typeparam name="Data">Data type</typeparam>
+        /// <param name="listData">List contain data.</param>
         /// <param name="data">Get data</param>
         /// <param name="indexData">Index get data in list.</param>
         public static bool TryGetData<Data>(this List<IDialogueEventData> listData, out Data data, out int indexData) where Data : struct, IDialogueEventData

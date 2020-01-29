@@ -1,0 +1,255 @@
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using TMPro;
+
+namespace DSC.Dialogue
+{
+    public class DSC_Dialogue_TypingController : MonoBehaviour
+    {
+        #region Variable
+
+        #region Variable - Inspector
+#pragma warning disable 0649
+
+        [Header("Dialogue Controller")]
+        [SerializeField] protected DSC_Dialogue_DataController m_hDataController;
+        [SerializeField] protected TextMeshProUGUI m_hDialogueText;
+
+        [Header("Option")]
+        [Min(0)]
+        [SerializeField] protected float m_fTypingDelayTime = 0.05f;
+        [SerializeField] protected AudioClip m_hTypingSound;
+
+#pragma warning restore 0649
+        #endregion
+
+        #region Variable - Property
+
+        public float typingDelayTime
+        {
+            get
+            {
+                return m_fTypingDelayTime;
+            }
+
+            set
+            {
+                m_fTypingDelayTime = value;
+                if (m_fTypingDelayTime < 0)
+                    m_fTypingDelayTime = 0;
+            }
+        }
+
+        public AudioClip typingSound
+        {
+            get
+            {
+                return m_hTypingSound;
+            }
+
+            set
+            {
+                m_hTypingSound = value;
+            }
+        }
+
+        protected DSC_Dialogue_DataController dataController
+        {
+            get
+            {
+                if (m_hDataController == null)
+                    m_hDataController = GetComponent<DSC_Dialogue_DataController>();
+
+                if (m_hDataController == null)
+                    Debug.LogWarning("Don't have data controller in typing controller.");
+
+                return m_hDataController;
+            }
+        }
+
+        protected TextMeshProUGUI dialogueText
+        {
+            get
+            {
+                if (m_hDialogueText == null)
+                    Debug.LogWarning("Don't have dialogue text set in dialogue typing.");
+
+                return m_hDialogueText;
+            }
+        }
+
+        protected AudioSource typingAudioSource
+        {
+            get
+            {
+                if (m_hTypingAudioSource == null)
+                    m_hTypingAudioSource = gameObject.AddComponent<AudioSource>();
+
+                return m_hTypingAudioSource;
+            }
+        }
+
+        #endregion
+
+        protected Dialogue m_hCurrentDialogue;
+        protected bool m_bIsTyping;
+        protected int m_nCurrentCharIndex;
+        protected float m_fLastTypingTime = -100f;
+        protected AudioSource m_hTypingAudioSource;
+
+        #endregion
+
+        #region Base - Mono
+
+        protected virtual void Update()
+        {
+            if (m_bIsTyping)
+            {
+                Typing();
+            }
+        }
+
+        #endregion
+
+        #region Events
+
+        public void StartNewDialogue(DialogueData hDialogueData)
+        {
+            if (dataController == null)
+                return;
+
+            m_hDataController.SetAndStartNewDialogueData(hDialogueData);
+        }
+
+        public void SetCurrentDialogue(Dialogue hDialogue)
+        {
+            m_hCurrentDialogue = hDialogue;
+
+            if (!TryGetDialogueText(out var hText))
+                return;
+            
+            hText.SetText(hDialogue.m_sDialogue);
+            
+            StartTyping();
+        }
+
+        public void OnInteraction()
+        {
+            if (dataController == null || dialogueText == null)
+                return;
+
+            if (m_bIsTyping)
+            {
+                FinishTypingText();
+                EndTyping();
+            }
+            else
+            {
+                dataController.NextDialogue();
+            }
+        }
+
+        #endregion
+
+        #region Main
+
+        protected void StartTyping()
+        {
+            var hDialogueText = dialogueText;
+
+            hDialogueText.maxVisibleCharacters = 0;
+            m_bIsTyping = true;
+            m_nCurrentCharIndex = 0;
+
+            if (m_nCurrentCharIndex >= hDialogueText.text.Length)
+            {
+                EndTyping();
+            }
+            else if (m_fTypingDelayTime == 0)
+            {
+                FinishTypingText();
+                EndTyping();
+            }
+        }
+
+        protected void Typing()
+        {
+            if (Time.time < m_fLastTypingTime + m_fTypingDelayTime)
+                return;
+
+            var hDialogueText = dialogueText;
+            m_nCurrentCharIndex++;
+
+            m_fLastTypingTime = Time.time;
+
+            hDialogueText.maxVisibleCharacters = m_nCurrentCharIndex;
+
+            if (m_hTypingSound != null)
+            {
+                typingAudioSource.PlayOneShot(m_hTypingSound);
+            }
+
+            RunDialogueEventOnExecute(m_hCurrentDialogue);
+
+            if (hDialogueText.text.Length <= m_nCurrentCharIndex)
+            {
+                EndTyping();
+            }
+        }
+
+        protected void EndTyping()
+        {
+            m_bIsTyping = false;
+
+            RunDialogueEventOnEnd(m_hCurrentDialogue);
+        }
+
+        protected void FinishTypingText()
+        {
+            var hDialogueText = dialogueText;
+            hDialogueText.maxVisibleCharacters = hDialogueText.text.Length;
+        }
+
+        #endregion
+
+        #region Helper
+
+        protected bool TryGetDialogueText(out TextMeshProUGUI hDialogueText)
+        {
+            hDialogueText = dialogueText;
+            return hDialogueText != null;
+        }
+
+        protected void RunDialogueEventOnExecute(Dialogue hDialogue)
+        {
+            var arrEvent = hDialogue.m_arrEvent;
+            if (arrEvent == null || arrEvent.Length <= 0)
+                return;
+
+            
+            for (int i = 0; i < arrEvent.Length; i++)
+            {
+                var hEvent = arrEvent[i];
+                if (hEvent != null)
+                    hEvent.OnExecute(dataController.dialogueEventDataList);
+            }
+        }
+
+        protected void RunDialogueEventOnEnd(Dialogue hDialogue)
+        {
+            var arrEvent = hDialogue.m_arrEvent;
+            if (arrEvent == null || arrEvent.Length <= 0)
+                return;
+
+            for (int i = 0; i < arrEvent.Length; i++)
+            {
+                var hEvent = arrEvent[i];
+                if (hEvent != null)
+                    hEvent.OnEnd(dataController.dialogueEventDataList);
+            }
+        }
+
+        #endregion
+    }
+}

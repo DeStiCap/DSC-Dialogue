@@ -3,8 +3,8 @@ using UnityEngine;
 
 namespace DSC.Dialogue
 {
-    [CreateAssetMenu(fileName = "DialogueEvent_Group", menuName = "DSC/Dialogue/Dialogue Event Group")]
-    public class DialogueEvent_Group : DialogueEvent
+    [CreateAssetMenu(fileName = "DialogueEventGroup", menuName = "DSC/Dialogue/Event Group")]
+    public class DialogueEventGroup : DialogueEvent
     {
         #region Variable
 
