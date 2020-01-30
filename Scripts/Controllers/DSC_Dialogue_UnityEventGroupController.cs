@@ -1,10 +1,11 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using DSC.Core;
 
 namespace DSC.Dialogue
 {
-    public class DSC_Dialogue_GameObjectGroupController : BaseComponentGroupController
+    public class DSC_Dialogue_UnityEventGroupController : BaseComponentGroupController
     {
         #region Variable
 
@@ -13,7 +14,7 @@ namespace DSC.Dialogue
 
         [SerializeField] protected int m_nGroupID;
         [SerializeField] protected DSC_Dialogue_DataController m_hDataController;
-        [SerializeField] protected GameObject[] m_arrGameObject;
+        [SerializeField] protected DSC_Dialogue_UnityEventController[] m_arrEventController;
 
 #pragma warning restore 0649
         #endregion
@@ -32,17 +33,17 @@ namespace DSC.Dialogue
         {
             if (m_hDataController && m_hDataController.dialogueEventDataList != null)
             {
-                if (m_hDataController.dialogueEventDataList.TryGetData(out DialogueEventData_GroupController<DSC_Dialogue_GameObjectGroupController> hOutData, out int nOutIndex))
+                if (m_hDataController.dialogueEventDataList.TryGetData(out DialogueEventData_GroupController<DSC_Dialogue_UnityEventGroupController> hOutData, out int nOutIndex))
                 {
                     hOutData.m_lstGroupController.Add(this);
                     m_hDataController.dialogueEventDataList[nOutIndex] = hOutData;
                 }
                 else
                 {
-                    List<DSC_Dialogue_GameObjectGroupController> lstGroup = new List<DSC_Dialogue_GameObjectGroupController>();
+                    List<DSC_Dialogue_UnityEventGroupController> lstGroup = new List<DSC_Dialogue_UnityEventGroupController>();
                     lstGroup.Add(this);
 
-                    m_hDataController.dialogueEventDataList.Add(new DialogueEventData_GroupController<DSC_Dialogue_GameObjectGroupController>
+                    m_hDataController.dialogueEventDataList.Add(new DialogueEventData_GroupController<DSC_Dialogue_UnityEventGroupController>
                     {
                         m_lstGroupController = lstGroup
                     });
@@ -52,9 +53,9 @@ namespace DSC.Dialogue
 
         protected virtual void OnDestroy()
         {
-            if (m_hDataController != null && m_hDataController.dialogueEventDataList != null)
+            if (m_hDataController && m_hDataController.dialogueEventDataList != null)
             {
-                if (m_hDataController.dialogueEventDataList.TryGetData(out DialogueEventData_GroupController<DSC_Dialogue_GameObjectGroupController> hOutData, out int nOutIndex))
+                if (m_hDataController.dialogueEventDataList.TryGetData(out DialogueEventData_GroupController<DSC_Dialogue_UnityEventGroupController> hOutData, out int nOutIndex))
                 {
                     hOutData.m_lstGroupController.Remove(this);
 
@@ -70,37 +71,28 @@ namespace DSC.Dialogue
 
         #region Base - Override
 
-        public override void SetEnable(int nIndex, bool bEnable)
-        {
-            var hGameObject = GetGameObject(nIndex);
-            if(hGameObject)
-                hGameObject.SetActive(bEnable);
-        }
-
         public override void SetAllEnable(bool bEnable)
         {
-            for(int i = 0; i < m_arrGameObject.Length; i++)
-            {
-                var hGO = m_arrGameObject[i];
-                if(hGO)
-                    hGO.SetActive(bEnable);
-            }
+
         }
 
+        public override void SetEnable(int nIndex, bool bEnable)
+        {
+
+        }
 
         #endregion
 
-        #region Helper
+        #region Main
 
-        protected GameObject GetGameObject(int nIndex)
+        public void RunEvent(int nIndex)
         {
-            if (nIndex < 0 || m_arrGameObject == null || m_arrGameObject.Length <= nIndex)
-                return null;
+            if (!m_arrEventController.TryGetData(nIndex, out var hController))
+                return;
 
-            return m_arrGameObject[nIndex];
+            hController.RunEvent();
         }
 
-       
         #endregion
     }
 }

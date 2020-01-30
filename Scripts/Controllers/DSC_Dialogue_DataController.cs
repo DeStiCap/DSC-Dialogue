@@ -8,14 +8,6 @@ namespace DSC.Dialogue
     {
         #region Temp
 
-        // Need to transfer this to Core System.
-
-        [System.Serializable]
-        class EventString : UnityEvent<string>
-        {
-
-        }
-
         [System.Serializable]
         protected class EventDialogueData : UnityEvent<Dialogue>
         {
