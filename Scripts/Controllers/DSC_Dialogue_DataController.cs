@@ -113,7 +113,9 @@ namespace DSC.Dialogue
             m_nCurrentDialogueIndex++;
             var hDialogue = arrDialogue[m_nCurrentDialogueIndex];
             RunDialogue(ref hDialogue);
-            m_OnDialogueChange.Invoke(hDialogue);
+
+            if(!loadingScene)
+                m_OnDialogueChange.Invoke(hDialogue);
         }
 
         #endregion
