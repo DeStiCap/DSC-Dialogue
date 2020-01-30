@@ -25,7 +25,7 @@ namespace DSC.Dialogue
         [SerializeField] protected Choice[] m_arrChoice;
 
         [Header("Option")]
-        [SerializeField] protected RunTimeType m_eRunTimeType = RunTimeType.OnEnd;
+        [SerializeField] protected RunTimeType m_eRunTimeType = RunTimeType.OnStart;
         
 
 #pragma warning restore 0649
