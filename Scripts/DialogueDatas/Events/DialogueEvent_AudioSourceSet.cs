@@ -55,14 +55,14 @@ namespace DSC.Dialogue
             if (!TryGetGroupController(lstData, out var hGroupController))
                 return;
 
-            if (FlagUtility.HasFlagUnsafe(m_eSetType, AudioSourceSetType.SetPlayOrStop))
-                SetPlayOrStop(hGroupController);
-
             if (FlagUtility.HasFlagUnsafe(m_eSetType, AudioSourceSetType.SetClip))
                 SetClip(hGroupController);
 
             if (FlagUtility.HasFlagUnsafe(m_eSetType, AudioSourceSetType.SetLoop))
                 SetLoop(hGroupController);
+
+            if (FlagUtility.HasFlagUnsafe(m_eSetType, AudioSourceSetType.SetPlayOrStop))
+                SetPlayOrStop(hGroupController);
         }
 
         #endregion
