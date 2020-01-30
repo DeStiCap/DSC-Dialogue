@@ -40,6 +40,11 @@ namespace DSC.Dialogue
         {
             base.OnStart(lstData);
 
+            if (!lstData.TryGetData(out DialogueEventData_MonoBehaviour<DSC_Dialogue_DataController> hDataController))
+                return;
+
+            hDataController.m_hMono.loadingScene = true;
+
             switch (m_eLoadBy)
             {
                 case LoadBy.Index:

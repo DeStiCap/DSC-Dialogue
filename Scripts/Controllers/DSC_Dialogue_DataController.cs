@@ -42,6 +42,8 @@ namespace DSC.Dialogue
 
         public List<IDialogueEventData> dialogueEventDataList { get { return m_lstDialogueEventData; } }
 
+        public bool loadingScene { get; set; }
+
         #endregion
 
         protected List<IDialogueEventData> m_lstDialogueEventData = new List<IDialogueEventData>();
@@ -88,7 +90,9 @@ namespace DSC.Dialogue
             m_nCurrentDialogueIndex = 0;
             var hDialogue = arrDialogue[m_nCurrentDialogueIndex];
             RunDialogue(ref hDialogue);
-            m_OnDialogueStart.Invoke(hDialogue);
+
+            if(!loadingScene)
+                m_OnDialogueStart.Invoke(hDialogue);
         }
 
         public void NextDialogue()
