@@ -79,6 +79,9 @@ namespace DSC.Dialogue
 
         public void StartDialogue()
         {
+            if (loadingScene)
+                return;
+
             if (!TryGetAllDialogueInData(out var arrDialogue))
                 return;
 
@@ -97,6 +100,9 @@ namespace DSC.Dialogue
 
         public void NextDialogue()
         {
+            if (loadingScene)
+                return;
+
             if (!TryGetAllDialogueInData(out var arrDialogue))
                 return;
 
