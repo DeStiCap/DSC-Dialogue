@@ -40,25 +40,6 @@ namespace DSC.Dialogue
         {
             base.OnStart(lstData);
 
-            switch (m_eLoadBy)
-            {
-                case LoadBy.Index:
-                    if (m_nSceneIndex < 0 || SceneManager.sceneCountInBuildSettings <= m_nSceneIndex)
-                    {
-                        Debug.Log("Can't load scene index " + m_nSceneIndex);
-                        return;
-                    }
-                    break;
-
-                case LoadBy.Name:
-                    if(m_sSceneName == null || !SceneManager.GetSceneByName(m_sSceneName).IsValid())
-                    {
-                        Debug.Log("Can't load scene name " + m_sSceneName);
-                        return;
-                    }
-                    break;
-            }
-
             if (!lstData.TryGetData(out DialogueEventData_MonoBehaviour<DSC_Dialogue_DataController> hDataController))
                 return;
 
