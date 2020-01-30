@@ -45,7 +45,6 @@ namespace DSC.Dialogue
 
         protected virtual void OnDestroy()
         {
-            return;
             if (m_hDataController != null && m_hDataController.dialogueEventDataList != null)
             {
                 if (m_hDataController.dialogueEventDataList.TryGetData(out DialogueEventData_MonoBehaviour<DSC_Dialogue_ChoiceGroupController> hOutData, out int nOutIndex))

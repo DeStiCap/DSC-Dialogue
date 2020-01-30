@@ -26,6 +26,9 @@ namespace DSC.Dialogue
         [SerializeField] protected int m_nSceneIndex;
         [SerializeField] protected string m_sSceneName;
 
+        [Header("Option")]
+        [SerializeField] protected bool m_bLoadAsyne = true;
+
 #pragma warning restore 0649
         #endregion
 
@@ -40,11 +43,17 @@ namespace DSC.Dialogue
             switch (m_eLoadBy)
             {
                 case LoadBy.Index:
-                    SceneManager.LoadSceneAsync(m_nSceneIndex);
+                    if (m_bLoadAsyne)
+                        SceneManager.LoadSceneAsync(m_nSceneIndex);
+                    else
+                        SceneManager.LoadScene(m_nSceneIndex);
                     break;
 
                 case LoadBy.Name:
-                    SceneManager.LoadSceneAsync(m_sSceneName);
+                    if (m_bLoadAsyne)
+                        SceneManager.LoadSceneAsync(m_sSceneName);
+                    else
+                        SceneManager.LoadScene(m_sSceneName);
                     break;
             }
             
