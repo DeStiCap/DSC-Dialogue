@@ -7,12 +7,26 @@ namespace DSC.Dialogue
     [CreateAssetMenu(fileName = "DialogueEventChoice", menuName = "DSC/Dialogue/Choice")]
     public class DialogueEventChoice : BaseDialogueChoice
     {
+        #region Enum
+
+        protected enum RunTimeType
+        {
+            OnStart,
+            OnEnd
+        }
+
+        #endregion
+
         #region Variable
 
         #region Variable - Inspector
 #pragma warning disable 0649
 
         [SerializeField] protected Choice[] m_arrChoice;
+
+        [Header("Option")]
+        [SerializeField] protected RunTimeType m_eRunTimeType = RunTimeType.OnEnd;
+        
 
 #pragma warning restore 0649
         #endregion
@@ -31,10 +45,26 @@ namespace DSC.Dialogue
         {
             base.OnStart(lstData);
 
+            if (m_eRunTimeType != RunTimeType.OnStart)
+                return;
+
             if (!lstData.TryGetData(out DialogueEventData_MonoBehaviour<DSC_Dialogue_ChoiceGroupController> hChoiceGroup))
                 return;
 
             hChoiceGroup.m_hMono.SetAndShowChoice(m_arrChoice);
+        }
+
+        public override void OnEnd(List<IDialogueEventData> lstData)
+        {
+            if(m_eRunTimeType == RunTimeType.OnEnd)
+            {
+                if (lstData.TryGetData(out DialogueEventData_MonoBehaviour<DSC_Dialogue_ChoiceGroupController> hChoiceGroup))
+                {
+                    hChoiceGroup.m_hMono.SetAndShowChoice(m_arrChoice);
+                }
+            }
+
+            base.OnEnd(lstData);
         }
 
         #endregion

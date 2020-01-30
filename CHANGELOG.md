@@ -1,6 +1,7 @@
-## [0.1.4-preview.5] - 2019-01-30
+## [0.1.4-preview.6] - 2019-01-30
 - Event load scene now has option load async.
 - Add dialogue UnityEvent controller.
+- Improve event choice to can choose to run on start or on end.
 
 ## [0.1.3-preview.9] - 2019-01-29
 - Add typing controller.
