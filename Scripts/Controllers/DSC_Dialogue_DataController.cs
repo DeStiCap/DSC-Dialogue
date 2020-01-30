@@ -52,6 +52,11 @@ namespace DSC.Dialogue
 
         protected virtual void Awake()
         {
+            m_lstDialogueEventData.Add(new DialogueEventData_MonoBehaviour<DSC_Dialogue_DataController>
+            {
+                m_hMono = this
+            });
+
             m_lstDialogueEventData.Add(new DialogueEventData_Time());
         }
 

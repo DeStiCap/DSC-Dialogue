@@ -184,6 +184,9 @@ namespace DSC.Dialogue
 
         public void SetCurrentDialogue(Dialogue hDialogue)
         {
+            if (m_bIsTyping)
+                EndTyping();
+
             m_hCurrentDialogue = hDialogue;
 
             if (!TryGetDialogueText(out var hText))

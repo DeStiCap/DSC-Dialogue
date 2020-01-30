@@ -26,20 +26,10 @@ namespace DSC.Dialogue
         {
             if (m_hDataController && m_hDataController.dialogueEventDataList != null)
             {
-                if (m_hDataController.dialogueEventDataList.TryGetData(out DialogueEventData_MonoBehaviour<DSC_Dialogue_ChoiceGroupController> hOutData, out int nOutIndex))
+                m_hDataController.dialogueEventDataList.Add(new DialogueEventData_MonoBehaviour<DSC_Dialogue_ChoiceGroupController>
                 {
-                    hOutData.m_hMono = this;
-                    m_hDataController.dialogueEventDataList[nOutIndex] = hOutData;
-                }
-                else
-                {
-
-
-                    m_hDataController.dialogueEventDataList.Add(new DialogueEventData_MonoBehaviour<DSC_Dialogue_ChoiceGroupController>
-                    {
-                        m_hMono = this
-                    });
-                }
+                    m_hMono = this
+                });
             }
         }
 
@@ -49,7 +39,8 @@ namespace DSC.Dialogue
             {
                 if (m_hDataController.dialogueEventDataList.TryGetData(out DialogueEventData_MonoBehaviour<DSC_Dialogue_ChoiceGroupController> hOutData, out int nOutIndex))
                 {
-                    m_hDataController.dialogueEventDataList.RemoveAt(nOutIndex);
+                    if(hOutData.m_hMono == this)
+                        m_hDataController.dialogueEventDataList.RemoveAt(nOutIndex);
                 }
             }
         }
