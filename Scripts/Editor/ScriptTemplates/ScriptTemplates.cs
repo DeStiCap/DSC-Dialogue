@@ -12,7 +12,7 @@ namespace DSC.Dialogue.Editor
         {
             ProjectWindowUtil.CreateScriptAssetFromTemplateFile(
                 $"{TemplatesRoot}/DialogueReplaceDataTemplate.txt",
-                "NewDialogueReplaceData.cs");
+                "DialogueReplaceData.cs");
         }
     }
 }
