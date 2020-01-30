@@ -1,4 +1,4 @@
-## [0.1.4-preview.13] - 2019-01-30
+## [0.1.4-preview.14] - 2019-01-30
 - Event load scene now has option load async.
 - Add dialogue UnityEvent controller.
 - Add dialogue event to set and start new dialogue.
