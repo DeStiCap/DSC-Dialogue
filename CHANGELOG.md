@@ -1,8 +1,9 @@
-## [0.1.4-preview.8] - 2019-01-30
+## [0.1.4-preview.9] - 2019-01-30
 - Event load scene now has option load async.
 - Add dialogue UnityEvent controller.
-- Improve event choice to can choose to run on start or on end.
 - Add dialogue event to set and start new dialogue.
+- Improve event choice to can choose to run on start or on end.
+- Improve destroy on load performance by remove OnDestroy method from dialogue group controller.
 
 ## [0.1.3-preview.9] - 2019-01-29
 - Add typing controller.

@@ -51,6 +51,7 @@ namespace DSC.Dialogue
             }
         }
 
+        /*
         protected virtual void OnDestroy()
         {
             if (m_hDataController && m_hDataController.dialogueEventDataList != null)
@@ -65,7 +66,7 @@ namespace DSC.Dialogue
                         m_hDataController.dialogueEventDataList.RemoveAt(nOutIndex);
                 }
             }
-        }
+        }*/
 
         #endregion
 
