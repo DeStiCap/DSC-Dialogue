@@ -1,12 +1,25 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 using TMPro;
 
 namespace DSC.Dialogue
 {
     public class DSC_Dialogue_TypingController : MonoBehaviour
     {
+        #region Data
+
+        [System.Serializable]
+        protected struct EventTyping
+        {
+            public UnityEvent m_hStartTyping;
+            public UnityEvent m_hOnTyping;
+            public UnityEvent m_hEndTyping;
+        }
+
+        #endregion
+
         #region Variable
 
         #region Variable - Inspector
@@ -22,6 +35,10 @@ namespace DSC.Dialogue
         [Min(0)]
         [SerializeField] protected float m_fEndEventDelayTime;
         [SerializeField] protected AudioClip m_hTypingSound;
+        [SerializeField] protected bool m_bUseRealTime;
+
+        [Header("Events")]
+        [SerializeField] protected EventTyping m_hTypingEvent;
 
 #pragma warning restore 0649
         #endregion
@@ -226,6 +243,8 @@ namespace DSC.Dialogue
             m_bIsTyping = true;
             m_nCurrentCharIndex = 0;
 
+            m_hTypingEvent.m_hStartTyping?.Invoke();
+
             if (m_nCurrentCharIndex >= hDialogueText.text.Length)
             {
                 EndTyping();
@@ -239,21 +258,22 @@ namespace DSC.Dialogue
 
         protected void Typing()
         {
-            if (Time.time < m_fLastTypingTime + m_fTypingDelayTime)
+            float fTime = m_bUseRealTime ? Time.unscaledTime : Time.time;
+            if (fTime < m_fLastTypingTime + m_fTypingDelayTime)
                 return;
 
             var hDialogueText = dialogueText;
 
             if (m_hCurrentDialogue.m_sDialogue.Length <= m_nCurrentCharIndex)
             {
-                if(Time.time >= m_fLastTypingTime + m_fTypingDelayTime + m_fEndEventDelayTime)
+                if(fTime >= m_fLastTypingTime + m_fTypingDelayTime + m_fEndEventDelayTime)
                     EndTyping();
                 return;
             }
             
             m_nCurrentCharIndex++;
 
-            m_fLastTypingTime = Time.time;
+            m_fLastTypingTime = fTime;
 
             hDialogueText.maxVisibleCharacters = m_nCurrentCharIndex;
 
@@ -263,6 +283,8 @@ namespace DSC.Dialogue
             }
 
             RunDialogueEventOnExecute(m_hCurrentDialogue);
+
+            m_hTypingEvent.m_hOnTyping?.Invoke();
         }
 
         protected void EndTyping()
@@ -270,6 +292,8 @@ namespace DSC.Dialogue
             m_bIsTyping = false;
 
             RunDialogueEventOnEnd(m_hCurrentDialogue);
+
+            m_hTypingEvent.m_hEndTyping?.Invoke();
         }
 
         protected void FinishTypingText()

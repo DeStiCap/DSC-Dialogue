@@ -1,3 +1,6 @@
+## [0.1.5-preview.1] - 2019-02-3
+- Add event call in the end of typing dialogue.
+
 ## [0.1.4-preview.16] - 2019-01-30
 - Event load scene now has option load async.
 - Add dialogue UnityEvent controller.
