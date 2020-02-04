@@ -245,7 +245,7 @@ namespace DSC.Dialogue
 
             m_hTypingEvent.m_hStartTyping?.Invoke();
 
-            if (m_nCurrentCharIndex >= hDialogueText.text.Length)
+            if (m_nCurrentCharIndex >= m_hCurrentDialogue.m_sDialogue.Length)
             {
                 EndTyping();
             }

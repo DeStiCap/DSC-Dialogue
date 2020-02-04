@@ -1,4 +1,7 @@
-## [0.1.5-preview.1] - 2019-02-3
+## [0.1.6-preview.1] - 2019-02-04
+- Fix end typing event bug.
+
+## [0.1.5-preview.1] - 2019-02-03
 - Add event call in the end of typing dialogue.
 
 ## [0.1.4-preview.16] - 2019-01-30
