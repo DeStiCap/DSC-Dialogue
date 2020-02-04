@@ -202,6 +202,7 @@ namespace DSC.Dialogue
 
         public void SetCurrentDialogue(Dialogue hDialogue)
         {
+            Debug.Log("Set Dialogue " + hDialogue.m_sDialogue);
             if (m_bIsTyping)
             {
                 Debug.Log("Is already typing.");
