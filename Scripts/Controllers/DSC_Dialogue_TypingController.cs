@@ -293,6 +293,8 @@ namespace DSC.Dialogue
 
             RunDialogueEventOnEnd(m_hCurrentDialogue);
 
+            Debug.Log("End Typing " + m_hCurrentDialogue.m_sDialogue.Length);
+
             m_hTypingEvent.m_hEndTyping?.Invoke();
         }
 
