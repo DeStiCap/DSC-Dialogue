@@ -202,12 +202,8 @@ namespace DSC.Dialogue
 
         public void SetCurrentDialogue(Dialogue hDialogue)
         {
-            Debug.Log("Set Dialogue " + hDialogue.m_sDialogue);
             if (m_bIsTyping)
-            {
-                Debug.Log("Is already typing.");
                 EndTyping();
-            }
 
             m_hCurrentDialogue = hDialogue;
 
@@ -226,7 +222,6 @@ namespace DSC.Dialogue
 
             if (m_bIsTyping)
             {
-                Debug.Log("OnInteract");
                 FinishTypingText();
                 EndTyping();
             }
@@ -250,14 +245,12 @@ namespace DSC.Dialogue
 
             m_hTypingEvent.m_hStartTyping?.Invoke();
 
-            if (m_nCurrentCharIndex >= m_hCurrentDialogue.m_sDialogue.Length)
+            if (m_hCurrentDialogue.m_sDialogue == null || m_nCurrentCharIndex >= m_hCurrentDialogue.m_sDialogue.Length)
             {
-                Debug.Log("Char Lenge " + m_nCurrentCharIndex);
                 EndTyping();
             }
             else if (m_fTypingDelayTime == 0)
             {
-                Debug.Log("Delay 0");
                 FinishTypingText();
                 EndTyping();
             }
@@ -273,7 +266,6 @@ namespace DSC.Dialogue
 
             if (m_hCurrentDialogue.m_sDialogue.Length <= m_nCurrentCharIndex)
             {
-                Debug.Log("End typingggggg " + m_hCurrentDialogue.m_sDialogue.Length + " " + m_nCurrentCharIndex);
                 if(fTime >= m_fLastTypingTime + m_fTypingDelayTime + m_fEndEventDelayTime)
                     EndTyping();
                 return;
@@ -300,8 +292,6 @@ namespace DSC.Dialogue
             m_bIsTyping = false;
 
             RunDialogueEventOnEnd(m_hCurrentDialogue);
-
-            Debug.Log("End Typing " + m_hCurrentDialogue.m_sDialogue.Length);
 
             m_hTypingEvent.m_hEndTyping?.Invoke();
         }

@@ -94,11 +94,8 @@ namespace DSC.Dialogue
             var hDialogue = arrDialogue[m_nCurrentDialogueIndex];
             RunDialogue(ref hDialogue);
 
-            if (!loadingScene)
-            {
-                Debug.Log("Dialogue Start");
+            if(!loadingScene)
                 m_OnDialogueStart.Invoke(hDialogue);
-            }
         }
 
         public void NextDialogue()
@@ -123,11 +120,8 @@ namespace DSC.Dialogue
             var hDialogue = arrDialogue[m_nCurrentDialogueIndex];
             RunDialogue(ref hDialogue);
 
-            if (!loadingScene)
-            {
-                Debug.Log("Dialogue Change");
+            if(!loadingScene)
                 m_OnDialogueChange.Invoke(hDialogue);
-            }
         }
 
         #endregion
