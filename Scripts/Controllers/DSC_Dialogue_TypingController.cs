@@ -203,7 +203,10 @@ namespace DSC.Dialogue
         public void SetCurrentDialogue(Dialogue hDialogue)
         {
             if (m_bIsTyping)
+            {
+                Debug.Log("Is already typing.");
                 EndTyping();
+            }
 
             m_hCurrentDialogue = hDialogue;
 
@@ -222,6 +225,7 @@ namespace DSC.Dialogue
 
             if (m_bIsTyping)
             {
+                Debug.Log("OnInteract");
                 FinishTypingText();
                 EndTyping();
             }
@@ -268,6 +272,7 @@ namespace DSC.Dialogue
 
             if (m_hCurrentDialogue.m_sDialogue.Length <= m_nCurrentCharIndex)
             {
+                Debug.Log("End typingggggg " + m_hCurrentDialogue.m_sDialogue.Length + " " + m_nCurrentCharIndex);
                 if(fTime >= m_fLastTypingTime + m_fTypingDelayTime + m_fEndEventDelayTime)
                     EndTyping();
                 return;
