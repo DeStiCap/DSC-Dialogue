@@ -247,10 +247,12 @@ namespace DSC.Dialogue
 
             if (m_nCurrentCharIndex >= m_hCurrentDialogue.m_sDialogue.Length)
             {
+                Debug.Log("Char Lenge " + m_nCurrentCharIndex);
                 EndTyping();
             }
             else if (m_fTypingDelayTime == 0)
             {
+                Debug.Log("Delay 0");
                 FinishTypingText();
                 EndTyping();
             }
