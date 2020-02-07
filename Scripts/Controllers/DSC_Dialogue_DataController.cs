@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
+using DSC.Core;
 
 namespace DSC.Dialogue
 {
@@ -33,6 +34,8 @@ namespace DSC.Dialogue
         [SerializeField] protected UnityEvent m_OnDialogueEnd;
 
         [Header("Runtime Data")]
+        [LabelName("Current Dialogue Index")]
+        [ReadOnlyField]        
         [SerializeField] protected int m_nCurrentDialogueIndex;
 
 #pragma warning restore 0649

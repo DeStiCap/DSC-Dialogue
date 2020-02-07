@@ -86,12 +86,12 @@ namespace DSC.Dialogue
 
         #region Main
 
-        public void RunEvent(int nIndex,float fDelayTime)
+        public void RunEvent(int nIndex,float fDelayTime,bool bUseRealTime)
         {
             if (!m_arrEventController.TryGetData(nIndex, out var hController))
                 return;
 
-            hController.RunEvent(fDelayTime);
+            hController.RunEvent(fDelayTime,bUseRealTime);
         }
 
         #endregion

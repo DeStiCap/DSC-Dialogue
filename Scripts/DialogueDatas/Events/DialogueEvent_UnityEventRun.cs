@@ -18,6 +18,7 @@ namespace DSC.Dialogue
         [Header("Option")]
         [Min(0)]
         [SerializeField] protected float m_fDelayTime;
+        [SerializeField] protected bool m_bUseRealTime;
 
 #pragma warning restore 0649
         #endregion
@@ -42,7 +43,7 @@ namespace DSC.Dialogue
                 var hGroup = lstGroup[i];
                 if(hGroup != null && hGroup.groupID == m_nGroupID)
                 {
-                    hGroup.RunEvent(m_nIndex,m_fDelayTime);
+                    hGroup.RunEvent(m_nIndex,m_fDelayTime,m_bUseRealTime);
                     break;
                 }
             }

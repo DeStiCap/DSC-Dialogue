@@ -16,8 +16,12 @@ namespace DSC.Dialogue
         [SerializeField] protected UnityEvent m_hRunEvent;
 
         [Header("Runtime Data")]
-        [Min(0)]
+        [LabelName("Delay Time")]
+        [ReadOnlyField]
         [SerializeField] protected float m_fDelayTime;
+        [LabelName("Use Real Time")]
+        [ReadOnlyField]
+        [SerializeField] protected bool m_bUseRealTime;
 
         #endregion
 
@@ -30,7 +34,12 @@ namespace DSC.Dialogue
 
         protected virtual void Update()
         {
-            if (!m_bDelayRun || Time.time < m_fStartDelayTime + m_fDelayTime)
+            if (!m_bDelayRun)
+                return;
+
+            float fTime = m_bUseRealTime ? Time.unscaledTime : Time.time;
+
+            if (fTime < m_fStartDelayTime + m_fDelayTime)
                 return;
 
             RunEvent();
@@ -55,9 +64,10 @@ namespace DSC.Dialogue
             m_hRunEvent?.Invoke();
         }
 
-        public void RunEvent(float fDelayTime)
+        public void RunEvent(float fDelayTime,bool bUseRealTime)
         {
             m_fDelayTime = fDelayTime;
+            m_bUseRealTime = bUseRealTime;
 
             if (fDelayTime <= 0)
             {
@@ -66,7 +76,7 @@ namespace DSC.Dialogue
             }
             else
             {
-                m_fStartDelayTime = Time.time;
+                m_fStartDelayTime = bUseRealTime ? Time.unscaledTime : Time.time;
                 m_bDelayRun = true;
             }
         }
