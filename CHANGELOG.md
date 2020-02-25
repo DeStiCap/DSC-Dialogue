@@ -1,3 +1,6 @@
+## [0.1.8-preview.1] - 2019-02-25
+- Now typing controller interaction method will not force next dialogue immediately if typing and has end typing delay.
+
 ## [0.1.7-preview.1] - 2019-02-07
 - Now runtime data is readonly. Can not change in inspector.
 - Dialogue Event UnityEvent now support delay by real time.

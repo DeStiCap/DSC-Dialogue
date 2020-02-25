@@ -139,6 +139,7 @@ namespace DSC.Dialogue
 
         protected Dialogue m_hCurrentDialogue;
         protected bool m_bIsTyping;
+        protected bool m_bWaitEndTyping;
         protected int m_nCurrentCharIndex;
         protected float m_fLastTypingTime = -100f;
         protected AudioSource m_hTypingAudioSource;
@@ -182,7 +183,11 @@ namespace DSC.Dialogue
 
         protected virtual void Update()
         {
-            if (m_bIsTyping)
+            if (m_bWaitEndTyping)
+            {
+                WaitEndTyping();
+            }
+            else if (m_bIsTyping)
             {
                 Typing();
             }
@@ -220,10 +225,14 @@ namespace DSC.Dialogue
             if (dataController == null || dialogueText == null)
                 return;
 
-            if (m_bIsTyping)
+            if (m_bWaitEndTyping)
             {
                 FinishTypingText();
                 EndTyping();
+            }
+            else if (m_bIsTyping)
+            {
+                StartWaitEndTyping();
             }
             else
             {
@@ -266,8 +275,7 @@ namespace DSC.Dialogue
 
             if (m_hCurrentDialogue.m_sDialogue.Length <= m_nCurrentCharIndex)
             {
-                if(fTime >= m_fLastTypingTime + m_fTypingDelayTime + m_fEndEventDelayTime)
-                    EndTyping();
+                StartWaitEndTyping();
                 return;
             }
             
@@ -287,9 +295,25 @@ namespace DSC.Dialogue
             m_hTypingEvent.m_hOnTyping?.Invoke();
         }
 
+        protected void StartWaitEndTyping()
+        {
+            m_bWaitEndTyping = true;
+            WaitEndTyping();
+        }
+
+        protected void WaitEndTyping()
+        {
+            float fTime = m_bUseRealTime ? Time.unscaledTime : Time.time;
+            if (fTime >= m_fLastTypingTime + m_fTypingDelayTime + m_fEndEventDelayTime)
+            {
+                EndTyping();
+            }
+        }
+
         protected void EndTyping()
         {
             m_bIsTyping = false;
+            m_bWaitEndTyping = false;
 
             RunDialogueEventOnEnd(m_hCurrentDialogue);
 

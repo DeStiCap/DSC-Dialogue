@@ -2,13 +2,13 @@
     "name": "com.dsc.dialogue",
     "author": "Supawich Dechpuwarat",
     "displayName": "DSC Dialogue",
-    "version": "0.1.7-preview.1",
+    "version": "0.1.8-preview.1",
     "unity": "2019.3",
-	"repository": {
-		"type": "git",
-		"url": "https://github.com/DeStiCap/DSC-Dialogue.git",
-		"revision": "9b1c2c070a37417e130e4c71fecd25b62e9a8edf"
-	},
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/DeStiCap/DSC-Dialogue.git",
+        "revision": "9a150ee8f5f6db0fa92f2931d251851451c4abab"
+    },
 	"description": "Helper plugin for Dialogue System.",
     "keywords": [
         "Dialogue"
