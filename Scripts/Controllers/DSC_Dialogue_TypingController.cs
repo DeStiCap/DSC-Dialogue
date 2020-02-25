@@ -232,6 +232,7 @@ namespace DSC.Dialogue
             }
             else if (m_bIsTyping)
             {
+                FinishTypingText();
                 StartWaitEndTyping();
             }
             else
