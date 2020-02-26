@@ -1,3 +1,6 @@
+## [0.1.9-preview.1] - 2019-02-26
+- Add log controller.
+
 ## [0.1.8-preview.2] - 2019-02-25
 - Now typing controller interaction method will not force next dialogue immediately if typing and has end typing delay.
 

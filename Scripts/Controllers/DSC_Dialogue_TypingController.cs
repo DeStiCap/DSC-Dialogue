@@ -305,7 +305,7 @@ namespace DSC.Dialogue
         protected void WaitEndTyping()
         {
             float fTime = m_bUseRealTime ? Time.unscaledTime : Time.time;
-            if (fTime >= m_fLastTypingTime + m_fTypingDelayTime + m_fEndEventDelayTime)
+            if (fTime >= m_fLastTypingTime + m_fEndEventDelayTime)
             {
                 EndTyping();
             }
@@ -325,6 +325,8 @@ namespace DSC.Dialogue
         {
             var hDialogueText = dialogueText;
             hDialogueText.maxVisibleCharacters = m_hCurrentDialogue.m_sDialogue.Length;
+
+            m_fLastTypingTime = m_bUseRealTime ? Time.unscaledTime : Time.time;
         }
 
         #endregion
